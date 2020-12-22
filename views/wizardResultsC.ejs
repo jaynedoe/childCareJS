@@ -1,0 +1,215 @@
+<%- include('partials/header') %>
+
+ <!-- Title Inner-->
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                          <h1 class="big-heading" style="text-align: left;">Wizard Results.</h1>
+                        <p style="text-align: left; color: #e43f5a;">Run some numbers, see what works.</p>
+                           <a href="wizard"><input style="display:block" type="button"
+                                   class="download-btn btn btn-dark btn-lg mb-5 mt-5" value="Run Again"></a>
+                        </div>
+                       <div class="col-lg-6">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scenario Results -->
+
+            <section id="compare" class="white-section">
+            
+                <div class="container-fluid">
+
+                    <div style="text-align: left; margin-bottom: 50px;">
+                        <h2 class="middle-heading mb-5">Difference per Fortnight: 
+                            <span class="display-4">$<%= difference %>
+                            </span>
+                        </h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="mb-4">Current Fortnightly Income: 
+                                    <span class="text-info">$<%= baseFortnightlyIncome %></span>
+                                </h3>
+                                <hr>
+                                <p>Number of Kids in Care: <%= bKids %></p>
+                                <p>Weekly Cost of Childcare: $<%= bWeeklyCost %></p>
+                                <p>Annual Taxable Income - Parent 1: $<%= p1SalaryBase %> </p>
+                                <p>Annual Taxable Income - Parent 2: $<%= p2SalaryBase %> </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <h3 class="mb-4">Alternative Fortnightly Income: 
+                                    <span class="text-info">$<%= altFortnightlyIncome %></span>
+                                </h3>
+                                <hr>
+                                <p>Number of Kids in Care: <%= aKids %></p>
+                                <p>Weekly Cost of Childcare: $<%= aWeeklyCost %> </p>
+                                <p>Annual Taxable Income - Parent 1: $<%= p1SalaryAlt %> </p>
+                                <p>Annual Taxable Income - Parent 2: $<%= p2SalaryAlt %> </p>                        
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="text-align:left; margin-bottom: 40px; ">The following is a breakdown of the two scenarios you chose.</h4>
+                    <div style="position: relative;">
+                        <table class="table table-hover table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th></th>
+                                    <th>Current Scenario</th>
+                                    <th>Alternate Scenario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="left"><strong>Partner 1</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Taxable Income</td>
+                                    <td>$<%= p1SalaryBase %></td>
+                                    <td>$<%= p1SalaryAlt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Gross Tax Payable</td>
+                                    <td>$<%= grossTaxP1Base %></td>
+                                    <td>$<%= grossTaxP1Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Medicare Levy</td>
+                                    <td>$<%= medicareP1Base %></td>
+                                    <td>$<%= medicareP1Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Low Income Tax Offset</td>
+                                    <td>$<%= lowIncomeTaxOffsetP1Base %></td>
+                                    <td>$<%= lowIncomeTaxOffsetP1Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Mid Income Tax Offset</td>
+                                    <td>$<%= midIncomeTaxOffsetP1Base %></td>
+                                    <td>$<%= midIncomeTaxOffsetP1Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-danger left"><strong>Net Tax Payable</strong></td>
+                                    <td class="table-danger"><strong>$<%= netTaxPayableP1Base %></strong></td>
+                                    <td class="table-danger"><strong>$<%= netTaxPayableP1Alt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-info left"><strong>Net Income After Tax</strong></td>
+                                    <td class="table-info"><strong>$<%= netIncomeAfterTaxP1Base %></strong></td>
+                                    <td class="table-info"><strong>$<%= netIncomeAfterTaxP1Alt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><strong>Partner 2</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Taxable Income</td>
+                                    <td>$<%= p2SalaryBase %></td>
+                                    <td>$<%= p2SalaryAlt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Gross Tax Payable</td>
+                                    <td>$<%= grossTaxP2Base %></td>
+                                    <td>$<%= grossTaxP2Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Medicare Levy</td>
+                                    <td>$<%= medicareP2Base %></td>
+                                    <td>$<%= medicareP2Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Low Income Tax Offset</td>
+                                    <td>$<%= lowIncomeTaxOffsetP2Base %></td>
+                                    <td>$<%= lowIncomeTaxOffsetP2Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Mid Income Tax Offset</td>
+                                    <td>$<%= midIncomeTaxOffsetP2Base %></td>
+                                    <td>$<%= midIncomeTaxOffsetP2Alt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-danger left"><strong>Net Tax Payable</strong></td>
+                                    <td class="table-danger"><strong>$<%= netTaxPayableP2Base %></strong></td>
+                                    <td class="table-danger"><strong>$<%= netTaxPayableP2Alt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-info left"><strong>Net Income After Tax</strong></td>
+                                    <td class="table-info"><strong>$<%= netIncomeAfterTaxP2Base %></strong></td>
+                                    <td class="table-info"><strong>$<%= netIncomeAfterTaxP2Alt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Family Tax Benefit A</td>
+                                    <td>$<%= familyTaxBenefitABase %></td>
+                                    <td>$<%= familyTaxBenefitAAlt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Family Tax Benefit B</td>
+                                    <td>$<%= familyTaxBenefitBBase %></td>
+                                    <td>$<%= familyTaxBenefitBAlt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-info left"><strong>Total Centrelink Benefit</strong></td>
+                                    <td class="table-info"><strong>$<%= totalCentrelinkBase %></strong></td>
+                                    <td class="table-info"><strong>$<%= totalCentrelinkAlt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Childcare Centre Expenses</td>
+                                    <td>$<%= childCareExpensesBase %></td>
+                                    <td>$<%= childCareExpensesAlt %></td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><em>Less Childcare Subsidy</em></td>
+                                    <td><em>$<%= childCareSubsidyBase %></em></td>
+                                    <td><em>$<%= childCareSubsidyAlt %></em></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-danger left"><strong>Net Childcare Expenses</strong></td>
+                                    <td class="table-danger"><strong>$<%= netChildCareBase %></strong></td>
+                                    <td class="table-danger"><strong>$<%= netChildCareAlt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="table-info left"><strong>NET SURPLUS DEFICIT</strong></td>
+                                    <td class="table-info"><strong>$<%= netSurplusDeficitBase %></strong></td>
+                                    <td class="table-info"><strong>$<%= netSurplusDeficitAlt %></strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><strong>Net Income Per Fortnight</strong>
+                                    </td>
+                                    <td>$<strong><%= baseFortnightlyIncome %></strong></td>
+                                    <td>$<strong><%= altFortnightlyIncome %></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <a href="#title" class="back-to-top">
+                <p>Back to Top</p>
+            </a>
+         
+
+<%- include('partials/footer') %>
