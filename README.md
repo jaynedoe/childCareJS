@@ -1,7 +1,7 @@
 # ChildCare Cost Calculator
-Web app built for Deakin University unit Web Development SIT774 - child care financial comparisons.  Uses NodeJS and EJS
+Uses NodeJS, MySQL and EJS
 
-Visit site at Heroku:
+Visit site at Heroku: (Note does not include child care centre search:)
 
 https://tranquil-mesa-41671.herokuapp.com/
 
