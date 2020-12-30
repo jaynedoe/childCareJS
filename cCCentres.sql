@@ -1,10 +1,10 @@
 CREATE TABLE centres
 (
-	id INTEGER NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
 	centreName VARCHAR (255),
 	serviceType VARCHAR (255),
 	suburb VARCHAR (255),
-	postcode INTEGER,
+	postcode INT,
 	centreSize VARCHAR (255),
 	rating VARCHAR (255),
 	longDayCare VARCHAR (3),
@@ -13,8 +13,7 @@ CREATE TABLE centres
 	afterSchoolCare VARCHAR (3),
 	beforeSchoolCare VARCHAR (3),
 	vacationCare VARCHAR (3),
-	temporarilyClosed VARCHAR (3),
-	costPerDay INTEGER,
+	costPerDay INT,
 	PRIMARY KEY (id)
 );
 
