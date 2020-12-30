@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+
+ <!-- Title Inner-->
+
+ <div class="row">
+    <div class="col-lg-8">
+        <h1 class="big-heading" style="text-align: left;">Centre <%= changeType %>!</h1>
+        <p style="text-align: left; color: #e43f5a;">Your childcare centre changes.</p>
+        <a href="manage"><input style="display:block" type="button"
+                class="download-btn btn btn-dark btn-lg mb-5 mt-5" value="Return Home"></a> 
+    </div>
+    <div class="col-lg-4">
+    </div>
+</div>
+</div>
+</section>
+
+
+<!-- Display centre changes -->
+
+<section class="white-section">
+
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="middle-heading mb-5">Details of Centre <%= changeType %>:</h2>
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th class="left">Centre Name</th>
+                    <th>Centre Size</th>
+                    <th>Suburb</th>
+                    <th>Rating</th>
+                    <th>Long Day Care</th>
+                    <th>After School Care</th>
+                    <th>Before School Care</th>
+                    <th>Vacation Care</th>
+           
+                </tr>
+            </thead>
+            <tbody>              
+                    <tr>
+                        <td class="left"><%= newCentre.centreName %></td>
+                        <td><%= newCentre.size %></td>
+                        <td><%=  %></td>
+                        <td><%=  %></td>
+                        <td><%=  %></td>
+                        <td><%=  %></td>
+                        <td><%=  %></td>
+                        <td><%=  %></td>
+
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</section>
+
+
+<%- include('partials/footer') %>
