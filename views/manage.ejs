@@ -77,12 +77,7 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="size">Size</label>
-                        <select class="form-control" name="centreSize" id="size">
-                            <option value="Any">Any</option>
-                            <option value="Small">Small (less than 50 places)</option>
-                            <option value="Medium">Medium (between 50 - 100 places)</option>
-                            <option value="Large">Large (over 100 places)</option>
-                        </select>
+                        <input class="form-control" name="centreSize" id="size" type="number">                      
                     </div>
                 </div>
             </div>
@@ -206,7 +201,7 @@
             <div class="row left mb-3">
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="centre-name">Centre Name</label>
+                        <label for="centre-name">Find Centre Name</label>
                         <input type="text" class="form-control" name="centreName" id="centre-name" required>
                         <div class="invalid-feedback">
                             Please enter a custom centre name.
@@ -214,79 +209,6 @@
                     </div>
                 
                 </div>
-
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="rating">Rating</label>
-                        <select class="form-control" name="rating" id="rating">
-                            <option>Any</option>
-                            <option>Meeting NQS</option>
-                            <option>Working Towards NQS</option>
-                            <option>Exceeding NQS</option>
-                            <option>Excellent</option>
-                            <option>Significant Improvement Required</option>
-                        </select>
-                    </div>
-                
-                </div>
-            </div>
-
-            <div class="row left mb-3">
-
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="centre-type">Centre Type</label>
-                        <select class="form-control" name="centreType" id="centre-type">
-                            <option>Centre-Based</option>
-                            <option>Family Day Care</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="max-cost">Max Cost Per Day</label>
-                        <input type="number" class="form-control" id="max-cost" name="maxCost" required>
-                        <div class="invalid-feedback">
-                            Please provide a cost per day.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="size">Size</label>
-                        <select class="form-control" name="centreSize" id="size">
-                            <option value="Any">Any</option>
-                            <option value="Small">Small (less than 50 places)</option>
-                            <option value="Medium">Medium (between 50 - 100 places)</option>
-                            <option value="Large">Large (over 100 places)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row left">
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="suburb">Suburb</label>
-                        <input type="text" class="form-control" id="suburb" name="suburb" required>
-                        <div class="invalid-feedback">
-                            Please provide a suburb.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="postcode">Postcode</label>
-                        <input type="text" class="form-control" id="postcode" name="postcode" required>
-                        <div class="invalid-feedback">
-                            Please provide a postcode.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-
-                </div>
-
             </div>
             
             <div class="row" style="text-align: left;">
