@@ -20,6 +20,10 @@ a:link {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: #e43f5a;
+}
+
 label{
   color: #162447;
   text-align: left;

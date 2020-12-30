@@ -3,7 +3,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const ejs = require('ejs');
 const _ = require('lodash');
 const calculator = require(__dirname + '/calculator.js');
 
@@ -276,6 +275,17 @@ app.post('/search', function(req, res){
             res.render('searchResults', { cCCentres: centres });
         }
     });
+});
+
+app.get('/manage', function(req, res){
+    res.render('manage.ejs');
+});
+
+app.post('/addCentre', function(req, res){
+
+    //get details of new centre to add, add to database, send to new ejs template page with details of new centre
+
+
 });
 
 
