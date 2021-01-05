@@ -366,7 +366,7 @@ app.post("/addCentre", function (req, res) {
   let suburb = req.body.suburb;
   let postcode = req.body.postcode;
   let changeType = "Added";
-  let newCentre = {
+  let centre = {
       centreName: centreName,
       rating: rating,
       centreType: centreType,
@@ -416,13 +416,33 @@ app.post("/addCentre", function (req, res) {
   connection.query(sql, function (err, result) {
     if (!err) {
       console.log(result);
-      res.render("manageResults", { newCentre: newCentre, changeType: changeType});
+      res.render("manageResults", { centre: centre, changeType: changeType});
     } else {
       console.log(err);
     }
   });
 
   //get details of new centre to add, add to database, send to new ejs template page with details of new centre
+});
+
+app.post("/deleteCentre", function(req, res){
+
+  let centreToDelete = req.body.deleteCentre;
+
+  // find centre, if exists
+
+  let sql = "SELECT * FROM centres WHERE centreName='" + centreToDelete + "'";
+  connection.query(sql,(err, results, fields) => {
+    if(err){
+      console.log(err);
+    }else if(results === 0){
+      res.render("searchNoResults")
+    }else{
+      res.render("manageResults", { centre: results, changeType: "Deleted" })
+    }
+  });
+
+
 });
 
 //app.listen

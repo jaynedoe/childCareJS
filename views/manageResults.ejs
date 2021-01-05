@@ -23,6 +23,10 @@
 <div class="container-fluid">
     <div class="row">
         <h2 class="middle-heading mb-5">Details of Centre <%= changeType %>:</h2>
+
+        <!-- if changeType = added or updated, print table, if changeType = delete, make sure centre exists, 
+            show details and then button to delete -->
+
         <table class="table table-sm table-hover">
             <thead>
                 <tr>
@@ -39,14 +43,14 @@
             </thead>
             <tbody>              
                     <tr>
-                        <td class="left"><%= newCentre.centreName %></td>
-                        <td><%= newCentre.size %></td>
-                        <td><%=  %></td>
-                        <td><%=  %></td>
-                        <td><%=  %></td>
-                        <td><%=  %></td>
-                        <td><%=  %></td>
-                        <td><%=  %></td>
+                        <td class="left"><%= centre.centreName %></td>
+                        <td><%= centre.size %></td>
+                        <td><%= centre.suburb %></td>
+                        <td><%= centre.rating %></td>
+                        <td><%= centre.longDC %></td>
+                        <td><%= centre.afterSchool %></td>
+                        <td><%= centre.beforeSchool %></td>
+                        <td><%= centre.vacation %></td>
 
                     </tr>
             </tbody>
