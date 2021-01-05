@@ -1,0 +1,65 @@
+<%- include('partials/header') %>
+
+ <!-- Title Inner-->
+
+ <div class="row">
+    <div class="col-lg-8">
+        <h1 class="big-heading" style="text-align: left;">Delete a Centre</h1>
+        <p style="text-align: left; color: #e43f5a;">Are you sure?</p>
+        <a href="manage"><input style="display:block" type="button"
+                class="download-btn btn btn-dark btn-lg mb-5 mt-5" value="Return Home"></a> 
+    </div>
+    <div class="col-lg-4">
+    </div>
+</div>
+</div>
+</section>
+
+
+<!-- Check centre to be deleted -->
+
+<section class="white-section">
+
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="middle-heading mb-5">Are you sure you want to delete the following centre?</h2>
+
+        <table class="table table-lg table-hover">
+            <thead>
+                <tr>
+                    <th class="left">Centre Name</th>
+                    <th>Centre Size</th>
+                    <th>Suburb</th>
+                    <th>Rating</th>
+                    <th>Long Day Care</th>
+                    <th>After School Care</th>
+                    <th>Before School Care</th>
+                    <th>Vacation Care</th>
+           
+                </tr>
+            </thead>
+            <tbody>              
+                    <tr>
+                        <td class="left"><%= centre[0].centreName %></td>
+                        <td><%= centre[0].centreSize %></td>
+                        <td><%= centre[0].suburb %></td>
+                        <td><%= centre[0].rating %></td>
+                        <td><%= centre[0].longDayCare %></td>
+                        <td><%= centre[0].afterSchoolCare %></td>
+                        <td><%= centre[0].beforeSchoolCare %></td>
+                        <td><%= centre[0].vacationCare %></td>
+
+                    </tr>
+            </tbody>
+        </table>
+        <form action="/deleteCentre" method="POST">
+            <button type="submit" class="btn btn-danger btn-lg mt-4">Delete</button>
+        </form>
+        <a href="/manage"><button class="btn btn-dark btn-lg m-4" type="button">Go Back</button></a>
+    </div>
+</div>
+
+</section>
+
+
+<%- include('partials/footer') %>

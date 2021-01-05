@@ -5,6 +5,7 @@ const _ = require("lodash");
 const calculator = require(__dirname + "/calculator.js");
 
 const app = express();
+let deleteCentreId = "";
 
 app.set("view engine", "ejs");
 
@@ -425,7 +426,7 @@ app.post("/addCentre", function (req, res) {
   //get details of new centre to add, add to database, send to new ejs template page with details of new centre
 });
 
-app.post("/deleteCentre", function(req, res){
+app.post("/deleteCheck", function(req, res){
 
   let centreToDelete = req.body.deleteCentre;
 
@@ -435,12 +436,27 @@ app.post("/deleteCentre", function(req, res){
   connection.query(sql,(err, results, fields) => {
     if(err){
       console.log(err);
-    }else if(results === 0){
+    }else if(results.length === 0){
       res.render("searchNoResults")
     }else{
-      res.render("manageResults", { centre: results, changeType: "Deleted" })
+      console.log(results);
+      deleteCentreId = results[0].id;
+      res.render("deleteCheck", { centre: results })
     }
   });
+});
+
+app.post("/deleteCentre", function(req, res){
+
+  let sql = "DELETE FROM centres WHERE id=" + deleteCentreId;
+  connection.query(sql, (err, results, fields) => {
+    if(err){console.log(err);}
+    else{
+      alert("Success!");
+      res.redirect("/manage");
+    }
+  });
+
 
 
 });
