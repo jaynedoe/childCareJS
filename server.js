@@ -2,10 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const _ = require("lodash");
-const calculator = require(__dirname + "/calculator.js");
+const calculator = require(__dirname + "/models/calculator.js");
 
 const app = express();
 let deleteCentreId = "";
+let updateCentreId = "";
 
 app.set("view engine", "ejs");
 
@@ -368,19 +369,19 @@ app.post("/addCentre", function (req, res) {
   let postcode = req.body.postcode;
   let changeType = "Added";
   let centre = {
-      centreName: centreName,
-      rating: rating,
-      centreType: centreType,
-      cost: cost,
-      size: size,
-      longDC: longDC,
-      kSchool: kSchool,
-      kStandalone: kStandalone,
-      afterSchool: afterSchool,
-      beforeSchool: beforeSchool,
-      vacation: vacation,
-      suburb: suburb,
-      postcode: postcode
+    centreName: centreName,
+    rating: rating,
+    centreType: centreType,
+    cost: cost,
+    size: size,
+    longDC: longDC,
+    kSchool: kSchool,
+    kStandalone: kStandalone,
+    afterSchool: afterSchool,
+    beforeSchool: beforeSchool,
+    vacation: vacation,
+    suburb: suburb,
+    postcode: postcode,
   };
 
   let sql =
@@ -417,7 +418,7 @@ app.post("/addCentre", function (req, res) {
   connection.query(sql, function (err, result) {
     if (!err) {
       console.log(result);
-      res.render("manageResults", { centre: centre, changeType: changeType});
+      res.render("manageResults", { centre: centre, changeType: changeType });
     } else {
       console.log(err);
     }
@@ -426,39 +427,58 @@ app.post("/addCentre", function (req, res) {
   //get details of new centre to add, add to database, send to new ejs template page with details of new centre
 });
 
-app.post("/deleteCheck", function(req, res){
-
+app.post("/deleteCheck", function (req, res) {
   let centreToDelete = req.body.deleteCentre;
 
   // find centre, if exists
 
   let sql = "SELECT * FROM centres WHERE centreName='" + centreToDelete + "'";
-  connection.query(sql,(err, results, fields) => {
-    if(err){
+  connection.query(sql, (err, results, fields) => {
+    if (err) {
       console.log(err);
-    }else if(results.length === 0){
-      res.render("searchNoResults")
-    }else{
+    } else if (results.length === 0) {
+      res.render("searchNoResults");
+    } else {
       console.log(results);
       deleteCentreId = results[0].id;
-      res.render("deleteCheck", { centre: results })
+      res.render("deleteCheck", { centre: results });
     }
   });
 });
 
-app.post("/deleteCentre", function(req, res){
-
+app.post("/deleteCentre", function (req, res) {
   let sql = "DELETE FROM centres WHERE id=" + deleteCentreId;
   connection.query(sql, (err, results, fields) => {
-    if(err){console.log(err);}
-    else{
-      alert("Success!");
+    if (err) {
+      console.log(err);
+    } else {
       res.redirect("/manage");
     }
   });
+});
 
+app.post("/updateCheck", function (req, res) {
+  let centreToUpdate = req.body.updateCentre;
 
+  //find centres if exists
 
+  let sql = "SELECT * FROM centres WHERE centreName='" + centreToUpdate + "'";
+  connection.query(sql, (err, results, fields) => {
+    if (err) {
+      console.log(err);
+    } else if (results.length === 0) {
+      res.render("searchNoResults");
+    } else {
+      console.log(results);
+      updateCentreId = results[0].id;
+      res.render("updateCheck", { centre: results });
+    }
+  });
+});
+
+app.post("/updateCentre", function (req, res) {
+  //NEXT THING TO DO - ADD FORM TO UPDATE CENTRE PAGE TO GET CENTRE DETAILS TO CHANGE, 
+  //THEN POST TO SERVER AND UPDATE DB, SEND BACK TO MANAGE CENTRES
 });
 
 //app.listen
