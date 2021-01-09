@@ -477,8 +477,35 @@ app.post("/updateCheck", function (req, res) {
 });
 
 app.post("/updateCentre", function (req, res) {
-  //NEXT THING TO DO - ADD FORM TO UPDATE CENTRE PAGE TO GET CENTRE DETAILS TO CHANGE, 
-  //THEN POST TO SERVER AND UPDATE DB, SEND BACK TO MANAGE CENTRES
+
+  let centreName = req.body.centreName;
+  let rating = req.body.rating;
+  let centreType = req.body.centreType;
+  let cost = req.body.maxCost;
+  let size = req.body.centreSize;
+  let longDC = req.body.longDayCare;
+  let kSchool = req.body.kinderSchool;
+  let kStandalone = req.body.kinderStandalone;
+  let afterSchool = req.body.afterSchool;
+  let beforeSchool = req.body.beforeSchool;
+  let vacation = req.body.vacation;
+  let suburb = req.body.suburb;
+  let postcode = req.body.postcode;
+
+  let sql = "UPDATE centres SET centreName='" + centreName + "', serviceType='" + centreType + 
+            "', suburb='" + suburb + "', postcode=" + postcode + ", centreSize=" + size +
+            ", rating='" + rating + "', longDayCare='" + longDC + "', kinderPartOfSchool='" + kSchool +
+            "', kinderStandalone='" + kStandalone + "', afterSchoolCare='" + afterSchool + 
+            "', beforeSchoolCare='" + beforeSchool + "', vacationCare='" + vacation + "', costPerDay=" +
+            cost + " WHERE id=" + updateCentreId; 
+  connection.query(sql, (err, results, fields) => {
+    if(err){
+      console.log(err);
+    } else{
+      res.redirect("/manage");
+    }
+  });
+
 });
 
 //app.listen

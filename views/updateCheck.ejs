@@ -5,9 +5,8 @@
  <div class="row">
     <div class="col-lg-8">
         <h1 class="big-heading" style="text-align: left;">Update a Centre</h1>
-        <p style="text-align: left; color: #e43f5a;">Are you sure?</p>
-        <a href="manage"><input style="display:block" type="button"
-                class="download-btn btn btn-light btn-lg mb-5 mt-5" value="Manage Centres"></a> 
+       <a href="manage"><input style="display:block" type="button"
+                class="download-btn btn btn-dark btn-lg mb-5 mt-5" value="Go Back to Manage Centres"></a> 
     </div>
     <div class="col-lg-4">
     </div>
@@ -16,47 +15,136 @@
 </section>
 
 
-<!-- Check centre to be deleted -->
+<!-- Check centre to be updated -->
 
 <section class="white-section">
 
 <div class="container-fluid">
+    <form action="/updateCentre" method="POST">
+        <h2 class="middle-heading mb-5">You chose to update <%= centre[0].centreName %>:</h2>
     <div class="row">
-        <h2 class="middle-heading mb-5">Current details of the centre you chose:</h2>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="centre-size">Centre Name</label>
+                <input class="form-control" type="text" name="centreName" id="centre-name">
+            </div>
 
-        <table class="table table-lg table-hover">
-            <thead>
-                <tr>
-                    <th class="left">Centre Name</th>
-                    <th>Centre Size</th>
-                    <th>Suburb</th>
-                    <th>Rating</th>
-                    <th>Long Day Care</th>
-                    <th>After School Care</th>
-                    <th>Before School Care</th>
-                    <th>Vacation Care</th>
-           
-                </tr>
-            </thead>
-            <tbody>              
-                    <tr>
-                        <td class="left"><%= centre[0].centreName %></td>
-                        <td><%= centre[0].centreSize %></td>
-                        <td><%= centre[0].suburb %></td>
-                        <td><%= centre[0].rating %></td>
-                        <td><%= centre[0].longDayCare %></td>
-                        <td><%= centre[0].afterSchoolCare %></td>
-                        <td><%= centre[0].beforeSchoolCare %></td>
-                        <td><%= centre[0].vacationCare %></td>
-
-                    </tr>
-            </tbody>
-        </table>
-        <form action="/updateCentre" method="POST">
-            <button type="submit" class="btn btn-warning btn-lg mt-4">Update</button>
-        </form>
-        <a href="/manage"><button class="btn btn-dark btn-lg m-4" type="button">Go Back</button></a>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="centre-size">Centre Size</label>
+                <input class="form-control" type="number" name="centreSize" id="centre-size">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="centre-rating">Centre Rating</label>
+                <select class="form-control" name="rating" id="centre-rating">
+                    <option>Meeting NQS</option>
+                    <option>Working Towards NQS</option>
+                    <option>Exceeding NQS</option>
+                    <option>Excellent</option>
+                    <option>Significant Improvement Required</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="centre-cost">Cost Per Day</label>
+                <input class="form-control" type="number" name="maxCost" id="centre-cost">
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="long-day-care">Long Day Care?</label>
+                <select class="form-control" name="longDayCare" id="long-day-care">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="kinder-school">Kinder Part of School</label>
+                <select class="form-control" name="kinderSchool" id="kinder-school">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="kinder-standalone">Kinder Standalone</label> 
+                <select class="form-control" name="kinderStandalone" id="kinder-standalone">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="after-school">After School Care</label>
+                <select class="form-control" name="afterSchool" id="after-school">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="before-school">Before School Care</label>
+                <select class="form-control" name="beforeSchool" id="before-school">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="vacation">Vacation Care?</label>
+                <select class="form-control" name="vacation" id="vacation">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="suburb">Suburb</label>
+                <input class="form-control" type="text" name="suburb" id="suburb">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="postcode">Postcode</label>
+                <input class="form-control" type="number" name="postcode" id="postcode">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label class="form-check pl-0" for="centre-type">Centre Type</label>
+                <select class="form-control" name="centreType" id="centre-type">
+                    <option>Centre-Based</option>
+                    <option>Family Day Care</option>
+                </select>
+            </div>
+        </div>
+   </div>
+   <button type="submit" class="btn btn-primary btn-lg mt-4 ml-3">Update</button>  
+</form> 
+
 </div>
 
 </section>
