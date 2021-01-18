@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
-const _ = require("lodash");
 const calculator = require(__dirname + "/models/calculator.js");
 
 const app = express();
@@ -20,7 +19,6 @@ let connection = mysql.createConnection({
   database: "childcare",
 });
 
-//app.get - send the home page
 app.get("/", function (req, res) {
   res.render("home");
 });
@@ -508,7 +506,6 @@ app.post("/updateCentre", function (req, res) {
 
 });
 
-//app.listen
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server listening on port 3000.  Press Ctrl + C to exit.");
 });
