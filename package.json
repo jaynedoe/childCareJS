@@ -2,11 +2,11 @@
   "name": "fincare",
   "version": "1.0.0",
   "description": "finCare Financial Website for Parents",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
-    "server": "nodemon server/server.js"
+    "start": "NODE_PATH=src node src/server.js",
+    "server": "NODE_PATH=src nodemon src/server.js"
   },
   "author": "Jae Doyne",
   "license": "ISC",
