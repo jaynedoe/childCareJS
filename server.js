@@ -1,16 +1,52 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const calculator = require(__dirname + "/models/calculator.js");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const app = express();
-let deleteCentreId = "";
-let updateCentreId = "";
-
 app.set("view engine", "ejs");
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+mongoose.connect("mongodb://localhost:27017/userDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+mongoose.set("useCreateIndex", true);
+
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String
+});
+
+userSchema.plugin(passportLocalMongoose);
+
+const User = new mongoose.model("User", userSchema);
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+let deleteCentreId = "";
+let updateCentreId = "";
 
 let connection = mysql.createConnection({
   host: "localhost",
@@ -20,11 +56,162 @@ let connection = mysql.createConnection({
 });
 
 app.get("/", function (req, res) {
-  res.render("home");
+  res.render("landing");
+});
+
+app.get("/register", function(req, res){
+  res.render('register');
+});
+
+app.get("/dashboard/home", function(req, res){
+  if(req.isAuthenticated()){
+    User.findById(req.user.id, function(err, foundUser){
+      if(err){
+        console.log(err);
+      } else{
+        if(foundUser){
+          console.log("user found!");
+          res.render("dashboard/home", { foundUser: foundUser});
+        }
+      }
+    });
+  } else{
+    console.log("User not found.");
+    res.redirect("/");   
+  }
+});
+
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
 });
 
 app.get("/wizard", function (req, res) {
   res.render("wizard");
+});
+
+app.get("/manage", function (req, res) {
+  res.render("manage.ejs");
+});
+
+app.get("/about", function (req, res) {
+  res.render("about");
+});
+
+app.get("/search", function (req, res) {
+  res.render("search");
+});
+
+app.post("/register", function(req, res){
+  User.register(
+    { username: req.body.username },
+    req.body.password,
+    function (err, user) {
+      if(err) {
+        console.log(err);
+        res.redirect("/register");
+      } else {
+        res.redirect("/");
+      }
+    }
+  );
+});
+
+app.post("/login", function(req, res){
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+  });
+
+  req.login(user, function(err){
+    if(err){
+      console.log(error);
+    } else {
+      passport.authenticate("local")(req, res, function(){
+        res.redirect("dashboard/home");
+      });
+    }
+  });
+});
+
+app.post("/search", function (req, res) {
+  var suburb = req.body.suburb;
+  var cSize = req.body.centreSize;
+  var cost = req.body.maxCost;
+  var rating = req.body.rating;
+
+  let sql;
+
+  if ((rating == "Any") & (cSize == "Any")) {
+    sql =
+      'SELECT * FROM centres WHERE suburb="' +
+      suburb +
+      '" AND costPerDay<' +
+      cost;
+  } else if (rating == "Any") {
+    sql =
+      'SELECT * FROM centres WHERE suburb="' +
+      suburb +
+      '" AND costPerDay<' +
+      cost +
+      " AND centreSize=" +
+      "'" +
+      cSize +
+      "'";
+  } else if (cSize == "Any") {
+    sql =
+      'SELECT * FROM centres WHERE suburb="' +
+      suburb +
+      '" AND costPerDay<' +
+      cost +
+      " AND rating=" +
+      "'" +
+      rating +
+      "'";
+  } else {
+    sql =
+      'SELECT * FROM centres WHERE suburb="' +
+      suburb +
+      '" AND costPerDay<' +
+      cost +
+      " AND rating=" +
+      "'" +
+      rating +
+      "'" +
+      " AND centreSize=" +
+      "'" +
+      cSize +
+      "'";
+  }
+
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return console.error(error.message);
+    } else if (results.length === 0) {
+      console.log("mysql connection successful");
+      res.render("searchNoResults");
+    } else {
+      console.log("mysql connection successful");
+      let centres = [];
+
+      for (let i = 0; i < results.length; i++) {
+        let centre = {
+          centreName: results[i].centreName,
+          centreSize: results[i].centreSize,
+          suburb: results[i].suburb,
+          costPerDay: results[i].costPerDay,
+          rating: results[i].rating,
+          longDayCare: results[i].longDayCare,
+          afterSchoolCare: results[i].afterSchoolCare,
+          beforeSchoolCare: results[i].beforeSchoolCare,
+          vacationCare: results[i].vacationCare,
+          temporarilyClosed: results[i].temporarilyClosed,
+        };
+        centres.push(centre);
+      }
+      res.render("searchResults", { cCCentres: centres });
+    }
+  });
 });
 
 app.post("/wizard", function (req, res) {
@@ -257,98 +444,6 @@ app.post("/wizard", function (req, res) {
       altFortnightlyIncome: altFortnightlyIncome,
     });
   }
-});
-
-app.get("/about", function (req, res) {
-  res.render("about");
-});
-
-app.get("/search", function (req, res) {
-  res.render("search");
-});
-
-app.post("/search", function (req, res) {
-  var suburb = req.body.suburb;
-  var cSize = req.body.centreSize;
-  var cost = req.body.maxCost;
-  var rating = req.body.rating;
-
-  let sql;
-
-  if ((rating == "Any") & (cSize == "Any")) {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost;
-  } else if (rating == "Any") {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost +
-      " AND centreSize=" +
-      "'" +
-      cSize +
-      "'";
-  } else if (cSize == "Any") {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost +
-      " AND rating=" +
-      "'" +
-      rating +
-      "'";
-  } else {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost +
-      " AND rating=" +
-      "'" +
-      rating +
-      "'" +
-      " AND centreSize=" +
-      "'" +
-      cSize +
-      "'";
-  }
-
-  connection.query(sql, (error, results, fields) => {
-    if (error) {
-      return console.error(error.message);
-    } else if (results.length === 0) {
-      console.log("mysql connection successful");
-      res.render("searchNoResults");
-    } else {
-      console.log("mysql connection successful");
-      let centres = [];
-
-      for (let i = 0; i < results.length; i++) {
-        let centre = {
-          centreName: results[i].centreName,
-          centreSize: results[i].centreSize,
-          suburb: results[i].suburb,
-          costPerDay: results[i].costPerDay,
-          rating: results[i].rating,
-          longDayCare: results[i].longDayCare,
-          afterSchoolCare: results[i].afterSchoolCare,
-          beforeSchoolCare: results[i].beforeSchoolCare,
-          vacationCare: results[i].vacationCare,
-          temporarilyClosed: results[i].temporarilyClosed,
-        };
-        centres.push(centre);
-      }
-      res.render("searchResults", { cCCentres: centres });
-    }
-  });
-});
-
-app.get("/manage", function (req, res) {
-  res.render("manage.ejs");
 });
 
 app.post("/addCentre", function (req, res) {

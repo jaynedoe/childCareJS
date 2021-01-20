@@ -1,6 +1,7 @@
-body {
+body, html {
   font-family: "ABeeZee", sans-serif;
   text-align: center;
+  height: 100%;
 }
 
 h1 {
@@ -14,6 +15,29 @@ p {
 
 .left {
   text-align: left;
+}
+
+.outer-box{
+  background-color: white;
+  width: 70%;
+  padding: 10px;
+  text-align: left;
+  border-radius: 0.5%;
+  margin: 0 auto;
+}
+
+.inner-box{
+  width: 80%;
+  height: 300px;
+  background-image: url(../images/vintage-wallpaper.png);
+  padding: 35px;
+  border-radius: 0.5%;
+  margin: 0 auto;
+}
+
+
+.bg {
+  background-image: url(../images/vintage-wallpaper.png);
 }
 
 a:link {
@@ -44,21 +68,24 @@ label {
   font-size: 1.5rem;
 }
 
-.container-fluid {
+.container-fluid{
   padding: 5% 20%;
+}
+
+#top-section{
+  padding: 2% 20%;
 }
 
 /* Sections */
 
 .colored-section {
-  background-image: url(../images/vintage-wallpaper.png);
   color: #fff;
 }
 
 /* Navigation Bar CSS  */
 
 .navbar {
-  padding: 0px 0px 75px 0px;
+  padding: 50px 0px 0px 0px;
 }
 
 .navbar-brand {
