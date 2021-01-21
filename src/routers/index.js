@@ -1,140 +1,70 @@
-require('dotenv').config();
-const express = require("express");
-const bodyParser = require("body-parser");
-const mysql = require("mysql");
-const calculator = require(__dirname + "/models/calculator.js");
-const mongoose = require("mongoose");
-const session = require("express-session");
+const sqlDB = require("../sql");
+const mongoUser = require("../noSql");
+const Router = require("express").Router;
+const calculator = require("../models/calculator");
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-
-const app = express();
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-mongoose.connect("mongodb://localhost:27017/userDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-mongoose.set("useCreateIndex", true);
-
-const userSchema = new mongoose.Schema({
-  email: String,
-  password: String
-});
-
-userSchema.plugin(passportLocalMongoose);
-
-const User = new mongoose.model("User", userSchema);
-
-passport.use(User.createStrategy());
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 let deleteCentreId = "";
 let updateCentreId = "";
 
-let connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "childcare",
-});
+const appRouter = new Router();
 
-app.get("/", function (req, res) {
+appRouter.get("/", function (req, res) {
   res.render("landing");
 });
 
-app.get("/register", function(req, res){
-  res.render('register');
-});
-
-app.get("/dashboard/home", function(req, res){
-  if(req.isAuthenticated()){
-    User.findById(req.user.id, function(err, foundUser){
-      if(err){
-        console.log(err);
-      } else{
-        if(foundUser){
-          console.log("user found!");
-          res.render("dashboard/home", { foundUser: foundUser});
+appRouter.get("/dashboard/home", function (req, res) {
+    if (req.isAuthenticated()) {
+        mongoUser.findById(req.user.id, function (err, foundUser) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (foundUser) {
+            //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS PROFILE DATA?
+  
+            console.log("user found!");
+            res.render("dashboard/home", { foundUser: foundUser });
+          }
         }
-      }
-    });
-  } else{
-    console.log("User not found.");
-    res.redirect("/");   
-  }
+      });
+    } else {
+      res.redirect("/");
+    }
 });
 
-app.get("/logout", function (req, res) {
-  req.logout();
-  res.redirect("/");
+appRouter.get("/wizard/wizardLanding", function (req, res) {
+    if (req.isAuthenticated()) {
+        mongoUser.findById(req.user.id, function (err, foundUser) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (foundUser) {
+            res.render("wizard/wizardLanding");
+          }
+        }
+      });
+    } else {
+      res.redirect("/");
+    }
 });
 
-app.get("/wizard", function (req, res) {
-  res.render("wizard");
+appRouter.get("/register", function (req, res) {
+  res.render("register");
 });
 
-app.get("/manage", function (req, res) {
-  res.render("manage.ejs");
+appRouter.get("/contact", function (req, res) {
+  res.render("contact");
 });
 
-app.get("/about", function (req, res) {
+appRouter.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.get("/search", function (req, res) {
+appRouter.get("/search", function (req, res) {
   res.render("search");
 });
 
-app.post("/register", function(req, res){
-  User.register(
-    { username: req.body.username },
-    req.body.password,
-    function (err, user) {
-      if(err) {
-        console.log(err);
-        res.redirect("/register");
-      } else {
-        res.redirect("/");
-      }
-    }
-  );
-});
-
-app.post("/login", function(req, res){
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
-
-  req.login(user, function(err){
-    if(err){
-      console.log(error);
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("dashboard/home");
-      });
-    }
-  });
-});
-
-app.post("/search", function (req, res) {
+appRouter.post("/search", function (req, res) {
   var suburb = req.body.suburb;
   var cSize = req.body.centreSize;
   var cost = req.body.maxCost;
@@ -184,7 +114,7 @@ app.post("/search", function (req, res) {
       "'";
   }
 
-  connection.query(sql, (error, results, fields) => {
+  sqlDB.query(sql, (error, results, fields) => {
     if (error) {
       return console.error(error.message);
     } else if (results.length === 0) {
@@ -214,7 +144,7 @@ app.post("/search", function (req, res) {
   });
 });
 
-app.post("/wizard", function (req, res) {
+appRouter.post("/wizard", function (req, res) {
   //require all the input data using body parser and store in variables
   let householdType = req.body.household;
   let bKids = req.body.baseKids;
@@ -446,7 +376,7 @@ app.post("/wizard", function (req, res) {
   }
 });
 
-app.post("/addCentre", function (req, res) {
+appRouter.post("/addCentre", function (req, res) {
   let centreName = req.body.centreName;
   let rating = req.body.rating;
   let centreType = req.body.centreType;
@@ -508,7 +438,7 @@ app.post("/addCentre", function (req, res) {
 
   console.log(sql);
 
-  connection.query(sql, function (err, result) {
+  sqlDB.query(sql, function (err, result) {
     if (!err) {
       console.log(result);
       res.render("manageResults", { centre: centre, changeType: changeType });
@@ -520,13 +450,13 @@ app.post("/addCentre", function (req, res) {
   //get details of new centre to add, add to database, send to new ejs template page with details of new centre
 });
 
-app.post("/deleteCheck", function (req, res) {
+appRouter.post("/deleteCheck", function (req, res) {
   let centreToDelete = req.body.deleteCentre;
 
   // find centre, if exists
 
   let sql = "SELECT * FROM centres WHERE centreName='" + centreToDelete + "'";
-  connection.query(sql, (err, results, fields) => {
+  sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else if (results.length === 0) {
@@ -539,9 +469,9 @@ app.post("/deleteCheck", function (req, res) {
   });
 });
 
-app.post("/deleteCentre", function (req, res) {
+appRouter.post("/deleteCentre", function (req, res) {
   let sql = "DELETE FROM centres WHERE id=" + deleteCentreId;
-  connection.query(sql, (err, results, fields) => {
+  sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else {
@@ -550,13 +480,13 @@ app.post("/deleteCentre", function (req, res) {
   });
 });
 
-app.post("/updateCheck", function (req, res) {
+appRouter.post("/updateCheck", function (req, res) {
   let centreToUpdate = req.body.updateCentre;
 
   //find centres if exists
 
   let sql = "SELECT * FROM centres WHERE centreName='" + centreToUpdate + "'";
-  connection.query(sql, (err, results, fields) => {
+  sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else if (results.length === 0) {
@@ -569,8 +499,7 @@ app.post("/updateCheck", function (req, res) {
   });
 });
 
-app.post("/updateCentre", function (req, res) {
-
+appRouter.post("/updateCentre", function (req, res) {
   let centreName = req.body.centreName;
   let rating = req.body.rating;
   let centreType = req.body.centreType;
@@ -585,22 +514,42 @@ app.post("/updateCentre", function (req, res) {
   let suburb = req.body.suburb;
   let postcode = req.body.postcode;
 
-  let sql = "UPDATE centres SET centreName='" + centreName + "', serviceType='" + centreType + 
-            "', suburb='" + suburb + "', postcode=" + postcode + ", centreSize=" + size +
-            ", rating='" + rating + "', longDayCare='" + longDC + "', kinderPartOfSchool='" + kSchool +
-            "', kinderStandalone='" + kStandalone + "', afterSchoolCare='" + afterSchool + 
-            "', beforeSchoolCare='" + beforeSchool + "', vacationCare='" + vacation + "', costPerDay=" +
-            cost + " WHERE id=" + updateCentreId; 
-  connection.query(sql, (err, results, fields) => {
-    if(err){
+  let sql =
+    "UPDATE centres SET centreName='" +
+    centreName +
+    "', serviceType='" +
+    centreType +
+    "', suburb='" +
+    suburb +
+    "', postcode=" +
+    postcode +
+    ", centreSize=" +
+    size +
+    ", rating='" +
+    rating +
+    "', longDayCare='" +
+    longDC +
+    "', kinderPartOfSchool='" +
+    kSchool +
+    "', kinderStandalone='" +
+    kStandalone +
+    "', afterSchoolCare='" +
+    afterSchool +
+    "', beforeSchoolCare='" +
+    beforeSchool +
+    "', vacationCare='" +
+    vacation +
+    "', costPerDay=" +
+    cost +
+    " WHERE id=" +
+    updateCentreId;
+    sqlDB.query(sql, (err, results, fields) => {
+    if (err) {
       console.log(err);
-    } else{
+    } else {
       res.redirect("/manage");
     }
   });
-
 });
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Server listening on port 3000.  Press Ctrl + C to exit.");
-});
+module.exports = appRouter;
