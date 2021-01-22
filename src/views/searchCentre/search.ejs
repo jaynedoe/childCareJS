@@ -1,11 +1,10 @@
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
 
 <div class="row">
     <div class="col-lg-6">
         <h1 class="big-heading" style="text-align: left;">ChildCare Centre Search.</h1>
         <p style="text-align: left; color: #e43f5a;">Find the right centre for your family.</p>
-        <a href="#search"><input style="display:block" type="button"
-                class="download-btn btn btn-info btn-lg mb-5 mt-5" value="Search Now"></a>
+      
     </div>
     <div class="col-lg-6">
     </div>
@@ -20,9 +19,11 @@
 
 <div class="container-fluid">
 <div class="row" style="text-align: left;">
-    <h1 class="mb-5">Your Search Criteria</h1>
-</div>
+    <h1 class="mb-5" style="padding-left: 15px;">Your Search Criteria</h1>
 
+</div>
+<h1 class="mb-5">Need to include in here: search by name</h1>
+<h2 class="mb-5">Advanced search or simple search, also nominate a preferred centre</h2>
 <form class="needs-validation" novalidate action="/search" method="POST">
     <div class="row" style="text-align: left;">
         <div class="col-lg-6">
@@ -98,4 +99,4 @@ window.addEventListener('load', function () {
 })();
 </script>
 
-<%- include('partials/footer') %>
+<%- include('../partials/footer') %>

@@ -4,6 +4,10 @@ const passport = require("passport");
 
 const authRouter = new Router();
 
+authRouter.get("/register", function (req, res) {
+  res.render("register");
+});
+
 authRouter.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");

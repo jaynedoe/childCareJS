@@ -69,7 +69,7 @@ label {
 }
 
 .container-fluid{
-  padding: 5% 20%;
+  padding: 3% 15%;
 }
 
 #top-section{
@@ -85,7 +85,7 @@ label {
 /* Navigation Bar CSS  */
 
 .navbar {
-  padding: 50px 0px 0px 0px;
+  padding: 25px 0px 0px 0px;
 }
 
 .navbar-brand {
@@ -131,7 +131,7 @@ label {
 }
 
 .feature-box {
-  padding: 4.5%;
+  padding: 2.5%;
 }
 
 .icon-style {

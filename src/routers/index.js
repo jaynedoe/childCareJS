@@ -13,45 +13,6 @@ appRouter.get("/", function (req, res) {
   res.render("landing");
 });
 
-appRouter.get("/dashboard/home", function (req, res) {
-    if (req.isAuthenticated()) {
-        mongoUser.findById(req.user.id, function (err, foundUser) {
-        if (err) {
-          console.log(err);
-        } else {
-          if (foundUser) {
-            //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS PROFILE DATA?
-  
-            console.log("user found!");
-            res.render("dashboard/home", { foundUser: foundUser });
-          }
-        }
-      });
-    } else {
-      res.redirect("/");
-    }
-});
-
-appRouter.get("/wizard/wizardLanding", function (req, res) {
-    if (req.isAuthenticated()) {
-        mongoUser.findById(req.user.id, function (err, foundUser) {
-        if (err) {
-          console.log(err);
-        } else {
-          if (foundUser) {
-            res.render("wizard/wizardLanding");
-          }
-        }
-      });
-    } else {
-      res.redirect("/");
-    }
-});
-
-appRouter.get("/register", function (req, res) {
-  res.render("register");
-});
-
 appRouter.get("/contact", function (req, res) {
   res.render("contact");
 });
@@ -60,8 +21,49 @@ appRouter.get("/about", function (req, res) {
   res.render("about");
 });
 
-appRouter.get("/search", function (req, res) {
-  res.render("search");
+//AUTHENTICATION REQUIRED FOR BELOW GET ROUTES
+
+appRouter.get("/dashboard/home", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS PROFILE DATA?
+
+          console.log("user found!");
+          res.render("dashboard/home", { foundUser: foundUser });
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/wizard/wizardLanding", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          res.render("wizard/wizardLanding");
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/administration/manage", function (req, res) {
+  res.render("administration/manage");
+});
+
+appRouter.get("/searchCentre/search", function (req, res) {
+  res.render("searchCentre/search");
 });
 
 appRouter.post("/search", function (req, res) {
@@ -73,45 +75,13 @@ appRouter.post("/search", function (req, res) {
   let sql;
 
   if ((rating == "Any") & (cSize == "Any")) {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost;
+    sql = `SELECT * FROM centres WHERE suburb="${suburb}" AND costPerDay<${cost}`;
   } else if (rating == "Any") {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost +
-      " AND centreSize=" +
-      "'" +
-      cSize +
-      "'";
+    sql = `SELECT * FROM centres WHERE suburb="${suburb}" AND costPerDay<${cost} AND centreSize=${cSize}`;
   } else if (cSize == "Any") {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost +
-      " AND rating=" +
-      "'" +
-      rating +
-      "'";
+    sql = `SELECT * FROM centres WHERE suburb="${suburb}" AND costPerDay<${cost} AND rating=${rating}`;
   } else {
-    sql =
-      'SELECT * FROM centres WHERE suburb="' +
-      suburb +
-      '" AND costPerDay<' +
-      cost +
-      " AND rating=" +
-      "'" +
-      rating +
-      "'" +
-      " AND centreSize=" +
-      "'" +
-      cSize +
-      "'";
+    sql = `SELECT * FROM centres WHERE suburb="${suburb}" AND costPerDay<${cost} AND rating=${rating} AND centreSize=${cSize}`;
   }
 
   sqlDB.query(sql, (error, results, fields) => {
@@ -119,7 +89,7 @@ appRouter.post("/search", function (req, res) {
       return console.error(error.message);
     } else if (results.length === 0) {
       console.log("mysql connection successful");
-      res.render("searchNoResults");
+      res.render("searchCentre/searchNoResults");
     } else {
       console.log("mysql connection successful");
       let centres = [];
@@ -139,7 +109,7 @@ appRouter.post("/search", function (req, res) {
         };
         centres.push(centre);
       }
-      res.render("searchResults", { cCCentres: centres });
+      res.render("searchCentre/searchResults", { cCCentres: centres });
     }
   });
 });
@@ -282,7 +252,7 @@ appRouter.post("/wizard", function (req, res) {
   );
 
   if (householdType == "single") {
-    res.render("wizardResultsS", {
+    res.render("wizard/wizardResultsS", {
       household: householdType,
       bKids: bKids,
       aKids: aKids,
@@ -321,7 +291,7 @@ appRouter.post("/wizard", function (req, res) {
       altFortnightlyIncome: altFortnightlyIncome,
     });
   } else {
-    res.render("wizardResultsC", {
+    res.render("wizard/wizardResultsC", {
       household: householdType,
       bKids: bKids,
       aKids: aKids,
@@ -408,46 +378,20 @@ appRouter.post("/addCentre", function (req, res) {
   };
 
   let sql =
-    "INSERT INTO centres (centreName, serviceType, suburb, postcode, centreSize, rating, longDayCare, kinderPartOfSchool, kinderStandalone, afterSchoolCare, beforeSchoolCare, vacationCare, costPerDay) VALUES ('" +
-    centreName +
-    "', '" +
-    centreType +
-    "', '" +
-    suburb +
-    "', " +
-    postcode +
-    ", '" +
-    size +
-    "', '" +
-    rating +
-    "', '" +
-    longDC +
-    "', '" +
-    kSchool +
-    "', '" +
-    kStandalone +
-    "', '" +
-    afterSchool +
-    "', '" +
-    beforeSchool +
-    "', '" +
-    vacation +
-    "', " +
-    cost +
-    ")";
-
-  console.log(sql);
+    "INSERT INTO centres (centreName, serviceType, suburb, postcode, centreSize, rating, longDayCare, kinderPartOfSchool, kinderStandalone, afterSchoolCare, beforeSchoolCare, vacationCare, costPerDay) VALUES (" +
+    `'${centreName}', '${centreType}', '${suburb}', ${postcode}, '${size}', '${rating}', '${longDC}', '${kSchool}', '${kStandalone}', '${afterSchool}', '${beforeSchool}', '${vacation}', ${cost})`;
 
   sqlDB.query(sql, function (err, result) {
     if (!err) {
       console.log(result);
-      res.render("manageResults", { centre: centre, changeType: changeType });
+      res.render("/administration/manageResults", {
+        centre: centre,
+        changeType: changeType,
+      });
     } else {
       console.log(err);
     }
   });
-
-  //get details of new centre to add, add to database, send to new ejs template page with details of new centre
 });
 
 appRouter.post("/deleteCheck", function (req, res) {
@@ -455,27 +399,27 @@ appRouter.post("/deleteCheck", function (req, res) {
 
   // find centre, if exists
 
-  let sql = "SELECT * FROM centres WHERE centreName='" + centreToDelete + "'";
+  let sql = `SELECT * FROM centres WHERE centreName="${centreToDelete}"`;
   sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else if (results.length === 0) {
-      res.render("searchNoResults");
+      res.render("search/searchNoResults");
     } else {
       console.log(results);
       deleteCentreId = results[0].id;
-      res.render("deleteCheck", { centre: results });
+      res.render("administration/deleteCheck", { centre: results });
     }
   });
 });
 
 appRouter.post("/deleteCentre", function (req, res) {
-  let sql = "DELETE FROM centres WHERE id=" + deleteCentreId;
+  let sql = `DELETE FROM centres WHERE id='${deleteCentreId}'`;
   sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/manage");
+      res.redirect("/administration/manage");
     }
   });
 });
@@ -485,16 +429,16 @@ appRouter.post("/updateCheck", function (req, res) {
 
   //find centres if exists
 
-  let sql = "SELECT * FROM centres WHERE centreName='" + centreToUpdate + "'";
+  let sql = `SELECT * FROM centres WHERE centreName='${centreToUpdate}'`;
   sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else if (results.length === 0) {
-      res.render("searchNoResults");
+      res.render("search/searchNoResults");
     } else {
       console.log(results);
       updateCentreId = results[0].id;
-      res.render("updateCheck", { centre: results });
+      res.render("administration/updateCheck", { centre: results });
     }
   });
 });
@@ -514,36 +458,8 @@ appRouter.post("/updateCentre", function (req, res) {
   let suburb = req.body.suburb;
   let postcode = req.body.postcode;
 
-  let sql =
-    "UPDATE centres SET centreName='" +
-    centreName +
-    "', serviceType='" +
-    centreType +
-    "', suburb='" +
-    suburb +
-    "', postcode=" +
-    postcode +
-    ", centreSize=" +
-    size +
-    ", rating='" +
-    rating +
-    "', longDayCare='" +
-    longDC +
-    "', kinderPartOfSchool='" +
-    kSchool +
-    "', kinderStandalone='" +
-    kStandalone +
-    "', afterSchoolCare='" +
-    afterSchool +
-    "', beforeSchoolCare='" +
-    beforeSchool +
-    "', vacationCare='" +
-    vacation +
-    "', costPerDay=" +
-    cost +
-    " WHERE id=" +
-    updateCentreId;
-    sqlDB.query(sql, (err, results, fields) => {
+  let sql = `UPDATE centres SET centreName='${centreName}', '${centreType}', '${suburb}', ${postcode}, '${size}', '${rating}', '${longDC}', '${kSchool}', '${kStandalone}', '${afterSchool}', '${beforeSchool}', '${vacation}', ${cost} WHERE id=${updateCentreId}`;
+  sqlDB.query(sql, (err, results, fields) => {
     if (err) {
       console.log(err);
     } else {

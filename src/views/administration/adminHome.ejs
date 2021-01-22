@@ -1,4 +1,4 @@
-<%- include('../partials/header') %>
+<%- include('../partials/adminHeader') %>
 
  <!-- Title Inner-->
 
@@ -8,9 +8,8 @@
  
         <p style="color: #e43f5a; text-align: left;">This app can help you:</p>
         <ul style="text-align: left;">
-            <li class="p-1">Financially compare two child care scenarios</li>
-            <li class="p-1">See the difference in Centrelink entitlements</li>
-            <li class="p-1">Search a database of Victorian child care centres</li>
+            <li class="p-1">Search and manage a database of Victorian child care centres</li>
+            <li class="p-1">Compare alternate child care scenarios from a financial perspective</li>
         </ul>
     </div>
     <div class="col-lg-4">
@@ -25,28 +24,38 @@
 <div class="container-fluid">
     <h2 class="mb-5" style="text-align: left;">Welcome User ID <%= foundUser.id %>! </h2>
 
-<div class="row" style="background-image: url('../../images/gray.jpg'); width: 80%; margin: auto;">
-    <div class="feature-box col-lg-4">
+<div class="row" style="background-image: url('../../images/gray.jpg');">
+    <div class="feature-box col-lg-3">
 
         <i class="icon-style fas fa-dollar-sign fa-4x mb-5"></i>
-        <h3 class="feature-heading">Run a Comparison</h3>
+        <h3 class="feature-heading">Run a Calculation</h3>
         <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../wizard/wizardLanding">Try Now</a>
 
     </div>
 
-    <div class="feature-box col-lg-4">
+    <div class="feature-box col-lg-3">
 
         <i class="icon-style fas fa-search fa-4x mb-5"></i>
         <h3 class="feature-heading">Search Centres</h3>
-        <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../searchCentre/search">Search Now</a>
+        <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="search">Search Now</a>
 
     </div>
 
-    <div class="feature-box col-lg-4">
+    <div class="feature-box col-lg-3">
+
+        <i class="icon-style fab fa-earlybirds fa-4x mb-5"></i>
+        <h3 class="feature-heading">Your Family Profile</h3>
+        <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../profile/viewProfile">View and Edit</a>
+
+
+    </div>
+
+    <div class="feature-box col-lg-3">
 
         <i class="icon-style fab fa-earlybirds fa-4x mb-5"></i>
         <h3 class="feature-heading">Saved Scenarios</h3>
         <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../profile/viewProfile">View and Edit</a>
+
 
     </div>
 
