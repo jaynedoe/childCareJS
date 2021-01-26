@@ -66,23 +66,6 @@ appRouter.get("/dashboard/myScenarios", function (req, res) {
   }
 });
 
-appRouter.get("/dashboard/myCentres", function (req, res) {
-  if (req.isAuthenticated()) {
-    mongoUser.findById(req.user.id, function (err, foundUser) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (foundUser) {
-          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS ACCOUNT DATA?
-          res.render("dashboard/myCentres", { foundUser: foundUser });
-        }
-      }
-    });
-  } else {
-    res.redirect("/");
-  }
-});
-
 appRouter.get("/dashboard/myProfile", function (req, res) {
   if (req.isAuthenticated()) {
     mongoUser.findById(req.user.id, function (err, foundUser) {
@@ -180,14 +163,38 @@ appRouter.get("/profile/myProfile", function (req, res) {
   }
 });
 
+appRouter.post("/nameSearch", function(req, res){
+  let name = req.body.nameSearch;
+  let sql = `SELECT * FROM centres WHERE centreName="${name}"`;
 
-
+  sqlDB.query(sql, (err, results, fields) => {
+    if(err){
+      console.log(err);
+    } else if(results.length === 0) {
+      res.render("searchCentre/searchNoResults");
+    } else {
+      let centre = {
+        centreName: results[0].centreName,
+        centreSize: results[0].centreSize,
+        suburb: results[0].suburb,
+        costPerDay: results[0].costPerDay,
+        rating: results[0].rating,
+        longDayCare: results[0].longDayCare,
+        afterSchoolCare: results[0].afterSchoolCare,
+        beforeSchoolCare: results[0].beforeSchoolCare,
+        vacationCare: results[0].vacationCare,
+        temporarilyClosed: results[0].temporarilyClosed
+      };
+      res.render("searchCentre/nameSearchResults", { foundCentre: centre });
+    }
+  });
+});
 
 appRouter.post("/search", function (req, res) {
-  var suburb = req.body.suburb;
-  var cSize = req.body.centreSize;
-  var cost = req.body.maxCost;
-  var rating = req.body.rating;
+  let suburb = req.body.suburb;
+  let cSize = req.body.centreSize;
+  let cost = req.body.maxCost;
+  let rating = req.body.rating;
 
   let sql;
 
@@ -205,12 +212,9 @@ appRouter.post("/search", function (req, res) {
     if (error) {
       return console.error(error.message);
     } else if (results.length === 0) {
-      console.log("mysql connection successful");
       res.render("searchCentre/searchNoResults");
     } else {
-      console.log("mysql connection successful");
       let centres = [];
-
       for (let i = 0; i < results.length; i++) {
         let centre = {
           centreName: results[i].centreName,
@@ -226,7 +230,7 @@ appRouter.post("/search", function (req, res) {
         };
         centres.push(centre);
       }
-      res.render("searchCentre/searchResults", { cCCentres: centres });
+      res.render("searchCentre/advSearchResults", { cCCentres: centres });
     }
   });
 });

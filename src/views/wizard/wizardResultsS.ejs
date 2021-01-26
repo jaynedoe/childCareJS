@@ -1,25 +1,11 @@
 <%- include('../partials/header') %>
 
- <!-- Title Inner-->
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                          <h1 class="big-heading" style="text-align: left;">Wizard Results.</h1>
-                        <p style="text-align: left; color: #e43f5a;">Run some numbers, see what works.</p>
-                           <a href="wizard/wizardLanding"><input style="display:block" type="button"
-                                   class="download-btn btn btn-dark btn-lg mb-5 mt-5" value="Run Again"></a>
-                        </div>
-                       <div class="col-lg-6">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Scenario Results -->
 
             <section id="compare" class="white-section">
             
                 <div class="container-fluid">
+
                     <div style="text-align: left; margin-bottom: 50px;">
                         <h2 class="middle-heading mb-5">Difference per Fortnight: 
                             <span class="display-4">$<%= difference %>
@@ -155,7 +141,8 @@
                         </table>
                     </div>
 
-
+                    <a href="wizard/wizardLanding"><input style="display:block" type="button"
+                               class="download-btn btn btn-dark btn-lg mb-5 mt-5" value="Run Again"></a>
                 </div>
             </section>
             <a href="#title" class="back-to-top">

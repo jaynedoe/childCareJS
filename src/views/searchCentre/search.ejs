@@ -1,79 +1,88 @@
 <%- include('../partials/header') %>
 
-<div class="row">
-    <div class="col-lg-6">
-        <h1 class="big-heading" style="text-align: left;">ChildCare Centre Search.</h1>
-        <p style="text-align: left; color: #e43f5a;">Find the right centre for your family.</p>
-      
-    </div>
-    <div class="col-lg-6">
-    </div>
-</div>
-</div>
-</section>
-
-
-<!-- Search Criteria -->
-
 <section id="search" class="white-section">
 
-<div class="container-fluid">
-<div class="row" style="text-align: left;">
-    <h1 class="mb-5" style="padding-left: 15px;">Your Search Criteria</h1>
+    <div class="container-fluid">
 
-</div>
-<h1 class="mb-5">Need to include in here: search by name</h1>
-<h2 class="mb-5">Advanced search or simple search, also nominate a preferred centre</h2>
-<form class="needs-validation" novalidate action="/search" method="POST">
-    <div class="row" style="text-align: left;">
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label for="suburb">Suburb</label>
-                <input type="text" class="form-control" id="suburb" name="suburb" required>
-                <div class="invalid-feedback">
-                    Please provide a suburb.
+<!-- NAME SEARCH ONLY -->
+
+        <div class="row" style="text-align: left;">
+            <h1 class="mb-5" style="padding-left: 15px;">Search By Centre Name</h1>
+        </div>
+        <form action="/nameSearch" method="POST">
+            <div class="row left">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="nameSearch">Centre Name</label>
+                        <input type="text" class="form-control" id="nameSearch" name="nameSearch" required>
+                        <div class="invalid-feedback">
+                            Please provide a name.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="max-cost">Max Cost Per Day</label>
-                <input type="number" class="form-control" id="max-cost" name="maxCost" required>
-                <div class="invalid-feedback">
-                    Please provide a cost per day.
+            <div class="row left">
+                <div class="col-lg-6">
+                    <button type="submit" class="btn btn-info btn-lg mt-5">Find Centre</button>
                 </div>
             </div>
+        </form>
+
+<!-- ADVANCED SEARCH -->
+
+        <div class="row mt-5" style="text-align: left;">
+            <h1 class="mb-5" style="padding-left: 15px;">Advanced Search</h1>
         </div>
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label for="rating">Rating</label>
-                <select class="form-control" name="rating" id="rating">
-                    <option>Any</option>
-                    <option>Meeting NQS</option>
-                    <option>Working Towards NQS</option>
-                    <option>Exceeding NQS</option>
-                    <option>Excellent</option>
-                    <option>Significant Improvement Required</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="size">Size</label>
-                <select class="form-control" name="centreSize" id="size">
-                    <option value="Any">Any</option>
-                    <option value="Small">Small (less than 50 places)</option>
-                    <option value="Medium">Medium (between 50 - 100 places)</option>
-                    <option value="Large">Large (over 100 places)</option>
-                </select>
-            </div>
-        </div>
-    </div>
+            <form class="needs-validation" novalidate action="/search" method="POST">
+                <div class="row left">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="suburb">Suburb</label>
+                            <input type="text" class="form-control" id="suburb" name="suburb" required>
+                            <div class="invalid-feedback">
+                                Please provide a suburb.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="max-cost">Max Cost Per Day</label>
+                            <input type="number" class="form-control" id="max-cost" name="maxCost" required>
+                            <div class="invalid-feedback">
+                                Please provide a cost per day.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <select class="form-control" name="rating" id="rating">
+                                <option>Any</option>
+                                <option>Meeting NQS</option>
+                                <option>Working Towards NQS</option>
+                                <option>Exceeding NQS</option>
+                                <option>Excellent</option>
+                                <option>Significant Improvement Required</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="size">Size</label>
+                            <select class="form-control" name="centreSize" id="size">
+                                <option value="Any">Any</option>
+                                <option value="Small">Small (less than 50 places)</option>
+                                <option value="Medium">Medium (between 50 - 100 places)</option>
+                                <option value="Large">Large (over 100 places)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
 
-    <div class="row" style="text-align: left;">
-        <div class="col-lg-6">
-            <button type="submit" class="btn btn-info btn-lg mt-5">Show Matching Centres</button>
-        </div>
+                <div class="row" style="text-align: left;">
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-info btn-lg mt-5">Show Matching Centres</button>
+                    </div>
+                </div>
+            </form>
     </div>
-</form>
-</div>
 
 </section>
 

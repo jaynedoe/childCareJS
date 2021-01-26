@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <title>finCare</title>
+  <head>
+      <meta charset="utf-8">
+      <title>finCare</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700;900&display=swap"rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/styles.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700;900&display=swap"rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-    <section class="bg">
-            <div class="container-fluid">
-              <h1 class="display-4" style="margin-bottom: 10%; color:#e43f5a">ChildCare Finance Manager</h1>
-                <div class="outer-box">
-                    <h2 class="mt-5" style="margin-bottom: 3%; color: #e43f5a; text-align: center;">Register</h2>
-                    <div class="inner-box mb-5">
-        
-                        <form action="/register" method="POST">
-                            <div class="form-group">
-                              <label style="color: white;" for="email">Email</label>
-                              <input type="email" class="form-control" name="username">
-                            </div>
-                            <div class="form-group">
-                              <label style="color: white;" for="password">Password</label>
-                              <input type="password" class="form-control" name="password">
-                            </div>
-                            <button type="submit" class="btn btn-lg mr-4 mt-5 btn-info">Register</button>
-                            <a href="/"><button type="button" style="float: right;" class="btn btn-lg btn-light mt-5">Go Back</button></a> 
-                        </form>       
+    <main id="landing">
+        <div class="container-fluid">
+
+          <div class="row row-landing">
+            <h1 class="mt-5 mb-5 display-4">ChildCare Financial Wizard</h1>
+          </div>
+
+            <div class="outer-box">
+              <h2 class="mt-5 mb-5 ml-5">Register</h2>
+                <div class="inner-box mb-5">
+          
+                  <form action="/register" method="POST">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="username">
                       </div>
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password">
+                      </div>
+                        <button type="submit" class="btn btn-lg mr-4 mt-5 mb-4 btn-primary">Register</button> 
+                        <a class="btn btn-info btn-lg float-right mt-5" type="button" href="/">Go Back</a>
+                  </form>  
+
                 </div>
             </div>
-    </section>
-
+        </div>
+    </main>
 
     <footer>
-        <div class="container-fluid bg">
-            <div class="footer-icons">
+        <div class="container-fluid">
+            <div class="mb-5">
                 <a href="https://www.twitter.com/"><i class="text-light footer-icon fab fa-twitter"></i></a>
                 <a href="https://www.facebook.com/"><i class="text-light footer-icon fab fa-facebook"></i></a>
                 <a href="https://www.instagram.com/"><i class="text-light footer-icon fab fa-instagram"></i></a>
                 <a href="mailto:jaedoyne@gmail.com/"><i class="text-light footer-icon fas fa-envelope"></i></a>
             </div>
-            <p style="color: #e43f5a;">© Copyright 2020 finCare</p>
+            <p>© Copyright 2020 finCare</p>
         </div>
-
-
     </footer>
 
-</body>
+  </body>
 
 </html>
