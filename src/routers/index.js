@@ -13,14 +13,6 @@ appRouter.get("/", function (req, res) {
   res.render("landing");
 });
 
-appRouter.get("/contact", function (req, res) {
-  res.render("contact");
-});
-
-appRouter.get("/about", function (req, res) {
-  res.render("about");
-});
-
 //AUTHENTICATION REQUIRED FOR BELOW GET ROUTES
 
 appRouter.get("/dashboard/home", function (req, res) {
@@ -31,9 +23,75 @@ appRouter.get("/dashboard/home", function (req, res) {
       } else {
         if (foundUser) {
           //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS PROFILE DATA?
-
-          console.log("user found!");
           res.render("dashboard/home", { foundUser: foundUser });
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/dashboard/myAccount", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS ACCOUNT DATA?
+          res.render("dashboard/myAccount", { foundUser: foundUser });
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/dashboard/myScenarios", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS ACCOUNT DATA?
+          res.render("dashboard/myScenarios", { foundUser: foundUser });
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/dashboard/myCentres", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS ACCOUNT DATA?
+          res.render("dashboard/myCentres", { foundUser: foundUser });
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/dashboard/myProfile", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS ACCOUNT DATA?
+          res.render("dashboard/myProfile", { foundUser: foundUser });
         }
       }
     });
@@ -58,13 +116,72 @@ appRouter.get("/wizard/wizardLanding", function (req, res) {
   }
 });
 
-appRouter.get("/administration/manage", function (req, res) {
-  res.render("administration/manage");
+appRouter.get("/searchCentre/search", function (req, res) {
+  if (req.isAuthenticated()) {
+    mongoUser.findById(req.user.id, function (err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          res.render("searchCentre/search");
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }  
 });
 
-appRouter.get("/searchCentre/search", function (req, res) {
-  res.render("searchCentre/search");
+appRouter.get("/resources", function (req, res) {
+  if(req.isAuthenticated()){
+    mongoUser.findById(req.user.id, function (err, foundUser){
+      if(err){
+        console.log(err);
+      } else {
+        if (foundUser) {
+          res.render("resources");
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
 });
+
+appRouter.get("/about", function (req, res) {
+  if(req.isAuthenticated()){
+    mongoUser.findById(req.user.id, function (err, foundUser){
+      if(err){
+        console.log(err);
+      } else {
+        if (foundUser) {
+          res.render("about");
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+appRouter.get("/profile/myProfile", function (req, res) {
+  if(req.isAuthenticated()){
+    mongoUser.findById(req.user.id, function (err, foundUser){
+      if(err){
+        console.log(err);
+      } else {
+        if (foundUser) {
+          res.render("profile/myProfile");
+        }
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+
+
 
 appRouter.post("/search", function (req, res) {
   var suburb = req.body.suburb;

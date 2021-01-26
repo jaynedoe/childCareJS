@@ -1,56 +1,64 @@
 <%- include('../partials/header') %>
 
- <!-- Title Inner-->
-
- <div class="row">
-    <div class="col-lg-8">
-        <h1 class="big-heading mt-4" style="text-align: left;">ChildCare Wizardry.</h1>
- 
-        <p style="color: #e43f5a; text-align: left;">This app can help you:</p>
-        <ul style="text-align: left;">
-            <li class="p-1">Financially compare two child care scenarios</li>
-            <li class="p-1">See the difference in Centrelink entitlements</li>
-            <li class="p-1">Search a database of Victorian child care centres</li>
-        </ul>
-    </div>
-    <div class="col-lg-4">
-    </div>
-</div>
-</div>
-</section>
-
 
 <section class="white-section">
 
 <div class="container-fluid">
-    <h2 class="mb-5" style="text-align: left;">Welcome User ID <%= foundUser.id %>! </h2>
 
-<div class="row" style="background-image: url('../../images/gray.jpg'); width: 80%; margin: auto;">
-    <div class="feature-box col-lg-4">
+<div class="row mb-5">
 
-        <i class="icon-style fas fa-dollar-sign fa-4x mb-5"></i>
-        <h3 class="feature-heading">Run a Comparison</h3>
-        <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../wizard/wizardLanding">Try Now</a>
-
-    </div>
-
-    <div class="feature-box col-lg-4">
-
-        <i class="icon-style fas fa-search fa-4x mb-5"></i>
-        <h3 class="feature-heading">Search Centres</h3>
-        <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../searchCentre/search">Search Now</a>
-
-    </div>
-
-    <div class="feature-box col-lg-4">
-
-        <i class="icon-style fab fa-earlybirds fa-4x mb-5"></i>
-        <h3 class="feature-heading">Saved Scenarios</h3>
-        <a class="btn btn-outline-dark btn-lg mt-4" role="button" href="../profile/viewProfile">View and Edit</a>
-
-    </div>
+    <h1 style="padding-left: 15px;">Welcome User!</h1>
 
 </div>
+
+<div class="row" style="width: 80%; margin: auto;">
+    <div class="col-lg-6">
+        <div class="card bg-light border-light mb-3">
+         
+            <div class="card-body">
+                <h3 class="card-title feature-heading">Run a Comparison</h3>
+                <i class="card-img-top icon-style fas fa-dollar-sign fa-3x mb-3 mt-3"></i>
+                <a class="btn btn-dark btn-lg mt-4" role="button" href="../wizard/wizardLanding">Try Now</a>
+            </div>
+        </div>     
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card bg-light border-light mb-3">
+          
+            <div class="card-body">
+                <h3 class="card-title feature-heading">Search Centres</h3>
+                <i class="card-img-top icon-style fas fa-search fa-3x mb-3 mt-3"></i>
+                <a class="btn btn-dark btn-lg mt-4" role="button" href="../searchCentre/search">Search Now</a>
+            </div>
+        </div>     
+    </div>
+</div>
+
+<div class="row mt-5" style="width: 80%; margin: auto;">
+    <div class="col-lg-6">
+        <div class="card bg-light border-light mb-3">
+        
+            <div class="card-body">
+                <h3 class="card-title feature-heading">Look Through Resources</h3>
+                <i class="card-img-top icon-style fas fa-dollar-sign fa-3x mt-3"></i>
+                <a class="btn btn-dark btn-lg mt-4" role="button" href="../resources">Look Now</a>
+            </div>
+        </div>     
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card bg-light border-light">
+          
+            <div class="card-body">
+                <h3 class="card-title feature-heading">Learn About This App</h3>
+                <i class="card-img-top icon-style fas fa-search fa-3x mb-3 mt-3"></i>
+                <a class="btn btn-dark btn-lg mt-4" role="button" href="../about">Learn Now</a>
+            </div>
+        </div>     
+    </div>
+</div>
+
 </div>
 
 </section>
