@@ -1,45 +1,45 @@
 <%- include('../partials/header') %>
 
-<section class="white-section">
+<main>
 
-<div class="container-fluid">
-    <div class="row">
-        <h2 class="middle-heading mb-5">We found <%= cCCentres.length %> matching centres.</h2>
-        <table class="table table-sm table-hover">
-            <thead>
-                <tr>
-                    <th class="left">Centre Name</th>
-                    <th>Centre Size</th>
-                    <th>Suburb</th>
-                    <th>Rating</th>
-                    <th>Long Day Care</th>
-                    <th>After School Care</th>
-                    <th>Before School Care</th>
-                    <th>Vacation Care</th>
-                   </tr>
-            </thead>
-            <tbody>
-                <% cCCentres.forEach(function(item){ %>
-
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="mb-5">We found <%= cCCentres.length %> matching centres.</h2>
+            <table class="table table-sm table-hover">
+                <thead>
                     <tr>
-                        <td class="left"><%= item.centreName %></td>
-                        <td><%= item.centreSize %></td>
-                        <td><%= item.suburb %></td>
-                        <td><%= item.rating %></td>
-                        <td><%= item.longDayCare %></td>
-                        <td><%= item.afterSchoolCare %></td>
-                        <td><%= item.beforeSchoolCare %></td>
-                        <td><%= item.vacationCare %></td>
-                    </tr>
-
-                <% }); %>
-            </tbody>
-        </table>
-        <a class="btn btn-dark btn-lg mt-5" role="button" href="../searchCentre/search">Search Again</a>
+                        <th>Centre Name</th>
+                        <th>Centre Size</th>
+                        <th>Suburb</th>
+                        <th>Rating</th>
+                        <th>Long Day Care</th>
+                        <th>After School Care</th>
+                        <th>Before School Care</th>
+                        <th>Vacation Care</th>
+                       </tr>
+                </thead>
+                <tbody>
+                    <% cCCentres.forEach(function(item){ %>
+    
+                        <tr>
+                            <td><%= item.centreName %></td>
+                            <td><%= item.centreSize %></td>
+                            <td><%= item.suburb %></td>
+                            <td><%= item.rating %></td>
+                            <td><%= item.longDayCare %></td>
+                            <td><%= item.afterSchoolCare %></td>
+                            <td><%= item.beforeSchoolCare %></td>
+                            <td><%= item.vacationCare %></td>
+                        </tr>
+    
+                    <% }); %>
+                </tbody>
+            </table>
+            <a class="btn btn-dark btn-lg mt-5" role="button" href="../searchCentre/search">Search Again</a>
+        </div>
     </div>
-</div>
 
-</section>
+</main>
 
 
 <%- include('../partials/footer') %>

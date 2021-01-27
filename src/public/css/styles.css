@@ -21,6 +21,7 @@ header {
 main {
   flex-grow: 1;
   padding: 3% 15%;
+  text-align: left;
 }
 
 footer {
@@ -29,16 +30,12 @@ footer {
   color: #e43f5a;
 }
 
-h1, h2 {
+h1, h2, a, #householdCheckMessage {
   color: #e43f5a;
 }
 
 p {
   font-family: "Montserrat", sans-serif;
-}
-
-a {
-  color: #e43f5a;
 }
 
 a:hover {
@@ -52,12 +49,12 @@ a:hover {
   padding: 0;
 }
 
-.row {
-  margin: auto;
+.col-lg-6 {
+  padding: 0%;
 }
 
-.left {
-  text-align: left;
+.row {
+  margin: auto;
 }
 
 .float-right {
@@ -68,38 +65,16 @@ a:hover {
   padding: 25px 0px 0px 0px;
 }
 
-.navbar-brand {
-  font-family: "Montserrat", sans-serif;
-  font-size: 2rem;
-  color: #e43f5a;
-}
-
 .nav-item {
   padding-left: 20px;
   padding-right: 20px;
 }
 
-/* ------- Custom Headings ------------- */
-
-.big-heading {
-  font-size: 4rem;
-  font-weight: 900;
-  color: white;
-}
-
-.middle-heading {
-  text-align: left;
+.fa-hat-wizard {
   color: #e43f5a;
-  margin-bottom: 20px;
 }
 
-.blog-heading {
-  color: #e43f5a;
-  font-size: 1.5rem;
-}
-
-
-/* ------ Landing Page ---------- */
+/* ------ Landing Login and Registration Pages ---------- */
 
 #landing {
   background-image: url(../images/vintage-wallpaper.png);
@@ -136,117 +111,22 @@ a:hover {
   padding: 5%;
 }
 
-.row-home {
-  width: 75%;
-}
-
-/* -------- Footer ------------- */
-
-
-
-
-
-
-#top-section{
-  padding: 2% 20%;
-}
-
-.colored-section {
-  color: #fff;
-}
-
-
-
-.has-search .form-control {
-  padding-left: 2.375rem;
-}
-
-.has-search .form-control-feedback {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 2.375rem;
-  height: 2.375rem;
-  line-height: 2.375rem;
-  text-align: center;
-  pointer-events: none;
-  color: #aaa;
-}
-
-.wizardScenario {
-  text-align: left;
-  padding: 2%;
-}
-
-.feature-heading {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #1f4068;
-}
-
-.feature-box {
-  padding: 2.5%;
-}
-
 .icon-style {
   color: #e43f5a;
-  margin-bottom: 1.25rem;
 }
 
 .icon-style:hover {
-  color: #1f4068;
+  color: #162447;
 }
 
-.back-to-top {
-  margin-top: 10px;
-  color: #e43f5a;
+.row-home {
+  width: 75%;
+  text-align: center;
 }
 
-
+/* -------- Footer ------------- */
 
 .footer-icon {
   padding: 5px;
 }
 
-/* Table CSS */
-
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-  bottom: 0.5em;
-}
-
-/* Media Queries */
-
-@media (max-width: 992px) {
-  .big-heading {
-    font-size: 2.5rem;
-  }
-
-  .homePageMoney {
-    margin-left: 0px;
-    position: static;
-    width: 40%;
-  }
-
-  .testimonial-text {
-    font-size: 2rem;
-  }
-
-  #kidGroupPic {
-    display: none;
-  }
-}
-
-@media (max-width: 1290px) {
-  .has-search {
-    display: none;
-  }
-}

@@ -1,32 +1,15 @@
-<%- include('../partials/header') %>
+<%- include('../partials/adminHeader') %>
 
-<div class="row">
-    <div class="col-lg-6">
-        <h1 class="big-heading" style="text-align: left;">Manage Centres</h1>
-        <p style="text-align: left; color: #e43f5a;">Add, modify and delete new custom centres to the database.</p>
-        <a href="#add"><input type="button" style="float: left" class="download-btn btn btn-info btn-lg mb-5 mt-5 mr-2" value="Add"></a>
-        <a href="#delete"><input type="button" style="float: left" class="download-btn btn btn-danger btn-lg mb-5 mt-5 mr-2" value="Delete"></a>
-        <a href="#delete"><input type="button" style="float: left" class="download-btn btn btn-light btn-lg mb-5 mt-5 mr-2" value="Update"></a>
-    </div>
-    <div class="col-lg-6">
-    </div>
-</div>
-</div>
-</section>
-
-
-<!-- Add New Centre -->
-
-<section id="add" class="white-section">
+<main>
 
     <div class="container-fluid">
-        <div class="row left">
+        <div class="row">
             <h1 class="mb-5 ml-4">Add New Centre</h1>
         </div>
 
         <form class="needs-validation" novalidate action="/addCentre" method="POST">
           
-            <div class="row left mb-3">
+            <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="centre-name">Centre Name</label>
@@ -53,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="row left mb-3">
+            <div class="row mb-3">
 
                 <div class="col-lg-4">
                     <div class="form-group">
@@ -82,7 +65,7 @@
             </div>
 
 
-            <div class="row left mb-3">
+            <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="long-day-care">Long Day Care?</label>
@@ -116,7 +99,7 @@
 
             </div>
 
-            <div class="row left mb-3">
+            <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="after-school">After School Care?</label>
@@ -150,7 +133,7 @@
 
             </div>
 
-            <div class="row left">
+            <div class="row">
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="suburb">Suburb</label>
@@ -175,29 +158,29 @@
 
             </div>
             
-            <div class="row" style="text-align: left;">
+            <div class="row">
                 <div class="col-lg-6">
                     <button type="submit" class="btn btn-info btn-lg mt-5 mr-3">Add Centre</button>
-                    <a href="#title"><button type="button" class="btn btn-dark btn-lg mt-5">Back to Top</button></a>
+                    <a href="#top"><button type="button" class="btn btn-dark btn-lg mt-5">Back to Top</button></a>
                 </div>
             </div>
         </form>
     </div>
   
-</section>
+
 
 <!-- Delete Existing Centre -->
 
-<section id="delete" class="white-section">
+
 
     <div class="container-fluid">
 
-        <div class="row left">
+        <div class="row">
             <div class="col-lg-6">
                 <h1 class="mb-5">Delete Existing Centre</h1>
                 <form class="needs-validation" novalidate action="/deleteCheck" method="POST">
 
-                    <div class="row left mb-3">
+                    <div class="row mb-3">
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="centre-name">Find Centre Name</label>
@@ -210,7 +193,7 @@
                         </div>
                     </div>
                     
-                    <div class="row" style="text-align: left;">
+                    <div class="row">
                         <div class="col-lg-6">
                             <button type="submit" class="btn btn-info btn-lg mt-5 mr-3">Delete Centre</button>
                         </div>
@@ -221,7 +204,7 @@
                 <h1 class="mb-5">Update Existing Centre</h1>
                 <form class="needs-validation" novalidate action="/updateCheck" method="POST">
 
-                    <div class="row left mb-3">
+                    <div class="row mb-3">
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="centre-name">Find Centre Name</label>
@@ -233,7 +216,7 @@
                         </div>
                    </div>
                     
-                    <div class="row" style="text-align: left;">
+                    <div class="row">
                         <div class="col-lg-6">
                             <button type="submit" class="btn btn-info btn-lg mt-5 mr-3">Find Centre to Update</button>
                         </div>
@@ -242,8 +225,11 @@
             </div>
         </div>              
     </div>
-    
-</section>
+
+
+</main>
+
+
 
 <script>
 

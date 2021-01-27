@@ -1,17 +1,30 @@
 <%- include('../partials/header') %>
 
-
-<section class="white-section">
+<main>
 
     <div class="container-fluid">
-        <div class="row mb-5">
+        <h1 class="mb-5">Your Account</h1>
 
-            <h1 style="padding-left: 15px;">My Account</h1>
+        <h3>Current Email Address:</h3>
+        <p>jaedoyne@hotmail.com</p>
 
-        </div>
+        <form action="/changeEmail" method="POST">
+        
+
+            <button class="btn btn-primary mt-4 mb-4" type="submit">Change Email Address</button>
+
+        </form>
+
+        <form action="/changePassword" method="POST">
+        
+            <button class="btn btn-primary" type="submit">Change Password</button>
+
+        </form>
+
     </div>
 
-</section>
+</main>
+
 
 
 <%- include('../partials/footer') %>

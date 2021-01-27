@@ -1,142 +1,158 @@
 <%- include('../partials/header') %>
 
-<!-- Scenario Form -->
+<main>
 
-<section id="compare" class="white-section">
+    <div class="container-fluid">
 
-<div class="container-fluid">
+        <h1 class="display-4 mt-4 mb-5">Wizard Calculator</h1>
+        <hr>
 
-    <h1 class="display-4 mt-4 mb-5" style="text-align: left;">Wizard Calculator</h1>
+        <form class="needs-validation" novalidate onsubmit="return validation();" action="/wizard" method="POST">
+            <div class="row mb-5">
 
-<form action="/wizard" method="POST">
-    <div class="row mb-5" style="text-align: left;">
-        <div class="col">
-            <h3 class="middle-heading">What sort of household are you?</h3>
+                    <div class="radio form-check p-2 ml-4">
+                        <label class="radio-inline">
+                        <input type="radio" autocomplete="off" id="checkedSingle"
+                                name="household" value="single">&nbsp Single Household</label>
+                        <p id="householdCheckMessage" class="mt-3"></p>
+                    </div>
 
-            <div class="radio form-check p-2 ml-4">
-                <label class="radio-inline">
-                    <input type="radio" autocomplete="off" id="checkedSingle"
-                        name="household" value="single">&nbsp Single Household</label>
+                    <div class="radio form-check p-2 ml-4">
+                        <label class="radio-inline">
+                        <input type="radio" autocomplete="off" id="checkedCouple" 
+                            name="household" value="couple">&nbsp Couple Household</label>
+                    </div>
+
             </div>
-            <div class="radio form-check p-2 ml-4">
-                <label class="radio-inline">
-                    <input type="radio" autocomplete="off" id="checkedCouple" 
-                    name="household" value="couple">&nbsp Couple Household</label>
-            </div>
-            <p id="householdCheckMessage" class="mt-3" style="color:#e43f5a;"></p>
-
-        </div>
-    </div>
-
-
-    <div class="row">
-
-        <!-- Base Scenario -->
-
-        <div class="col-lg-6">
-            <h3 class="middle-heading">Current Scenario</h3>
-
-            <div class="form-group wizardScenario">
-                <label for="kid-number-base">Number of Kids Under 5 in Care</label>
-                <select class="form-control" id="kid-number-base" name="baseKids">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-
-            <div class="form-group wizardScenario">
-                <label for="weekly-cost-base">Weekly Cost of Childcare</label>
-                <input type="number" class="form-control" id="weekly-cost-base" name="baseWeeklyCost"
-                    placeholder=0 >
-                <span id="weekly-cost-base-message"></span>
-            </div>
+     
 
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group wizardScenario">
-                        <label for="parent1-salary-base">Parent 1 Annual Taxable Income Ex Super</label>
+
+                <!-- Base Scenario -->
+
+                <div class="col-lg-3">
+
+                    <h3 class="mb-4">Current Scenario</h3>
+
+                    <div class="form-group">
+                        <label for="kid-number-base">Number of Kids Under 5 in Care</label>
+                        <select class="form-control" id="kid-number-base" name="baseKids">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weekly-cost-base">Weekly Cost of Childcare</label>
+                        <input type="number" class="form-control" id="weekly-cost-base" name="baseWeeklyCost"
+                            placeholder=0 >
+                        <span id="weekly-cost-base-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parent1-salary-base">Parent 1 Annual Taxable Income (Ex-Super)</label>
                         <input type="number" class="form-control" id="parent1-salary-base"
                             name="baseParent1" placeholder=0>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div id="parent2Base" class="form-group wizardScenario">
-                        <label for="parent2-salary-base">Parent 2 Annual Taxable Income Ex Super</label>
+
+                    <div id="parent2Base" class="form-group">
+                        <label for="parent2-salary-base">Parent 2 Annual Taxable Income (Ex-Super)</label>
                         <input type="number" class="form-control" id="parent2-salary-base"
                             name="baseParent2" placeholder=0>
                     </div>
+
+                  
+
                 </div>
-            </div>
-
-        </div>
 
 
-        <!-- Alternative Scenario -->
 
-        <div class="col-lg-6">
-            <h3 class="middle-heading">Alternate Scenario</h3>
+                <div class="col-lg-2">
 
-            <div class="form-group wizardScenario">
-                <label for="kid-number-alt">Number of Kids Under 5 in Care</label>
-                <select class="form-control" id="kid-number-alt" name="altKids">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
+                </div>
 
-            <div class="form-group wizardScenario">
-                <label for="weekly-cost-alt">Weekly Cost of Childcare</label>
-                <input type="number" class="form-control" id="weekly-cost-alt" name="altWeeklyCost"
-                    placeholder=0 >
-                <span id="weekly-cost-alt-message"></span>
+                <!-- Alternative Scenario -->
+
+                <div class="col-lg-3">
+                    <h3 class="mb-4">Alternate Scenario</h3>
+
+                    <div class="form-group">
+                        <label for="kid-number-alt">Number of Kids Under 5 in Care</label>
+                        <select class="form-control" id="kid-number-alt" name="altKids">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weekly-cost-alt">Weekly Cost of Childcare</label>
+                        <input type="number" class="form-control" id="weekly-cost-alt" name="altWeeklyCost"
+                            placeholder=0 >
+                        <span id="weekly-cost-alt-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parent1-salary-alt">Parent 1 Annual Taxable Income (Ex-Super)</label>
+                        <input type="number" class="form-control" id="parent1-salary-alt" name="altParent1"
+                            placeholder=0>
+                    </div>
+
+                    <div id="parent2Alt" class="form-group">
+                        <label for="parent2-salary-alt">Parent 2 Annual Taxable Income (Ex-Super)</label>
+                        <input type="number" class="form-control" id="parent2-salary-alt" name="altParent2"
+                            placeholder=0>
+                    </div>
+
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="form-group wizardScenario">
-                        <label for="parent1-salary-alt">Parent 1 Annual Taxable Income Ex Super</label>
-                        <input type="number" class="form-control" id="parent1-salary-alt" name="altParent1"
-                            placeholder=0>
-                    </div>
+                    <button class="btn btn-lg btn-info mt-4" type="submit">Submit</button>
+                    <button class="btn btn-lg btn-primary mt-4" type="reset">Reset</button>
                 </div>
-                <div class="col-lg-6">
-                    <div id="parent2Alt" class="form-group wizardScenario">
-                        <label for="parent2-salary-alt">Parent 2 Annual Taxable Income Ex Super</label>
-                        <input type="number" class="form-control" id="parent2-salary-alt" name="altParent2"
-                            placeholder=0>
-                    </div>
-                </div>
+                <div class="col-lg-6"></div>
+
             </div>
-        </div>
+
+        </form>
     </div>
-    <div class="row left">
-        <div class="col-lg-6">
-            <button class="btn btn-lg btn-info mt-4" type="submit">Submit</button>
-            <button class="btn btn-lg btn-primary mt-4" type="reset">Reset</button>
-        </div>
-        <div class="col-lg-6"></div>
+</main>
 
-    </div>
 
-</form>
-</div>
 
-</section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
+    function validation(){
+        let boolReturn = true;
+
+        if(document.getElementById('checkedSingle').checked === false && document.getElementById('checkedCouple').checked === false){
+            document.getElementById('householdCheckMessage').innerHTML = "<em>Please choose a household option.</em>";
+            boolReturn = false;
+        }
+
+        if(boolReturn){
+            return true;
+        } else return false;
+    }
+
+
 
         $('#checkedSingle').on('click', function(){
 
             $('#parent2Alt').hide();
             $('#parent2Base').hide();
+            $('#householdCheckMessage').hide();
         });
 
         $('#checkedCouple').on('click', function(){
 
             $('#parent2Alt').show();
             $('#parent2Base').show();
+            $('#householdCheckMessage').hide();
         });
 
 
