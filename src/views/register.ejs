@@ -24,26 +24,49 @@
           </div>
 
             <div class="outer-box">
-              <h2 class="mt-5 mb-5 ml-5">Register</h2>
+              <h2 class="mt-5 mb-4 ml-5">Register</h2>
+              <p id="passwordNoMatch" class="ml-5 text-warning"></p>
                 <div class="inner-box mb-5">
           
-                  <form action="/register" method="POST">
+                  <form onsubmit="return validation()" action="/register" method="POST">
                       <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="username">
                       </div>
                       <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password">
+                        <label for="password">Choose Password</label>
+                        <input type="password" class="form-control" name="password" id="password">
                       </div>
-                        <button type="submit" class="btn btn-lg mr-4 mt-5 mb-4 btn-primary">Register</button> 
-                        <a class="btn btn-info btn-lg float-right mt-5" type="button" href="/">Go Back</a>
+                      <div class="form-group">
+                        <label for="repassword">Re-enter Password</label>
+                        <input type="password" class="form-control" name="repassword" id="repassword">
+                      </div>
+                        <button type="submit" class="btn btn-lg mr-4 mt-3 mb-3 btn-primary">Register</button> 
+                        <a class="btn btn-info btn-lg float-right mt-3" type="button" href="/">Go Back</a>
+                        <button type="reset" class="btn btn-lg float-right mr-4 mt-3 mb-3 btn-light">Reset</button> 
                   </form>  
 
                 </div>
             </div>
         </div>
     </main>
+
+    <script type="text/javascript">
+
+    function validation(){
+     
+      let password = document.getElementById("password").value;
+      let repassword = document.getElementById("repassword").value;
+
+      if(password != repassword){
+        document.getElementById("passwordNoMatch").innerHTML = "<p>Passwords did not match, please try again.</p>";
+        return false;
+      } else { return true; }
+
+
+    }
+
+    </script>
 
     <footer>
         <div class="container-fluid">
