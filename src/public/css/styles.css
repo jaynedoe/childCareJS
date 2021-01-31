@@ -5,7 +5,6 @@ html, body {
 }
 
 body {
-  font-family: "ABeeZee", sans-serif;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -15,32 +14,28 @@ body {
 
 header {
   padding: 2% 15%;
-  background-image: url(../images/vintage-wallpaper.png);
+
 }
 
 main {
+  background: rgb(255,255,255);
+  background: linear-gradient(152deg, rgba(255,255,255,1) 0%, rgba(239,239,240,0.4290091036414566) 35%, rgba(204,204,204,1) 100%);
   flex-grow: 1;
   padding: 3% 15%;
   text-align: left;
 }
 
+.form-inline label {
+  justify-content: left;
+  padding-bottom: 0.5rem;
+}
+
 footer {
-  background-image: url(../images/vintage-wallpaper.png);
-  padding: 2%;
-  color: #e43f5a;
-}
-
-h1, h2, a, #householdCheckMessage {
-  color: #e43f5a;
-}
-
-p {
-  font-family: "Montserrat", sans-serif;
+  padding: 1.5%;
 }
 
 a:hover {
   text-decoration: none;
-  color: #fff;
 }
 
 /* ------- All PAGES ------------ */
@@ -63,6 +58,7 @@ a:hover {
 
 .navbar {
   padding: 25px 0px 0px 0px;
+  color: white;
 }
 
 .nav-item {
@@ -70,15 +66,12 @@ a:hover {
   padding-right: 20px;
 }
 
-.fa-hat-wizard {
-  color: #e43f5a;
-}
-
 /* ------ Landing Login and Registration Pages ---------- */
 
 #landing {
-  background-image: url(../images/vintage-wallpaper.png);
   text-align: left;
+  flex-grow: 1;
+  padding: 3% 15%;
 }
 
 .row-landing {
@@ -98,11 +91,10 @@ a:hover {
 .inner-box{
   width: 80%;
   height: 300px;
-  background-image: url(../images/vintage-wallpaper.png);
   padding: 35px;
   border-radius: 0.5%;
   margin: 0 auto;
-  color: white;
+
 }
 
 /* ------ Home Page ------------- */
@@ -111,12 +103,9 @@ a:hover {
   padding: 5%;
 }
 
-.icon-style {
-  color: #e43f5a;
-}
-
-.icon-style:hover {
-  color: #162447;
+.home-card {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  padding: 8%;
 }
 
 .row-home {

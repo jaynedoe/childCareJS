@@ -2,199 +2,126 @@
 
 <main>
         <div class="container-fluid">
-
-            <div>
-                <h2>Difference per Fortnight: 
-                    <span class="display-4">$<%= difference %>
-                    </span>
-                </h2>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h3 class="mb-4">Current Fortnightly Income: 
-                            <span class="text-info">$<%= baseFortnightlyIncome %></span>
-                        </h3>
-                        <hr>
-                        <p>Number of Kids in Care: <%= bKids %></p>
-                        <p>Weekly Cost of Childcare: $<%= bWeeklyCost %></p>
-                        <p>Annual Taxable Income - Parent 1: $<%= p1SalaryBase %> </p>
-                        <p>Annual Taxable Income - Parent 2: $<%= p2SalaryBase %> </p>
-                    </div>
-                    <div class="col-lg-6">
-                        <h3 class="mb-4">Alternative Fortnightly Income: 
-                            <span class="text-info">$<%= altFortnightlyIncome %></span>
-                        </h3>
-                        <hr>
-                        <p>Number of Kids in Care: <%= aKids %></p>
-                        <p>Weekly Cost of Childcare: $<%= aWeeklyCost %> </p>
-                        <p>Annual Taxable Income - Parent 1: $<%= p1SalaryAlt %> </p>
-                        <p>Annual Taxable Income - Parent 2: $<%= p2SalaryAlt %> </p>                        
-                    </div>
-                </div>
+            <div class="mb-5">
+                <h1 class="display-4 mb-5">Wizard Results</h1>      
             </div>
 
-            <h4>The following is a breakdown of the two scenarios you chose.</h4>
-            <div>
-                <table class="table table-hover table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>Current Scenario</th>
-                            <th>Alternate Scenario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Partner 1</strong></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Taxable Income</td>
-                            <td>$<%= p1SalaryBase %></td>
-                            <td>$<%= p1SalaryAlt %></td>
-                        </tr>
-                        <tr>
-                            <td>Gross Tax Payable</td>
-                            <td>$<%= grossTaxP1Base %></td>
-                            <td>$<%= grossTaxP1Alt %></td>
-                        </tr>
-                        <tr>
-                            <td>Medicare Levy</td>
-                            <td>$<%= medicareP1Base %></td>
-                            <td>$<%= medicareP1Alt %></td>
-                        </tr>
-                        <tr>
-                            <td>Low Income Tax Offset</td>
-                            <td>$<%= lowIncomeTaxOffsetP1Base %></td>
-                            <td>$<%= lowIncomeTaxOffsetP1Alt %></td>
-                        </tr>
-                        <tr>
-                            <td>Mid Income Tax Offset</td>
-                            <td>$<%= midIncomeTaxOffsetP1Base %></td>
-                            <td>$<%= midIncomeTaxOffsetP1Alt %></td>
-                        </tr>
-                        <tr>
-                            <td class="table-danger"><strong>Net Tax Payable</strong></td>
-                            <td class="table-danger"><strong>$<%= netTaxPayableP1Base %></strong></td>
-                            <td class="table-danger"><strong>$<%= netTaxPayableP1Alt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td class="table-info"><strong>Net Income After Tax</strong></td>
-                            <td class="table-info"><strong>$<%= netIncomeAfterTaxP1Base %></strong></td>
-                            <td class="table-info"><strong>$<%= netIncomeAfterTaxP1Alt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Partner 2</strong></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Taxable Income</td>
-                            <td>$<%= p2SalaryBase %></td>
-                            <td>$<%= p2SalaryAlt %></td>
-                        </tr>
-                        <tr>
-                            <td>Gross Tax Payable</td>
-                            <td>$<%= grossTaxP2Base %></td>
-                            <td>$<%= grossTaxP2Alt %></td>
-                        </tr>
-                        <tr>
-                            <td>Medicare Levy</td>
-                            <td>$<%= medicareP2Base %></td>
-                            <td>$<%= medicareP2Alt %></td>
-                        </tr>
-                        <tr>
-                            <td>Low Income Tax Offset</td>
-                            <td>$<%= lowIncomeTaxOffsetP2Base %></td>
-                            <td>$<%= lowIncomeTaxOffsetP2Alt %></td>
-                        </tr>
-                        <tr>
-                            <td>Mid Income Tax Offset</td>
-                            <td>$<%= midIncomeTaxOffsetP2Base %></td>
-                            <td>$<%= midIncomeTaxOffsetP2Alt %></td>
-                        </tr>
-                        <tr>
-                            <td class="table-danger"><strong>Net Tax Payable</strong></td>
-                            <td class="table-danger"><strong>$<%= netTaxPayableP2Base %></strong></td>
-                            <td class="table-danger"><strong>$<%= netTaxPayableP2Alt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td class="table-info"><strong>Net Income After Tax</strong></td>
-                            <td class="table-info"><strong>$<%= netIncomeAfterTaxP2Base %></strong></td>
-                            <td class="table-info"><strong>$<%= netIncomeAfterTaxP2Alt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Family Tax Benefit A</td>
-                            <td>$<%= familyTaxBenefitABase %></td>
-                            <td>$<%= familyTaxBenefitAAlt %></td>
-                        </tr>
-                        <tr>
-                            <td>Family Tax Benefit B</td>
-                            <td>$<%= familyTaxBenefitBBase %></td>
-                            <td>$<%= familyTaxBenefitBAlt %></td>
-                        </tr>
-                        <tr>
-                            <td class="table-info"><strong>Total Centrelink Benefit</strong></td>
-                            <td class="table-info"><strong>$<%= totalCentrelinkBase %></strong></td>
-                            <td class="table-info"><strong>$<%= totalCentrelinkAlt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Childcare Centre Expenses</td>
-                            <td>$<%= childCareExpensesBase %></td>
-                            <td>$<%= childCareExpensesAlt %></td>
-                        </tr>
-                        <tr>
-                            <td><em>Less Childcare Subsidy</em></td>
-                            <td><em>$<%= childCareSubsidyBase %></em></td>
-                            <td><em>$<%= childCareSubsidyAlt %></em></td>
-                        </tr>
-                        <tr>
-                            <td class="table-danger"><strong>Net Childcare Expenses</strong></td>
-                            <td class="table-danger"><strong>$<%= netChildCareBase %></strong></td>
-                            <td class="table-danger"><strong>$<%= netChildCareAlt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="table-info"><strong>NET SURPLUS DEFICIT</strong></td>
-                            <td class="table-info"><strong>$<%= netSurplusDeficitBase %></strong></td>
-                            <td class="table-info"><strong>$<%= netSurplusDeficitAlt %></strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Net Income Per Fortnight</strong>
-                            </td>
-                            <td>$<strong><%= baseFortnightlyIncome %></strong></td>
-                            <td>$<strong><%= altFortnightlyIncome %></strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <a href="wizard/wizardLanding"><input type="button"
-                    class="btn btn-dark btn-lg mb-5 mt-5" value="Run Again"></a>
+            <table class="table">
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Scenario One</td>
+                    <td>Scenario Two</td>
+                </tr>
+                <tr>
+                    <td>HOUSEHOLD INCOME</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Family Income</td>
+                    <td>$4,636 per fortnight</td>
+                    <td>$4,636 per fortnight</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Karina After Tax Income</td>
+                    <td>$2,000 per fortnight</td>
+                    <td>$1,000 per fortnight</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Karina Paid Hours Per Week</td>
+                    <td>20</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Daniel After Tax Income</td>
+                    <td>$2,000 per fortnight</td>
+                    <td>$1,000 per fortnight</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Daniel Paid Hours Per Week</td>
+                    <td>20</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>PAID CHILDCARE</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Out of Pocket Childcare</td>
+                    <td>$319 per fortnight</td>
+                    <td>$420 per fortnight</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Riley Centre-Based Days</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Lincoln Centre-Based Days</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Activity Assessed Parent</td>
+                    <td>Karina</td>
+                    <td>Karina</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Family Income for Subsidy Calculation</td>
+                    <td>$150,000</td>
+                    <td>$250,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Max Hours of Subsidised Care</td>
+                    <td>72</td>
+                    <td>72</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Care Hours</td>
+                    <td>Karina</td>
+                    <td>Karina</td>
+                </tr>
+
+            </table>
+
+
         </div>
     
-    <a href="#top">
-        <p>Back to Top</p>
-    </a>
-
 </main>
          
 

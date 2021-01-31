@@ -237,140 +237,147 @@ appRouter.post("/search", function (req, res) {
 
 appRouter.post("/wizard", function (req, res) {
   //require all the input data using body parser and store in variables
-  let householdType = req.body.household;
-  let bKids = req.body.baseKids;
-  let aKids = req.body.altKids;
-  let bWeeklyCost = req.body.baseWeeklyCost;
-  let aWeeklyCost = req.body.altWeeklyCost;
-  let p1SalaryBase = req.body.baseParent1;
-  let p1SalaryAlt = req.body.altParent1;
-  let p2SalaryBase = req.body.baseParent2;
-  let p2SalaryAlt = req.body.altParent2;
+  let householdType = "couple";
+  let parent1Salary1 = req.body.parent1Salary1;
+  let parent1Salary2 = req.body.parent1Salary2;
+  let parent1Hours1 = req.body.parent1Hours1;
+  let parent1Hours2 = req.body.parent1Hours2;
+  let parent2Salary1 = req.body.parent2Salary1;
+  let parent2Salary2 = req.body.parent2Salary2;
+  let parent2Hours1 = req.body.parent2Hours1;
+  let parent2Hours2 = req.body.parent2Hours2;
 
-  if (householdType == "single") {
-    p2SalaryBase = 0;
-    p2SalaryAlt = 0;
-  }
+  let childNames1 = req.body.childNames1;
+  let centreType1 = req.body.centreType1;
+  let daysInCare1 = req.body.daysInCare1;
+  let dailyCost1 = req.body.dailyCost1;
+  let sessionLength1 = req.body.sessionLength1;
+
+  let childNames2 = req.body.childNames2;
+  let centreType2 = req.body.centreType2;
+  let daysInCare2 = req.body.daysInCare2;
+  let dailyCost2 = req.body.dailyCost2;
+  let sessionLength2 = req.body.sessionLength2;
 
   //use stored inputs to perform calculations
-  let grossTaxP1Base = calculator.grossTaxPayable(p1SalaryBase);
-  let grossTaxP2Base = calculator.grossTaxPayable(p2SalaryBase);
-  let grossTaxP1Alt = calculator.grossTaxPayable(p1SalaryAlt);
-  let grossTaxP2Alt = calculator.grossTaxPayable(p2SalaryAlt);
+  let grossTaxP1Base = calculator.grossTaxPayable(parent1Salary1);
+  let grossTaxP2Base = calculator.grossTaxPayable(parent2Salary1);
+  let grossTaxP1Alt = calculator.grossTaxPayable(parent1Salary2);
+  let grossTaxP2Alt = calculator.grossTaxPayable(parent2Salary2);
 
   //medicareLevy
-  let medicareP1Base = calculator.medicareLevy(p1SalaryBase);
-  let medicareP2Base = calculator.medicareLevy(p2SalaryBase);
-  let medicareP1Alt = calculator.medicareLevy(p1SalaryAlt);
-  let medicareP2Alt = calculator.medicareLevy(p2SalaryAlt);
+  let medicareP1Base = calculator.medicareLevy(parent1Salary1);
+  let medicareP2Base = calculator.medicareLevy(parent2Salary1);
+  let medicareP1Alt = calculator.medicareLevy(parent1Salary2);
+  let medicareP2Alt = calculator.medicareLevy(parent2Salary2);
 
   //lowIncomeTaxOffset
-  let lowIncomeTaxOffsetP1Base = calculator.lowIncomeTaxOffset(p1SalaryBase);
-  let lowIncomeTaxOffsetP2Base = calculator.lowIncomeTaxOffset(p2SalaryBase);
-  let lowIncomeTaxOffsetP1Alt = calculator.lowIncomeTaxOffset(p1SalaryAlt);
-  let lowIncomeTaxOffsetP2Alt = calculator.lowIncomeTaxOffset(p2SalaryAlt);
+  let lowIncomeTaxOffsetP1Base = calculator.lowIncomeTaxOffset(parent1Salary1);
+  let lowIncomeTaxOffsetP2Base = calculator.lowIncomeTaxOffset(parent2Salary1);
+  let lowIncomeTaxOffsetP1Alt = calculator.lowIncomeTaxOffset(parent1Salary2);
+  let lowIncomeTaxOffsetP2Alt = calculator.lowIncomeTaxOffset(parent2Salary2);
 
   //midIncomeTaxOffset
-  let midIncomeTaxOffsetP1Base = calculator.midIncomeTaxOffset(p1SalaryBase);
-  let midIncomeTaxOffsetP2Base = calculator.midIncomeTaxOffset(p2SalaryBase);
-  let midIncomeTaxOffsetP1Alt = calculator.midIncomeTaxOffset(p1SalaryAlt);
-  let midIncomeTaxOffsetP2Alt = calculator.midIncomeTaxOffset(p2SalaryAlt);
+  let midIncomeTaxOffsetP1Base = calculator.midIncomeTaxOffset(parent1Salary1);
+  let midIncomeTaxOffsetP2Base = calculator.midIncomeTaxOffset(parent2Salary1);
+  let midIncomeTaxOffsetP1Alt = calculator.midIncomeTaxOffset(parent1Salary2);
+  let midIncomeTaxOffsetP2Alt = calculator.midIncomeTaxOffset(parent2Salary2);
 
   //netTaxPayable
-  let netTaxPayableP1Base = calculator.netTaxPayable(p1SalaryBase);
-  let netTaxPayableP2Base = calculator.netTaxPayable(p2SalaryBase);
-  let netTaxPayableP1Alt = calculator.netTaxPayable(p1SalaryAlt);
-  let netTaxPayableP2Alt = calculator.netTaxPayable(p2SalaryAlt);
+  let netTaxPayableP1Base = calculator.netTaxPayable(parent1Salary1);
+  let netTaxPayableP2Base = calculator.netTaxPayable(parent2Salary1);
+  let netTaxPayableP1Alt = calculator.netTaxPayable(parent1Salary2);
+  let netTaxPayableP2Alt = calculator.netTaxPayable(parent2Salary2);
 
   //netIncomeAfterTax
-  let netIncomeAfterTaxP1Base = calculator.netIncomeAfterTax(p1SalaryBase);
-  let netIncomeAfterTaxP2Base = calculator.netIncomeAfterTax(p2SalaryBase);
-  let netIncomeAfterTaxP1Alt = calculator.netIncomeAfterTax(p1SalaryAlt);
-  let netIncomeAfterTaxP2Alt = calculator.netIncomeAfterTax(p2SalaryAlt);
+  let netIncomeAfterTaxP1Base = calculator.netIncomeAfterTax(parent1Salary1);
+  let netIncomeAfterTaxP2Base = calculator.netIncomeAfterTax(parent2Salary1);
+  let netIncomeAfterTaxP1Alt = calculator.netIncomeAfterTax(parent1Salary2);
+  let netIncomeAfterTaxP2Alt = calculator.netIncomeAfterTax(parent2Salary2);
 
   //NEED TWO - BEFORE AND AFTER
   //familyTaxBenefitA
   let familyTaxBenefitABase = calculator.familyTaxBenefitA(
-    p1SalaryBase,
-    p2SalaryBase,
-    bKids
+    parent1Salary1,
+    parent2Salary1,
+    2
   );
   let familyTaxBenefitAAlt = calculator.familyTaxBenefitA(
-    p1SalaryAlt,
-    p2SalaryAlt,
-    aKids
+    parent1Salary2,
+    parent2Salary2,
+    2
   );
 
   //familyTaxBeneftB
   let familyTaxBenefitBBase = calculator.familyTaxBenefitB(
-    p1SalaryBase,
-    p2SalaryBase
+    parent1Salary1,
+    parent2Salary1
   );
   let familyTaxBenefitBAlt = calculator.familyTaxBenefitB(
-    p1SalaryAlt,
-    p2SalaryAlt
+    parent1Salary2,
+    parent2Salary2
   );
 
   //totalCentrelink
   let totalCentrelinkBase = calculator.totalCentrelink(
-    p1SalaryBase,
-    p2SalaryBase,
-    bKids
+    parent1Salary1,
+    parent2Salary1,
+    2
   );
   let totalCentrelinkAlt = calculator.totalCentrelink(
-    p1SalaryAlt,
-    p2SalaryAlt,
-    aKids
+    parent1Salary2,
+    parent2Salary2,
+    2
   );
 
   //childcareExpenses
-  let childCareExpensesBase = calculator.childCareExpenses(bWeeklyCost);
-  let childCareExpensesAlt = calculator.childCareExpenses(aWeeklyCost);
+  // let childCareExpensesBase = calculator.childCareExpenses(bWeeklyCost);
+  // let childCareExpensesAlt = calculator.childCareExpenses(aWeeklyCost);
 
-  //childcareSubsidy
-  let childCareSubsidyBase = calculator.childcareSubsidy(bWeeklyCost);
-  let childCareSubsidyAlt = calculator.childcareSubsidy(aWeeklyCost);
+  // //childcareSubsidy
+  // let childCareSubsidyBase = calculator.childcareSubsidy(bWeeklyCost);
+  // let childCareSubsidyAlt = calculator.childcareSubsidy(aWeeklyCost);
 
-  //netChildCare
-  let netChildCareBase = calculator.netChildCare(bWeeklyCost);
-  let netChildCareAlt = calculator.netChildCare(aWeeklyCost);
+  // //netChildCare
+  // let netChildCareBase = calculator.netChildCare(bWeeklyCost);
+  // let netChildCareAlt = calculator.netChildCare(aWeeklyCost);
 
-  //netSurplusDeficit
-  let netSurplusDeficitBase = calculator.netSurplusDeficit(
-    p1SalaryBase,
-    p2SalaryBase,
-    bWeeklyCost,
-    bKids
-  );
-  let netSurplusDeficitAlt = calculator.netSurplusDeficit(
-    p1SalaryAlt,
-    p2SalaryAlt,
-    aWeeklyCost,
-    aKids
-  );
+  // //netSurplusDeficit
+  // let netSurplusDeficitBase = calculator.netSurplusDeficit(
+  //   p1SalaryBase,
+  //   p2SalaryBase,
+  //   bWeeklyCost,
+  //   bKids
+  // );
+  // let netSurplusDeficitAlt = calculator.netSurplusDeficit(
+  //   p1SalaryAlt,
+  //   p2SalaryAlt,
+  //   aWeeklyCost,
+  //   aKids
+  // );
 
-  let difference = calculator.difference(
-    p1SalaryBase,
-    p2SalaryBase,
-    p1SalaryAlt,
-    p2SalaryAlt,
-    bWeeklyCost,
-    aWeeklyCost,
-    bKids,
-    aKids
-  );
-  let baseFortnightlyIncome = calculator.incomePerFortnight(
-    p1SalaryBase,
-    p2SalaryBase,
-    bWeeklyCost,
-    bKids
-  );
-  let altFortnightlyIncome = calculator.incomePerFortnight(
-    p1SalaryAlt,
-    p2SalaryAlt,
-    aWeeklyCost,
-    aKids
-  );
+  // let difference = calculator.difference(
+  //   p1SalaryBase,
+  //   p2SalaryBase,
+  //   p1SalaryAlt,
+  //   p2SalaryAlt,
+  //   bWeeklyCost,
+  //   aWeeklyCost,
+  //   bKids,
+  //   aKids
+  // );
+  // let baseFortnightlyIncome = calculator.incomePerFortnight(
+  //   p1SalaryBase,
+  //   p2SalaryBase,
+  //   bWeeklyCost,
+  //   bKids
+  // );
+  // let altFortnightlyIncome = calculator.incomePerFortnight(
+  //   p1SalaryAlt,
+  //   p2SalaryAlt,
+  //   aWeeklyCost,
+  //   aKids
+  // );
 
   if (householdType == "single") {
     res.render("wizard/wizardResultsS", {
@@ -412,60 +419,9 @@ appRouter.post("/wizard", function (req, res) {
       altFortnightlyIncome: altFortnightlyIncome,
     });
   } else {
-    res.render("wizard/wizardResultsC", {
-      household: householdType,
-      bKids: bKids,
-      aKids: aKids,
-      bWeeklyCost: bWeeklyCost,
-      aWeeklyCost: aWeeklyCost,
-      p1SalaryBase: p1SalaryBase,
-      p1SalaryAlt: p1SalaryAlt,
-      p2SalaryBase: p2SalaryBase,
-      p2SalaryAlt: p2SalaryAlt,
-      grossTaxP1Base: grossTaxP1Base,
-      grossTaxP1Alt: grossTaxP1Alt,
-      grossTaxP2Base: grossTaxP2Base,
-      grossTaxP2Alt: grossTaxP2Alt,
-      medicareP1Base: medicareP1Base,
-      medicareP1Alt: medicareP1Alt,
-      medicareP2Base: medicareP2Base,
-      medicareP2Alt: medicareP2Alt,
-      lowIncomeTaxOffsetP1Base: lowIncomeTaxOffsetP1Base,
-      lowIncomeTaxOffsetP1Alt: lowIncomeTaxOffsetP1Alt,
-      lowIncomeTaxOffsetP2Base: lowIncomeTaxOffsetP2Base,
-      lowIncomeTaxOffsetP2Alt: lowIncomeTaxOffsetP2Alt,
-      midIncomeTaxOffsetP1Base: midIncomeTaxOffsetP1Base,
-      midIncomeTaxOffsetP1Alt: midIncomeTaxOffsetP1Alt,
-      midIncomeTaxOffsetP2Base: midIncomeTaxOffsetP2Base,
-      midIncomeTaxOffsetP2Alt: midIncomeTaxOffsetP2Alt,
-      netTaxPayableP1Base: netTaxPayableP1Base,
-      netTaxPayableP1Alt: netTaxPayableP1Alt,
-      netTaxPayableP2Base: netTaxPayableP2Base,
-      netTaxPayableP2Alt: netTaxPayableP2Alt,
-      netIncomeAfterTaxP1Base: netIncomeAfterTaxP1Base,
-      netIncomeAfterTaxP1Alt: netIncomeAfterTaxP1Alt,
-      netIncomeAfterTaxP2Base: netIncomeAfterTaxP2Base,
-      netIncomeAfterTaxP2Alt: netIncomeAfterTaxP2Alt,
-      familyTaxBenefitABase: familyTaxBenefitABase,
-      familyTaxBenefitAAlt: familyTaxBenefitAAlt,
-      familyTaxBenefitBBase: familyTaxBenefitBBase,
-      familyTaxBenefitBAlt: familyTaxBenefitBAlt,
-      totalCentrelinkBase: totalCentrelinkBase,
-      totalCentrelinkAlt: totalCentrelinkAlt,
-      childCareExpensesBase: childCareExpensesBase,
-      childCareExpensesAlt: childCareExpensesAlt,
-      childCareSubsidyBase: childCareSubsidyBase,
-      childCareSubsidyAlt: childCareSubsidyAlt,
-      netChildCareBase: netChildCareBase,
-      netChildCareAlt: netChildCareAlt,
-      netSurplusDeficitBase: netSurplusDeficitBase,
-      netSurplusDeficitAlt: netSurplusDeficitAlt,
-      difference: difference,
-      baseFortnightlyIncome: baseFortnightlyIncome,
-      altFortnightlyIncome: altFortnightlyIncome,
-    });
-  }
-});
+    res.render("wizard/wizardResultsC")
+    }
+  });
 
 appRouter.post("/addCentre", function (req, res) {
   let centreName = req.body.centreName;

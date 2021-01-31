@@ -7,15 +7,14 @@
         <!-- NAME SEARCH ONLY -->
         
             <div class="row">
-                <h1 class="mb-5">Search By Centre Name</h1>
+                <h1 class="display-4 mb-5 mt-4">Search By Centre Name</h1>
             </div>
 
             <form action="/nameSearch" method="POST">
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pr-4">
                         <div class="form-group">
-                            <label for="nameSearch">Centre Name</label>
                             <input type="text" class="form-control" id="nameSearch" name="nameSearch" required>
                             <div class="invalid-feedback">Please provide a name.</div>
                         </div>
@@ -24,7 +23,7 @@
                 
                 <div class="row">
                     <div class="col-lg-6">
-                        <button type="submit" class="btn btn-info btn-lg mt-5">Find Centre</button>
+                        <button type="submit" class="btn btn-info btn-lg mt-3 mb-4">Find Centre</button>
                     </div>
                 </div>
 
@@ -33,13 +32,13 @@
             <!-- ADVANCED SEARCH -->
             
             <div class="row mt-5">
-                <h1 class="mb-5">Advanced Search</h1>
+                <h1 class="display-4 mb-5 mt-5">Advanced Search</h1>
             </div>
             
             <form class="needs-validation" novalidate action="/search" method="POST">
             
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pr-4">
                         <div class="form-group">
                             <label for="suburb">Suburb</label>
                             <input type="text" class="form-control" id="suburb" name="suburb" required>
@@ -80,7 +79,7 @@
             
             <div class="row">            
                 <div class="col-lg-6">
-                    <button type="submit" class="btn btn-info btn-lg mt-5">Show Matching Centres</button>
+                    <button type="submit" class="btn btn-info btn-lg mt-3 mb-4">Show Matching Centres</button>
                 </div>
             </div>
         </form>

@@ -16,16 +16,17 @@
 
   <body>
 
-    <main id="landing">
+    <section id="landing" class="bg-info">
         <div class="container-fluid">
 
           <div class="row row-landing">
-            <h1 class="mt-5 mb-5 display-4">ChildCare Financial Wizard</h1>
+            <span><i class="fas fa-hat-wizard fa-6x mr-3 mt-4 text-light"></i></span>
+            <h1 class="mt-5 mb-5 display-3 text-light">ChildCare Financial Wizard</h1>
           </div>
 
             <div class="outer-box">
               <h2 class="mt-5 mb-5 ml-5">Log In</h2>
-                <div class="inner-box mb-5">
+                <div class="inner-box mb-5 bg-light">
           
                   <form action="/login" method="POST">
                       <div class="form-group">
@@ -36,25 +37,15 @@
                         <label for="password">Password</label>
                         <input type="password" class="form-control" name="password">
                       </div>
-                        <button type="submit" class="btn btn-lg mr-4 mt-5 mb-4 btn-primary">Log In</button> 
+                        <button type="submit" class="btn btn-lg mr-4 mt-5 mb-4 btn-dark">Log In</button> 
                   </form>  
                   <a class="float-right" href="/register">Need to Sign Up?</a> 
                 </div>
             </div>
         </div>
-    </main>
+      </section>
 
-    <footer>
-        <div class="container-fluid">
-            <div class="mb-4">
-                <a href="https://www.twitter.com/"><i class="text-light footer-icon fab fa-twitter"></i></a>
-                <a href="https://www.facebook.com/"><i class="text-light footer-icon fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/"><i class="text-light footer-icon fab fa-instagram"></i></a>
-                <a href="mailto:jaedoyne@gmail.com/"><i class="text-light footer-icon fas fa-envelope"></i></a>
-            </div>
-            <p>© Copyright 2020 finCare</p>
-        </div>
-    </footer>
+
 
   </body>
 
