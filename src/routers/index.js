@@ -6,6 +6,8 @@ const passport = require("passport");
 
 let deleteCentreId = "";
 let updateCentreId = "";
+let arrangements1 = [];
+let arrangements2 = [];
 
 const appRouter = new Router();
 
@@ -235,6 +237,7 @@ appRouter.post("/search", function (req, res) {
   });
 });
 
+
 appRouter.post("/wizard", function (req, res) {
   //require all the input data using body parser and store in variables
   let householdType = "couple";
@@ -247,17 +250,77 @@ appRouter.post("/wizard", function (req, res) {
   let parent2Hours1 = req.body.parent2Hours1;
   let parent2Hours2 = req.body.parent2Hours2;
 
-  let childNames1 = req.body.childNames1;
-  let centreType1 = req.body.centreType1;
-  let daysInCare1 = req.body.daysInCare1;
-  let dailyCost1 = req.body.dailyCost1;
-  let sessionLength1 = req.body.sessionLength1;
+  let cBDaysInCareS1C1 = req.body.cBDaysInCareS1C1; 
+  let cBDailyCostS1C1 = req.body.cBDailyCostS1C1;
+  let cBSessionLengthS1C1 = req.body.cBSessionLengthS1C1;
+  
+  let cBDaysInCareS1C2 = req.body.cBDaysInCareS1C2; 
+  let cBDailyCostS1C2 = req.body.cBDailyCostS1C2;
+  let cBSessionLengthS1C2 = req.body.cBSessionLengthS1C2;
 
-  let childNames2 = req.body.childNames2;
-  let centreType2 = req.body.centreType2;
-  let daysInCare2 = req.body.daysInCare2;
-  let dailyCost2 = req.body.dailyCost2;
-  let sessionLength2 = req.body.sessionLength2;
+  let totalCentreBasedCost1 = (cBDaysInCareS1C1 * cBDailyCostS1C1) + (cBDaysInCareS1C2 * cBDailyCostS1C2);
+  let totalCentreBasedHours1 = (cBDaysInCareS1C1 * cBSessionLengthS1C1) + (cBDaysInCareS1C2 * cBDaysInCareS1C2);
+
+  let cBDaysInCareS2C1 = req.body.cBDaysInCareS2C1; 
+  let cBDailyCostS2C1 = req.body.cBDailyCostS2C1;
+  let cBSessionLengthS2C1 = req.body.cBSessionLengthS2C1;
+
+  let cBDaysInCareS2C2 = req.body.cBDaysInCareS2C2; 
+  let cBDailyCostS2C2 = req.body.cBDailyCostS2C2;
+  let cBSessionLengthS2C2 = req.body.cBSessionLengthS2C2;
+
+  let totalCentreBasedCost2 = (cBDaysInCareS2C1 * cBDailyCostS2C1) + (cBDaysInCareS2C2 * cBDailyCostS2C2);
+  let totalCentreBasedHours2 = (cBDaysInCareS2C1 * cBSessionLengthS2C1) + (cBDaysInCareS2C2 * cBDaysInCareS2C2);
+
+  let fDCDaysInCareS1C1 = req.body.fDCDaysInCareS1C1;
+  let fDCDailyCostS1C1 = req.body.fDCDailyCostS1C1;
+  let fDCSessionLengthS1C1 = req.body.fDCSessionLengthS1C1;
+
+  let fDCDaysInCareS1C2 = req.body.fDCDaysInCareS1C2;
+  let fDCDailyCostS1C2 = req.body.fDCDailyCostS1C2;
+  let fDCSessionLengthS1C2 = req.body.fDCSessionLengthS1C2;
+
+  let totalFamilyDayCareCost1 = (fDCDaysInCareS1C1*fDCDailyCostS1C1) + (fDCDaysInCareS1C2*fDCDailyCostS1C2);
+  let totalFamilyDayCareHours1 = (fDCDaysInCareS1C1 * fDCSessionLengthS1C1) + (fDCDaysInCareS1C2 * fDCSessionLengthS1C2);
+
+  let fDCDaysInCareS2C1 = req.body.fDCDaysInCareS2C1;
+  let fDCDailyCostS2C1 = req.body.fDCDailyCostS2C1;
+  let fDCSessionLengthS2C1 = req.body.fDCSessionLengthS2C1;
+
+  let fDCDaysInCareS2C2 = req.body.fDCDaysInCareS2C2;
+  let fDCDailyCostS2C2 = req.body.fDCDailyCostS2C2;
+  let fDCSessionLengthS2C2 = req.body.fDCSessionLengthS2C2;
+
+  let totalFamilyDayCareCost2 = (fDCDaysInCareS2C1*fDCDailyCostS2C1) + (fDCDaysInCareS2C2*fDCDailyCostS2C2);
+  let totalFamilyDayCareHours2 = (fDCDaysInCareS2C1 * fDCSessionLengthS2C1) + (fDCDaysInCareS2C2 * fDCSessionLengthS2C2);
+
+  let oSHDaysInCareS1C1 = req.body.oSHDaysInCareS1C1;
+  let oSHDailyCostS1C1 = req.body.oSHDailyCostS1C1;
+  let oSHSessionLengthS1C1 = req.body.oSHSessionLengthS1C1;
+
+  let oSHDaysInCareS1C2 = req.body.oSHDaysInCareS1C2;
+  let oSHDailyCostS1C2 = req.body.oSHDailyCostS1C2;
+  let oSHSessionLengthS1C2 = req.body.oSHSessionLengthS1C2;
+
+  let totalOSHCareCost1 = (oSHDaysInCareS1C1*oSHDailyCostS1C1) + (oSHDaysInCareS1C2*oSHDailyCostS1C2);
+  let totalOSHCareHours1 = (oSHDaysInCareS1C1 * oSHSessionLengthS1C1) + (oSHDaysInCareS1C2 * oSHSessionLengthS1C2);
+
+  let oSHDaysInCareS2C1 = req.body.oSHDaysInCareS2C1;
+  let oSHDailyCostS2C1 = req.body.oSHDailyCostS2C1;
+  let oSHSessionLengthS2C1 = req.body.oSHSessionLengthS2C1;
+
+  let oSHDaysInCareS2C2 = req.body.oSHDaysInCareS2C2;
+  let oSHDailyCostS2C2 = req.body.oSHDailyCostS2C2;
+  let oSHSessionLengthS2C2 = req.body.oSHSessionLengthS2C2;
+
+  let totalOSHCareCost2 = (oSHDaysInCareS2C1*oSHDailyCostS2C1) + (oSHDaysInCareS2C2*oSHDailyCostS2C2);
+  let totalOSHCareHours2 = (oSHDaysInCareS2C1 * oSHSessionLengthS2C1) + (oSHDaysInCareS2C2 * oSHSessionLengthS2C2);
+
+  let totalCareCost1 = totalCentreBasedCost1 + totalFamilyDayCareCost1 + totalOSHCareCost1;
+  let totalCareCost2 = totalCentreBasedCost2 + totalFamilyDayCareCost2 + totalOSHCareCost2;
+
+  let totalCareHours1 = totalCentreBasedHours1 + totalFamilyDayCareHours1 + totalOSHCareHours1;
+  let totalCareHours2 = totalCentreBasedHours2 + totalFamilyDayCareHours2 + totalOSHCareHours2;
 
   //use stored inputs to perform calculations
   let grossTaxP1Base = calculator.grossTaxPayable(parent1Salary1);
@@ -289,13 +352,127 @@ appRouter.post("/wizard", function (req, res) {
   let netTaxPayableP1Alt = calculator.netTaxPayable(parent1Salary2);
   let netTaxPayableP2Alt = calculator.netTaxPayable(parent2Salary2);
 
-  //netIncomeAfterTax
+  //netIncomeAfterTax - Annual Figures
   let netIncomeAfterTaxP1Base = calculator.netIncomeAfterTax(parent1Salary1);
   let netIncomeAfterTaxP2Base = calculator.netIncomeAfterTax(parent2Salary1);
   let netIncomeAfterTaxP1Alt = calculator.netIncomeAfterTax(parent1Salary2);
   let netIncomeAfterTaxP2Alt = calculator.netIncomeAfterTax(parent2Salary2);
 
-  //NEED TWO - BEFORE AND AFTER
+  //netIncomeAfterTax - Fortnightly Figures
+  let netIncomeAfterTaxP1BaseFN = Math.round(netIncomeAfterTaxP1Base / 26);
+  let netIncomeAfterTaxP2BaseFN = Math.round(netIncomeAfterTaxP2Base / 26);
+  let netIncomeAfterTaxP1AltFN = Math.round(netIncomeAfterTaxP1Alt / 26);
+  let netIncomeAfterTaxP2AltFN = Math.round(netIncomeAfterTaxP2Alt / 26);
+
+  //family income for Centrelink calculations
+  let familyIncome1 = Number(parent1Salary1) + Number(parent2Salary1);
+  let familyIncome2 = Number(parent1Salary2) + Number(parent2Salary2);
+
+  //activity assessed parent
+  let activityAssessedParent1;
+  let activityAssessedParent2;
+
+  if(Number(parent1Hours1) <= Number(parent2Hours1)){
+    activityAssessedParent1 = "Karina";
+  } else if (Number(parent1Hours1) > Number(parent2Hours1)){
+    activityAssessedParent1 = "Daniel";
+  }
+
+  if(Number(parent1Hours2) <= Number(parent2Hours2)){
+    activityAssessedParent2 = "Karina";
+  } else if(Number(parent1Hours2) > Number(parent2Hours2)){
+    activityAssessedParent2 = "Daniel";
+  }
+
+  //max hours of subsidised care
+
+  let maxHours1;
+  let maxHours2;
+
+  if(activityAssessedParent1 === "Daniel"){
+    maxHours1 = calculator.maxHours(parent2Hours1, parent2Salary1);
+  } else if(activityAssessedParent1 === "Karina"){
+    maxHours1 = calculator.maxHours(parent1Hours1, parent1Salary1);
+  }
+
+  if(activityAssessedParent2 === "Daniel"){
+    maxHours2 = calculator.maxHours(parent2Hours2, parent2Salary2);
+  } else if(activityAssessedParent2 === "Karina"){
+    maxHours2 = calculator.maxHours(parent1Hours2, parent1Salary2);
+  }
+
+  //hourly rate cap - out of pocket costs
+
+  function hourlyCapCB(dailyCost, sessionLength, days){
+    if(dailyCost > 12.20){
+      let difference = dailyCost - 12.20;
+      return difference * sessionLength * days;
+    } else return 0;
+  }
+
+  let cBS1C1OutOfPocket = hourlyCapCB(cBDailyCostS1C1, cBSessionLengthS1C1, cBDaysInCareS1C1);
+  let cBS1C2OutOfPocket = hourlyCapCB(cBDailyCostS1C2, cBSessionLengthS1C2, cBDaysInCareS1C2);
+  let cBS2C1OutOfPocket = hourlyCapCB(cBDailyCostS2C1, cBSessionLengthS2C1, cBDaysInCareS2C1);
+  let cBS2C2OutOfPocket = hourlyCapCB(cBDailyCostS2C2, cBSessionLengthS2C2, cBDaysInCareS2C2);
+ 
+  function hourlyCapFD(dailyCost, sessionLength, days){
+    if(dailyCost > 11.30){
+      let difference = dailyCost - 11.30;
+      return difference * sessionLength * days;
+    } else return 0;
+  }
+
+  let fBS1C1OutOfPocket = hourlyCapFD(fDCDailyCostS1C1, fDCSessionLengthS1C1, fDCDaysInCareS1C1);
+  let fBS1C2OutOfPocket = hourlyCapFD(fDCDailyCostS1C2, fDCSessionLengthS1C2, fDCDaysInCareS1C2);
+  let fBS2C1OutOfPocket = hourlyCapFD(fDCDailyCostS2C1, fDCSessionLengthS2C1, fDCDaysInCareS2C1);
+  let fBS2C2OutOfPocket = hourlyCapFD(fDCDailyCostS2C2, fDCSessionLengthS2C2, fDCDaysInCareS2C2);
+
+  function hourlyCapOSH(dailyCost, sessionLength, days){
+    if(dailyCost > 10.67){
+      let difference = dailyCost - 10.67;
+      return difference * sessionLength * days;
+    } else return 0;
+  }
+
+  let oSHS1C1OutOfPocket = hourlyCapOSH(oSHDailyCostS1C1, oSHSessionLengthS1C1, oSHDaysInCareS1C1);
+  let oSHS1C2OutOfPocket = hourlyCapOSH(oSHDailyCostS1C2, oSHSessionLengthS1C2, oSHDaysInCareS1C2);
+  let oSHS2C1OutOfPocket = hourlyCapOSH(oSHDailyCostS2C1, oSHSessionLengthS2C1, oSHDaysInCareS2C1);
+  let oSHS2C2OutOfPocket = hourlyCapOSH(oSHDailyCostS2C2, oSHSessionLengthS2C2, oSHDaysInCareS2C2);
+
+  let totalHourlyOutOfPocket1 = cBS1C1OutOfPocket + cBS1C2OutOfPocket;
+  totalHourlyOutOfPocket1 += fBS1C1OutOfPocket + fBS1C2OutOfPocket;
+  totalHourlyOutOfPocket1 += oSHS1C1OutOfPocket + oSHS1C2OutOfPocket;
+  totalHourlyOutOfPocket1 = Math.round(totalHourlyOutOfPocket1 * 52);
+
+  let totalHourlyOutOfPocket2 = cBS2C1OutOfPocket + cBS2C2OutOfPocket;
+  totalHourlyOutOfPocket2 += fBS2C1OutOfPocket + fBS2C2OutOfPocket;
+  totalHourlyOutOfPocket2 += oSHS2C1OutOfPocket + oSHS2C2OutOfPocket;
+  totalHourlyOutOfPocket2 = Math.round(totalHourlyOutOfPocket2 * 52);
+
+
+  //childcare subsidy percentage
+
+  function childcareSubsidy(parent1Salary, parent2Salary){
+      let familyIncome = parent1Salary + parent2Salary;
+
+      if(familyIncome < 69390){
+        return 85;
+      } else if(familyIncome < 174390){
+        let reduction = (familyIncome - 69390) / 3000;
+        return 85 - reduction;
+      } else if(familyIncome < 253680){
+        return 50;
+      } else if(familyIncome < 343680){
+        let reduction = (familyIncome - 253679) / 3000;
+        return 50 - reduction;
+      } else if(familyIncome < 353680){
+        return 20;
+      } else return 0;
+  }
+
+  let childcareSubsidy1 = Math.round(childcareSubsidy(parent1Salary1, parent2Salary1));
+  let childcareSubsidy2 = Math.round(childcareSubsidy(parent1Salary2, parent2Salary2));
+
   //familyTaxBenefitA
   let familyTaxBenefitABase = calculator.familyTaxBenefitA(
     parent1Salary1,
@@ -330,96 +507,90 @@ appRouter.post("/wizard", function (req, res) {
     2
   );
 
-  //childcareExpenses
-  // let childCareExpensesBase = calculator.childCareExpenses(bWeeklyCost);
-  // let childCareExpensesAlt = calculator.childCareExpenses(aWeeklyCost);
+  
 
-  // //childcareSubsidy
-  // let childCareSubsidyBase = calculator.childcareSubsidy(bWeeklyCost);
-  // let childCareSubsidyAlt = calculator.childcareSubsidy(aWeeklyCost);
 
-  // //netChildCare
-  // let netChildCareBase = calculator.netChildCare(bWeeklyCost);
-  // let netChildCareAlt = calculator.netChildCare(aWeeklyCost);
+// ------------- SEND RESULTS -----------------------------
 
-  // //netSurplusDeficit
-  // let netSurplusDeficitBase = calculator.netSurplusDeficit(
-  //   p1SalaryBase,
-  //   p2SalaryBase,
-  //   bWeeklyCost,
-  //   bKids
-  // );
-  // let netSurplusDeficitAlt = calculator.netSurplusDeficit(
-  //   p1SalaryAlt,
-  //   p2SalaryAlt,
-  //   aWeeklyCost,
-  //   aKids
-  // );
-
-  // let difference = calculator.difference(
-  //   p1SalaryBase,
-  //   p2SalaryBase,
-  //   p1SalaryAlt,
-  //   p2SalaryAlt,
-  //   bWeeklyCost,
-  //   aWeeklyCost,
-  //   bKids,
-  //   aKids
-  // );
-  // let baseFortnightlyIncome = calculator.incomePerFortnight(
-  //   p1SalaryBase,
-  //   p2SalaryBase,
-  //   bWeeklyCost,
-  //   bKids
-  // );
-  // let altFortnightlyIncome = calculator.incomePerFortnight(
-  //   p1SalaryAlt,
-  //   p2SalaryAlt,
-  //   aWeeklyCost,
-  //   aKids
-  // );
 
   if (householdType == "single") {
     res.render("wizard/wizardResultsS", {
-      household: householdType,
-      bKids: bKids,
-      aKids: aKids,
-      bWeeklyCost: bWeeklyCost,
-      aWeeklyCost: aWeeklyCost,
-      p1SalaryBase: p1SalaryBase,
-      p1SalaryAlt: p1SalaryAlt,
-      grossTaxP1Base: grossTaxP1Base,
-      grossTaxP1Alt: grossTaxP1Alt,
-      medicareP1Base: medicareP1Base,
-      medicareP1Alt: medicareP1Alt,
-      lowIncomeTaxOffsetP1Base: lowIncomeTaxOffsetP1Base,
-      lowIncomeTaxOffsetP1Alt: lowIncomeTaxOffsetP1Alt,
-      midIncomeTaxOffsetP1Base: midIncomeTaxOffsetP1Base,
-      midIncomeTaxOffsetP1Alt: midIncomeTaxOffsetP1Alt,
-      netTaxPayableP1Base: netTaxPayableP1Base,
-      netTaxPayableP1Alt: netTaxPayableP1Alt,
-      netIncomeAfterTaxP1Base: netIncomeAfterTaxP1Base,
-      netIncomeAfterTaxP1Alt: netIncomeAfterTaxP1Alt,
-      familyTaxBenefitABase: familyTaxBenefitABase,
-      familyTaxBenefitAAlt: familyTaxBenefitAAlt,
-      familyTaxBenefitBBase: familyTaxBenefitBBase,
-      familyTaxBenefitBAlt: familyTaxBenefitBAlt,
-      totalCentrelinkBase: totalCentrelinkBase,
-      totalCentrelinkAlt: totalCentrelinkAlt,
-      childCareExpensesBase: childCareExpensesBase,
-      childCareExpensesAlt: childCareExpensesAlt,
-      childCareSubsidyBase: childCareSubsidyBase,
-      childCareSubsidyAlt: childCareSubsidyAlt,
-      netChildCareBase: netChildCareBase,
-      netChildCareAlt: netChildCareAlt,
-      netSurplusDeficitBase: netSurplusDeficitBase,
-      netSurplusDeficitAlt: netSurplusDeficitAlt,
-      difference: difference,
-      baseFortnightlyIncome: baseFortnightlyIncome,
-      altFortnightlyIncome: altFortnightlyIncome,
     });
   } else {
-    res.render("wizard/wizardResultsC")
+    res.render("wizard/wizardResultsC", {
+      parent1Hours1: parent1Hours1,
+      parent1Hours2: parent1Hours2,
+      parent2Hours1: parent2Hours1,
+      parent2Hours2: parent2Hours2,
+      parent1Salary1: parent1Salary1,
+      parent1Salary2: parent1Salary2,
+      parent2Salary1: parent2Salary1,
+      parent2Salary2: parent2Salary2,
+      netTaxPayableP1Base: netTaxPayableP1Base,
+      netTaxPayableP1Alt: netTaxPayableP1Alt,
+      netTaxPayableP2Base: netTaxPayableP2Base,
+      netTaxPayableP2Alt: netTaxPayableP2Alt,
+      netIncomeAfterTaxP1BaseFN: netIncomeAfterTaxP1BaseFN,
+      netIncomeAfterTaxP2BaseFN: netIncomeAfterTaxP2BaseFN,
+      netIncomeAfterTaxP1AltFN: netIncomeAfterTaxP1AltFN,
+      netIncomeAfterTaxP2AltFN: netIncomeAfterTaxP2AltFN,
+      activityAssessedParent1: activityAssessedParent1,
+      activityAssessedParent2: activityAssessedParent2,
+      familyIncome1: familyIncome1,
+      familyIncome2: familyIncome2,
+      maxHours1: maxHours1,
+      maxHours2: maxHours2,
+      cBDaysInCareS1C1: cBDaysInCareS1C1,
+      cBDailyCostS1C1: cBDailyCostS1C1,
+      cBSessionLengthS1C1: cBSessionLengthS1C1,
+      cBDaysInCareS1C2: cBDaysInCareS1C2,
+      cBDailyCostS1C2: cBDailyCostS1C2,
+      cBSessionLengthS1C2: cBSessionLengthS1C2,
+      cBDaysInCareS2C1: cBDaysInCareS2C1,
+      cBDailyCostS2C1: cBDailyCostS2C1,
+      cBSessionLengthS2C1: cBSessionLengthS2C1,
+      cBDaysInCareS2C2: cBDaysInCareS2C2,
+      cBDailyCostS2C2: cBDailyCostS2C2,
+      cBSessionLengthS2C2: cBSessionLengthS2C2,
+      fDCDaysInCareS1C1: fDCDaysInCareS1C1,
+      fDCDailyCostS1C1: fDCDailyCostS1C1,
+      fDCSessionLengthS1C1: fDCSessionLengthS1C1,
+      fDCDaysInCareS1C2: fDCDaysInCareS1C2,
+      fDCDailyCostS1C2: fDCDailyCostS1C2,
+      fDCSessionLengthS1C2: fDCSessionLengthS1C2,
+      fDCDaysInCareS2C1: fDCDaysInCareS2C1,
+      fDCDailyCostS2C1: fDCDailyCostS2C1,
+      fDCSessionLengthS2C1: fDCSessionLengthS2C1,
+      fDCDaysInCareS2C2: fDCDaysInCareS2C2,
+      fDCDailyCostS2C2: fDCDailyCostS2C2,
+      fDCSessionLengthS2C2: fDCSessionLengthS2C2,
+      oSHDaysInCareS1C1: oSHDaysInCareS1C1,
+      oSHDailyCostS1C1: oSHDailyCostS1C1,
+      oSHSessionLengthS1C1: oSHSessionLengthS1C1,
+      oSHDaysInCareS1C2: oSHDaysInCareS1C2,
+      oSHDailyCostS1C2: oSHDailyCostS1C2,
+      oSHSessionLengthS1C2: oSHSessionLengthS1C2,
+      oSHDaysInCareS2C1: oSHDaysInCareS2C1,
+      oSHDailyCostS2C1: oSHDailyCostS2C1,
+      oSHSessionLengthS2C1: oSHSessionLengthS2C1,
+      oSHDaysInCareS2C2: oSHDaysInCareS2C2,
+      oSHDailyCostS2C2: oSHDailyCostS2C2,
+      oSHSessionLengthS2C2: oSHSessionLengthS2C2,
+      totalCentreBasedCost1: totalCentreBasedCost1,
+      totalCentreBasedCost2: totalCentreBasedCost2,
+      totalFamilyDayCareCost1: totalFamilyDayCareCost1,
+      totalFamilyDayCareCost2: totalFamilyDayCareCost2,
+      totalOSHCareCost1: totalOSHCareCost1,
+      totalOSHCareCost2: totalOSHCareCost2,
+      totalCareCost1: totalCareCost1,
+      totalCareCost2: totalCareCost2,
+      totalCareHours1: totalCareHours1,
+      totalCareHours2: totalCareHours2,
+      totalHourlyOutOfPocket1: totalHourlyOutOfPocket1,
+      totalHourlyOutOfPocket2: totalHourlyOutOfPocket2,
+      childcareSubsidy1: childcareSubsidy1,
+      childcareSubsidy2: childcareSubsidy2,
+    })
     }
   });
 

@@ -6,7 +6,7 @@
                 <h1 class="display-4 mb-5">Wizard Results</h1>      
             </div>
 
-            <table class="table">
+            <table class="table table-sm">
 
                 <tr>
                     <td></td>
@@ -23,8 +23,8 @@
                 <tr>
                     <td></td>
                     <td>Family Income</td>
-                    <td>$4,636 per fortnight</td>
-                    <td>$4,636 per fortnight</td>
+                    <td class="text-danger">$TBA per fortnight</td>
+                    <td class="text-danger">$TBA per fortnight</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -35,26 +35,26 @@
                 <tr>
                     <td></td>
                     <td>Karina After Tax Income</td>
-                    <td>$2,000 per fortnight</td>
-                    <td>$1,000 per fortnight</td>
+                    <td>$<%= netIncomeAfterTaxP1BaseFN %> per fortnight</td>
+                    <td>$<%= netIncomeAfterTaxP1AltFN %> per fortnight</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Karina Paid Hours Per Week</td>
-                    <td>20</td>
-                    <td>30</td>
+                    <td>Karina Paid Hours Per Fortnight</td>
+                    <td><%= parent1Hours1 %></td>
+                    <td><%= parent1Hours2 %></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Daniel After Tax Income</td>
-                    <td>$2,000 per fortnight</td>
-                    <td>$1,000 per fortnight</td>
+                    <td>$<%= netIncomeAfterTaxP2BaseFN %> per fortnight</td>
+                    <td>$<%= netIncomeAfterTaxP2AltFN %> per fortnight</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Daniel Paid Hours Per Week</td>
-                    <td>20</td>
-                    <td>30</td>
+                    <td>Daniel Paid Hours Per Fortnight</td>
+                    <td><%= parent2Hours1 %></td>
+                    <td><%= parent2Hours2 %></td>
                 </tr>
                 <tr>
                     <td>PAID CHILDCARE</td>
@@ -65,8 +65,8 @@
                 <tr>
                     <td></td>
                     <td>Out of Pocket Childcare</td>
-                    <td>$319 per fortnight</td>
-                    <td>$420 per fortnight</td>
+                    <td>$TBA per fortnight</td>
+                    <td>$TBA per fortnight</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -77,14 +77,38 @@
                 <tr>
                     <td></td>
                     <td>Riley Centre-Based Days</td>
-                    <td>2</td>
-                    <td>3</td>
+                    <td><%= cBDaysInCareS1C1 %></td>
+                    <td><%= cBDaysInCareS2C1 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Riley Family Day Care Days</td>
+                    <td><%= fDCDaysInCareS1C1 %></td>
+                    <td><%= fDCDaysInCareS2C1 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Riley Outside School Hours Care Days</td>
+                    <td><%= oSHDaysInCareS1C1 %></td>
+                    <td><%= oSHDaysInCareS2C1 %></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Lincoln Centre-Based Days</td>
-                    <td>2</td>
-                    <td>3</td>
+                    <td><%= cBDaysInCareS1C2 %></td>
+                    <td><%= cBDaysInCareS2C2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Lincoln Family Day Care Days</td>
+                    <td><%= fDCDaysInCareS1C2 %></td>
+                    <td><%= fDCDaysInCareS2C2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Lincoln Outside School Hours Care Days</td>
+                    <td><%= oSHDaysInCareS1C2 %></td>
+                    <td><%= oSHDaysInCareS2C2 %></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -95,28 +119,321 @@
                 <tr>
                     <td></td>
                     <td>Activity Assessed Parent</td>
-                    <td>Karina</td>
-                    <td>Karina</td>
+                    <td><%= activityAssessedParent1 %></td>
+                    <td><%= activityAssessedParent2 %></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Family Income for Subsidy Calculation</td>
-                    <td>$150,000</td>
-                    <td>$250,000</td>
+                    <td>$<%= familyIncome1 %></td>
+                    <td>$<%= familyIncome2 %></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Max Hours of Subsidised Care</td>
-                    <td>72</td>
-                    <td>72</td>
+                    <td><%= maxHours1 %></td>
+                    <td><%= maxHours2 %></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Total Care Hours</td>
-                    <td>Karina</td>
-                    <td>Karina</td>
+                    <td><%= totalCareHours1 %></td>
+                    <td><%= totalCareHours2 %></td>
                 </tr>
-
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Centre-Based Care Cost</td>
+                    <td>$<%= totalCentreBasedCost1 %></td>
+                    <td>$<%= totalCentreBasedCost2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Family Day Care Cost</td>
+                    <td>$<%= totalFamilyDayCareCost1 %></td>
+                    <td>$<%= totalFamilyDayCareCost2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total OSH Care Cost</td>
+                    <td>$<%= totalOSHCareCost1 %></td>
+                    <td>$<%= totalOSHCareCost2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Gross Care Cost</td>
+                    <td>$<%= totalCareCost1 %></td>
+                    <td>$<%= totalCareCost2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Out of Pocket Above Hourly Cap Cost</td>
+                    <td>$<%= totalHourlyOutOfPocket1 %></td>
+                    <td>$<%= totalHourlyOutOfPocket2 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Childcare Subsidy %</td>
+                    <td><%= childcareSubsidy1 %>%</td>
+                    <td><%= childcareSubsidy2 %>%</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Less Childcare Subsidy</td>
+                    <td>$80</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Amount Paid to Provider/s</td>
+                    <td>$80</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>%5 Buffer to Government</td>
+                    <td>$80</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TAX AND CENTRELINK</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Karina</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Taxable Income</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Gross Tax Payable</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Medicare Levy</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Low Income Tax Offset</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Mid Income Tax Offset</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Net Tax Payable</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Net Income After Tax</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Daniel</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Taxable Income</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Gross Tax Payable</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Medicare Levy</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Low Income Tax Offset</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Mid Income Tax Offset</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Net Tax Payable</td>
+                    <td>$40,000</td>
+                    <td>$50,000</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Net Income After Tax</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Centrelink</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Family Tax Benefit A</td>
+                    <td>$1,000</td>
+                    <td>$500</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Family Tax Benefit B</td>
+                    <td>$1,000</td>
+                    <td>$500</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Centrelink Entitlements</td>
+                    <td>$1,000</td>
+                    <td>$500</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Childcare</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Gross Centre-Based Cost</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Gross Family DayCare Cost</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Gross OSH Care Cost</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total Gross Childcare Cost</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Less Childcare Subsidy</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Net Out Of Pocket Childcare</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>NET SURPLUS/DEFICIT</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Per Fortnight</td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
 
 
