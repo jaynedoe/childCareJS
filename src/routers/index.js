@@ -2,36 +2,26 @@ const sqlDB = require("../sql");
 const mongoUser = require("../noSql");
 const Router = require("express").Router;
 const calculator = require("../models/calculator");
-const passport = require("passport");
+const authenticateMiddleware = require('./auth').authenticateMiddleware
 
 let deleteCentreId = "";
 let updateCentreId = "";
-let arrangements1 = [];
-let arrangements2 = [];
 
 const appRouter = new Router();
 
 appRouter.get("/", function (req, res) {
-  res.render("landing");
+  if(req.isAuthenticated()){
+    res.redirect('/dashboard/home')
+  } else {
+    res.redirect('/login')
+  }
 });
 
 //AUTHENTICATION REQUIRED FOR BELOW GET ROUTES
 
-appRouter.get("/dashboard/home", function (req, res) {
-  if (req.isAuthenticated()) {
-    mongoUser.findById(req.user.id, function (err, foundUser) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (foundUser) {
-          //LOOK UP CORRESPONDING USER ID IN MYSQL AND SEND ACROSS PROFILE DATA?
-          res.render("dashboard/home", { foundUser: foundUser });
-        }
-      }
-    });
-  } else {
-    res.redirect("/");
-  }
+//app.use('/dashboard', authenticateMiddleware, dashboardRouter)
+appRouter.get("/dashboard/home", authenticateMiddleware, function (req, res) {
+  res.render("dashboard/home", { foundUser: req.user });
 });
 
 appRouter.get("/dashboard/myAccount", function (req, res) {
@@ -236,7 +226,6 @@ appRouter.post("/search", function (req, res) {
     }
   });
 });
-
 
 appRouter.post("/wizard", function (req, res) {
   //require all the input data using body parser and store in variables

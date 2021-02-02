@@ -26,7 +26,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(mongoUser.createStrategy());
+passport.use(mongoUser.createStrategy({
+  passReqToCallback: true
+}));
 
 passport.serializeUser(mongoUser.serializeUser());
 passport.deserializeUser(mongoUser.deserializeUser());

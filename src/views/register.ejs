@@ -16,17 +16,18 @@
 
   <body>
 
-    <main id="landing">
+    <section id="login" class="bg-info">
         <div class="container-fluid">
 
           <div class="row row-landing">
-            <h1 class="mt-5 mb-5 display-4">ChildCare Financial Wizard</h1>
+            <span><i class="fas fa-hat-wizard fa-6x mr-3 mt-4 text-light"></i></span>
+            <h1 class="mt-5 mb-5 display-3 text-light">ChildCare Financial Wizard</h1>
           </div>
 
             <div class="outer-box">
-              <h2 class="mt-5 mb-4 ml-5">Register</h2>
+              <h2 class="mt-5 mb-5 ml-5">Register</h2>
               <p id="passwordNoMatch" class="ml-5 text-warning"></p>
-                <div class="inner-box mb-5">
+                <div class="inner-box mb-5 bg-light">
           
                   <form onsubmit="return validation()" action="/register" method="POST">
                       <div class="form-group">
@@ -43,13 +44,13 @@
                       </div>
                         <button type="submit" class="btn btn-lg mr-4 mt-3 mb-3 btn-primary">Register</button> 
                         <a class="btn btn-info btn-lg float-right mt-3" type="button" href="/">Go Back</a>
-                        <button type="reset" class="btn btn-lg float-right mr-4 mt-3 mb-3 btn-light">Reset</button> 
+                        <button type="reset" class="btn btn-lg float-right mr-4 mt-3 mb-3 btn-dark">Reset</button> 
                   </form>  
 
                 </div>
             </div>
         </div>
-    </main>
+      </section>
 
     <script type="text/javascript">
 
@@ -67,18 +68,6 @@
     }
 
     </script>
-
-    <footer>
-        <div class="container-fluid">
-            <div class="mb-5">
-                <a href="https://www.twitter.com/"><i class="text-light footer-icon fab fa-twitter"></i></a>
-                <a href="https://www.facebook.com/"><i class="text-light footer-icon fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/"><i class="text-light footer-icon fab fa-instagram"></i></a>
-                <a href="mailto:jaedoyne@gmail.com/"><i class="text-light footer-icon fas fa-envelope"></i></a>
-            </div>
-            <p>© Copyright 2020 finCare</p>
-        </div>
-    </footer>
 
   </body>
 
