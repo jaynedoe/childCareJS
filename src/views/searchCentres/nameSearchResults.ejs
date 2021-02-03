@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+
+<main>
+
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="mb-5">Details for <%= foundCentre.centreName %>:</h2>
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Centre Name</th>
+                        <th>Centre Size</th>
+                        <th>Suburb</th>
+                        <th>Rating</th>
+                        <th>Long Day Care</th>
+                        <th>After School Care</th>
+                        <th>Before School Care</th>
+                        <th>Vacation Care</th>
+                       </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td><%= foundCentre.centreName %></td>
+                            <td><%= foundCentre.centreSize %></td>
+                            <td><%= foundCentre.suburb %></td>
+                            <td><%= foundCentre.rating %></td>
+                            <td><%= foundCentre.longDayCare %></td>
+                            <td><%= foundCentre.afterSchoolCare %></td>
+                            <td><%= foundCentre.beforeSchoolCare %></td>
+                            <td><%= foundCentre.vacationCare %></td>
+                        </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-dark btn-lg mt-5" role="button" href="../searchCentres/search">Search Again</a>
+        </div>
+    </div>
+
+</main>
+
+
+<%- include('../partials/footer') %>

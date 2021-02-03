@@ -1,0 +1,50 @@
+<%- include('../partials/adminHeader') %>
+
+<main>
+
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="mb-5">Are you sure you want to delete the following centre?</h2>
+    
+            <table class="table table-lg table-hover">
+                <thead>
+                    <tr>
+                        <th>Centre Name</th>
+                        <th>Centre Size</th>
+                        <th>Suburb</th>
+                        <th>Rating</th>
+                        <th>Long Day Care</th>
+                        <th>After School Care</th>
+                        <th>Before School Care</th>
+                        <th>Vacation Care</th>
+               
+                    </tr>
+                </thead>
+                <tbody>              
+                        <tr>
+                            <td><%= centre[0].centreName %></td>
+                            <td><%= centre[0].centreSize %></td>
+                            <td><%= centre[0].suburb %></td>
+                            <td><%= centre[0].rating %></td>
+                            <td><%= centre[0].longDayCare %></td>
+                            <td><%= centre[0].afterSchoolCare %></td>
+                            <td><%= centre[0].beforeSchoolCare %></td>
+                            <td><%= centre[0].vacationCare %></td>
+    
+                        </tr>
+                </tbody>
+            </table>
+            <form action="/deleteCentre" method="POST">
+                <button type="submit" class="btn btn-danger btn-lg mt-4">Delete</button>
+            </form>
+            <a href="/manage"><button class="btn btn-dark btn-lg m-4" type="button">Go Back</button></a>
+        </div>
+    </div>
+
+</main>
+
+
+
+
+
+<%- include('../partials/footer') %>

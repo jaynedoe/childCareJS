@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+
+   <main>
+    <div class="container-fluid">
+
+        <div class="row mb-5">
+            <h1 class="text-dark display-4">Welcome <%= foundSQLUser.firstName %> <%= foundSQLUser.lastName %>!</h1>
+        </div>
+    
+            <div class="row row-home">
+                <div class="col">
+                    <div class="card bg-light border-light mb-3">
+                    
+                        <div class="card-body home-card">       
+                            <p class="lead">The Wizard Calculator helps you to compare the financial difference between alternative childcare scenarios.</p>        
+                            <a class="btn btn-home btn-info btn-lg mt-4 mb-3 home-card" role="button" href="../wizard/wizardLanding">Run a Wizard Comparison</a>
+                            <i class="card-img-top icon-style fas fa-hat-wizard fa-3x mt-3 text-dark"></i>
+                        </div>
+                    </div>     
+                </div>
+            </div>
+    
+            <div class="row row-home mt-5">
+
+                <div class="col-lg-4">
+                    <div class="card bg-light border-light mb-3">
+                    
+                        <div class="card-body home-card">                
+                            <a class="btn btn-home btn-info btn-lg mt-4 mb-3 home-card" role="button" href="../resources">Look Through Resources</a>
+                            <i class="card-img-top icon-style fab fa-earlybirds fa-3x mt-3 text-dark"></i>
+                        </div>
+                    </div>     
+                </div>
+        
+
+                <div class="col-lg-4">
+                    <div class="card bg-light border-light mb-3">
+                    
+                        <div class="card-body home-card">    
+                            <a class="btn btn-home btn-info btn-lg mt-4 mb-3 home-card" role="button" href="../savedScenarios">View Saved Scenarios</a>
+                            <i class="card-img-top icon-style fas fa-book-reader fa-3x mt-3 text-dark"></i>
+                        </div>
+                    </div>     
+                </div>
+    
+                <div class="col-lg-4">
+                    <div class="card bg-light border-light mb-3">
+                    
+                        <div class="card-body home-card">    
+                            <a class="btn btn-home btn-info btn-lg mt-4 mb-3 home-card" role="button" href="../searchCentres/search">Centre Search</a>
+                            <i class="card-img-top icon-style fas fa-search fa-3x mt-3 text-dark"></i>
+                        </div>
+                    </div>     
+                </div>
+            </div>
+    
+        </div>
+   </main>
+
+<%- include('partials/footer') %>

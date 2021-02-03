@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+
+<main>
+
+    <div class="container-fluid">
+        <h1 class="mb-5 display-4">Account Details</h1>
+
+        <div class="row">
+          <div class="col-md-4">
+            <hr>
+            <p class="lead text-info">First Name:</p><p><%= foundSQLUser.firstName %></p>
+            <p class="lead text-info">Last Name:</p><p><%= foundSQLUser.lastName %> </p>
+            <p class="lead text-info">Current Email Address:</p><p> <%= userNameMongo %> </p>
+
+          </div>
+
+          <div class="col-lg-4">
+            <hr>
+            <form action="/updateEmail" method="POST">
+                
+              <div class="form-group">
+                  <label for="email">Enter New Email Address:</label>
+                  <input type="email" class="form-control" name="username">
+                  <button type="submit" class="btn btn-lg mr-4 mt-3 mb-3 btn-primary">Change</button> 
+              </div>
+          
+          </form>  
+
+          <form onsubmit="return validation()" action="/updatePassword" method="POST">
+              <div class="form-group">
+                <label for="password">Choose New Password:</label>
+                <input type="password" class="form-control" name="password" id="password">
+              </div>
+              <div class="form-group">
+                <label for="repassword">Re-enter New Password:</label>
+                <input type="password" class="form-control" name="repassword" id="repassword">
+              </div>
+                <button type="submit" class="btn btn-lg mr-4 mt-3 mb-3 btn-primary">Change</button> 
+          </form> 
+          </div>
+          
+
+          
+        </div>
+    </div>
+
+</main>
+
+<script type="text/javascript">
+
+    function validation(){
+     
+      let password = document.getElementById("password").value;
+      let repassword = document.getElementById("repassword").value;
+
+      if(password != repassword){
+        document.getElementById("passwordNoMatch").innerHTML = "<p>Passwords did not match, please try again.</p>";
+        return false;
+      } else { return true; }
+    }
+
+    </script>
+
+
+
+<%- include('partials/footer') %>

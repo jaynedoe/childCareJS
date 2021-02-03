@@ -1,0 +1,449 @@
+<%- include('../partials/header') %>
+
+<main>
+
+    <div class="container-fluid">
+
+        <div class="mb-5">
+            <h1 class="display-4 mb-5 ml-2">Wizard Calculator</h1>
+            <p class="lead ml-3">Couple Household</p>    
+            <a href="/profile"><button class="btn btn-lg ml-3 btn-primary">Edit Profile</button></a>
+            <!-- <p class="float-right lead mr-3 mt-2 text-danger">Incorrect Parent or Child Details? >>></p>  -->
+          
+            <!-- <a href="../dashboard/myProfile">Edit<i class="fas fa-pen ml-2 text-primary"></i></a> -->
+        </div>
+
+        <hr>
+   
+      
+        <form class="needs-validation" novalidate onsubmit="return validation();" action="/wizard" method="POST">
+                <div class="row">
+
+                    <div class="col-lg-6 pr-5">              
+                        <h3 class="ml-3 mt-5 mb-4 text-primary">Scenario One</h3>
+                        <div class="row g-3">
+                   
+                            <div class="col-md-5">
+                                <label for="parent1Salary1">Karina Annual Salary</label>
+                                <input class="form-control" type="number" name="parent1Salary1" id="parent1Salary1">
+                            </div>
+        
+                            <div class="col-md-5">
+                                <label for="parent1Hours1">Karina Hours Worked Per Fortnight</label>
+                                <input class="form-control" type="number" name="parent1Hours1" id="parent1Hours1">
+                            </div>  
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 pl-4">
+                        <h3 class="ml-3 mt-5 mb-4 text-info">Scenario Two</h3>
+                        <div class="row g-3">
+
+                            <div class="col-md-5">
+                                <label for="parent1Salary2">Karina Annual Salary</label>
+                                <input class="form-control" type="number" name="parent1Salary2" id="parent1Salary2">
+                            </div>
+        
+                            <div class="col-md-5">
+                                <label for="parent1Hours2">Karina Hours Worked Per Fortnight</label>
+                                <input class="form-control" type="number" name="parent1Hours2" id="parent1Hours2">
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 pr-5">
+
+                        <div class="row g-3 mt-3">
+
+                            <div class="col-md-5">
+                                <label for="parent2Salary1">Daniel Annual Salary</label>
+                                <input class="form-control" type="number" name="parent2Salary1" id="parent2Salary1">
+                            </div>
+        
+                            <div class="col-md-5">
+                                <label for="parent2Hours1">Daniel Hours Worked Per Fortnight</label>
+                                <input class="form-control" type="number" name="parent2Hours1" id="parent2Hours1">
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pl-4">
+
+                        <div class="row g-3 mt-3">
+
+                            <div class="col-md-5">
+                                <label for="parent2Salary2">Daniel Annual Salary</label>
+                                <input class="form-control" type="number" name="parent2Salary2" id="parent2Salary2">
+                            </div>
+        
+                            <div class="col-md-5">
+                                <label for="parent2Hours2">Daniel Hours Worked Per Fortnight</label>
+                                <input class="form-control" type="number" name="parent2Hours2" id="parent2Hours2">
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCENARIO ONE CHILDCARE -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <p class="mt-5 mb-3 lead text-primary pl-3"><strong> Childcare Arrangements - Riley</strong></p>   
+
+                        <p class="pl-3 text-primary">Centre-Based Care</p>
+
+                                <div class="row ml-3">                    
+                                  <div class="mr-3">
+                                        <label for="cBDaysInCareS1C1">Days in Care</label>
+                                        <select class="mr-5 form-select form-control" name="cBDaysInCareS1C1" id="cBDaysInCareS1C1">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="cBDailyCostS1C1">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="cBDailyCostS1C1" id="cBDailyCostS1C1">
+                                    </div>
+                                    <div class="p2">
+                                        <label for="cBSessionLengthS1C1">Session Length</label>
+                                        <select class="mr-4 form-control form-select" name="cBSessionLengthS1C1" id="cBSessionLengthS1C1">
+                                            <option value="10">10 hours</option>
+                                            <option value="12">12 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <p class="pl-3 mt-4 text-primary">Family DayCare</p>
+
+                                <div class="row ml-3">                    
+                                  <div class="mr-3">
+                                        <label for="fDCDaysInCareS1C1">Days in Care</label>
+                                        <select class="mr-5 form-select form-control" name="fDCDaysInCareS1C1" id="fDCDaysInCareS1C1">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="fDCDailyCostS1C1">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="fDCDailyCostS1C1" id="fDCDailyCostS1C1">
+                                    </div>
+                                    <div class="p2">
+                                        <label for="fDCSessionLengthS1C1">Session Length</label>
+                                        <select class="mr-4 form-control form-select" name="fDCSessionLengthS1C1" id="fDCSessionLengthS1C1">
+                                            <option value="10">10 hours</option>
+                                            <option value="12">12 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <p class="pl-3 mt-4 text-primary">Outside School Hours Care</p>
+
+                                <div class="row ml-3">                    
+                                  <div class="mr-3">
+                                        <label for="oSHDaysInCareS1C1">Days in Care</label>
+                                        <select class="mr-5 form-select form-control" name="oSHDaysInCareS1C1" id="oSHDaysInCareS1C1">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="oSHDailyCostS1C1">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="oSHDailyCostS1C1" id="oSHDailyCostS1C1">
+                                    </div>
+                                    <div class="p2">
+                                        <label for="oSHSessionLengthS1C1">Session Length</label>
+                                        <select class="mr-4 form-control form-select" name="oSHSessionLengthS1C1" id="oSHSessionLengthS1C1">
+                                            <option value="10">10 hours</option>
+                                            <option value="12">12 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+        
+                                <p class="mt-5 mb-3 lead text-primary pl-3"><strong> Childcare Arrangements - Lincoln</strong></p>   
+
+                                <p class="pl-3 text-primary">Centre-Based Care</p>
+
+                                        <div class="row ml-3">                    
+                                          <div class="mr-3">
+                                                <label for="cBDaysInCareS1C2">Days in Care</label>
+                                                <select class="mr-5 form-select form-control" name="cBDaysInCareS1C2" id="cBDaysInCareS1C2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="cBDailyCostS1C2">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="cBDailyCostS1C2" id="cBDailyCostS1C2">
+                                            </div>
+                                            <div class="p2">
+                                                <label for="cBSessionLengthS1C1">Session Length</label>
+                                                <select class="mr-4 form-control form-select" name="cBSessionLengthS1C2" id="cBSessionLengthS1C2">
+                                                    <option value="10">10 hours</option>
+                                                    <option value="12">12 hours</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <p class="pl-3 mt-4 text-primary">Family DayCare</p>
+
+                                        <div class="row ml-3">                    
+                                          <div class="mr-3">
+                                                <label for="fDCDaysInCareS1C2">Days in Care</label>
+                                                <select class="mr-5 form-select form-control" name="fDCDaysInCareS1C2" id="fDCDaysInCareS1C2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="fDCDailyCostS1C2">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="fDCDailyCostS1C2" id="fDCDailyCostS1C2">
+                                            </div>
+                                            <div class="p2">
+                                                <label for="fDCSessionLengthS1C2">Session Length</label>
+                                                <select class="mr-4 form-control form-select" name="fDCSessionLengthS1C2" id="fDCSessionLengthS1C2">
+                                                    <option value="10">10 hours</option>
+                                                    <option value="12">12 hours</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <p class="pl-3 mt-4 text-primary">Outside School Hours Care</p>
+
+                                        <div class="row ml-3">                    
+                                          <div class="mr-3">
+                                                <label for="oSHDaysInCareS1C2">Days in Care</label>
+                                                <select class="mr-5 form-select form-control" name="oSHDaysInCareS1C2" id="oSHDaysInCareS1C2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="oSHDailyCostS1C2">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="oSHDailyCostS1C2" id="oSHDailyCostS1C2">
+                                            </div>
+                                            <div class="p2">
+                                                <label for="oSHSessionLengthS1C2">Session Length</label>
+                                                <select class="mr-4 form-control form-select" name="oSHSessionLengthS1C2" id="oSHSessionLengthS1C2">
+                                                    <option value="10">10 hours</option>
+                                                    <option value="12">12 hours</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                         </div>
+
+                    <!-- SCENARIO TWO CHILDCARE -->
+
+                    <div class="col-lg-6 pl-4">
+
+                        <p class="mt-5 mb-3 lead text-info pl-3"><strong> Childcare Arrangements - Riley</strong></p>   
+                        <p class="pl-3 mt-4 text-info">Centre-Based Care</p>
+                                <div class="row ml-3">                    
+                                  <div class="mr-3">
+                                        <label for="cBDaysInCareS2C1">Days in Care</label>
+                                        <select class="mr-5 form-select form-control" name="cBDaysInCareS2C1" id="cBDaysInCareS2C1">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="cBDailyCostS2C1">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="cBDailyCostS2C1" id="cBDailyCostS2C1">
+                                    </div>
+                                    <div class="p2">
+                                        <label for="cBSessionLengthS2C1">Session Length</label>
+                                        <select class="mr-4 form-control form-select" name="cBSessionLengthS2C1" id="cBSessionLengthS2C1">
+                                            <option value="10">10 hours</option>
+                                            <option value="12">12 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="pl-3 mt-4 text-info">Family DayCare</p>
+                                <div class="row ml-3">                    
+                                  <div class="mr-3">
+                                        <label for="fDCDaysInCareS2C1">Days in Care</label>
+                                        <select class="mr-5 form-select form-control" name="fDCDaysInCareS2C1" id="fDCDaysInCareS2C1">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="fDCDailyCostS2C1">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="fDCDailyCostS2C1" id="fDCDailyCostS2C1">
+                                    </div>
+                                    <div class="p2">
+                                        <label for="fDCSessionLengthS2C1">Session Length</label>
+                                        <select class="mr-4 form-control form-select" name="fDCSessionLengthS2C1" id="fDCSessionLengthS2C1">
+                                            <option value="10">10 hours</option>
+                                            <option value="12">12 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="pl-3 mt-4 text-info">OSH Care</p>
+                                <div class="row ml-3">                    
+                                  <div class="mr-3">
+                                        <label for="oSHDaysInCareS2C1">Days in Care</label>
+                                        <select class="mr-5 form-select form-control" name="oSHDaysInCareS2C1" id="oSHDaysInCareS2C1">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr-3">
+                                        <label for="oSHDailyCostS2C1">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="oSHDailyCostS2C1" id="oSHDailyCostS2C1">
+                                    </div>
+                                    <div class="p2">
+                                        <label for="oSHSessionLengthS2C1">Session Length</label>
+                                        <select class="mr-4 form-control form-select" name="oSHSessionLengthS2C1" id="oSHSessionLengthS2C1">
+                                            <option value="10">10 hours</option>
+                                            <option value="12">12 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+        
+                                <p class="mt-5 mb-3 lead text-info pl-3"><strong> Childcare Arrangements - Lincoln</strong></p>   
+                                <p class="pl-3 mt-4 text-info">Centre-Based Care</p>
+                                        <div class="row ml-3">                    
+                                          <div class="mr-3">
+                                                <label for="cBDaysInCareS2C2">Days in Care</label>
+                                                <select class="mr-5 form-select form-control" name="cBDaysInCareS2C2" id="cBDaysInCareS2C2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="cBDailyCostS2C2">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="cBDailyCostS2C2" id="cBDailyCostS2C2">
+                                            </div>
+                                            <div class="p2">
+                                                <label for="cBSessionLengthS2C2">Session Length</label>
+                                                <select class="mr-4 form-control form-select" name="cBSessionLengthS2C2" id="cBSessionLengthS2C2">
+                                                    <option value="10">10 hours</option>
+                                                    <option value="12">12 hours</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <p class="pl-3 mt-4 text-info">Family DayCare</p>
+                                        <div class="row ml-3">                    
+                                          <div class="mr-3">
+                                                <label for="fDCDaysInCareS2C2">Days in Care</label>
+                                                <select class="mr-5 form-select form-control" name="fDCDaysInCareS2C2" id="fDCDaysInCareS2C2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="fDCDailyCostS2C2">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="fDCDailyCostS2C2" id="fDCDailyCostS2C2">
+                                            </div>
+                                            <div class="p2">
+                                                <label for="fDCSessionLengthS2C2">Session Length</label>
+                                                <select class="mr-4 form-control form-select" name="fDCSessionLengthS2C2" id="fDCSessionLengthS2C2">
+                                                    <option value="10">10 hours</option>
+                                                    <option value="12">12 hours</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <p class="pl-3 mt-4 text-info">Outside School Hours Care</p>
+                                        <div class="row ml-3">                    
+                                          <div class="mr-3">
+                                                <label for="oSHDaysInCareS2C2">Days in Care</label>
+                                                <select class="mr-5 form-select form-control" name="oSHDaysInCareS2C2" id="oSHDaysInCareS2C2">
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="mr-3">
+                                                <label for="oSHDailyCostS2C2">Daily Cost</label><input class="form-control mr-4 pl-4" type="number" placeholder="0" name="oSHDailyCostS2C2" id="oSHDailyCostS2C2">
+                                            </div>
+                                            <div class="p2">
+                                                <label for="oSHSessionLengthS2C2">Session Length</label>
+                                                <select class="mr-4 form-control form-select" name="oSHSessionLengthS2C2" id="oSHSessionLengthS2C2">
+                                                    <option value="10">10 hours</option>
+                                                    <option value="12">12 hours</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                    <button class="btn p-5 ml-3 btn-lg btn-dark mt-5" type="submit">Run Wizard</button>
+                </div>                
+            </form>
+        </div>        
+</main>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    function validation(){
+        let boolReturn = true;
+
+        if(document.getElementById('checkedSingle').checked === false && document.getElementById('checkedCouple').checked === false){
+            document.getElementById('householdCheckMessage').innerHTML = "<em>Please choose a household option.</em>";
+            boolReturn = false;
+        }
+
+        if(boolReturn){
+            return true;
+        } else return false;
+    }
+
+
+
+        $('#checkedSingle').on('click', function(){
+
+            $('#parent2Alt').hide();
+            $('#parent2Base').hide();
+            $('#householdCheckMessage').hide();
+        });
+
+        $('#checkedCouple').on('click', function(){
+
+            $('#parent2Alt').show();
+            $('#parent2Base').show();
+            $('#householdCheckMessage').hide();
+        });
+
+
+
+</script>
+
+<%- include('../partials/footer') %>

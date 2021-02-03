@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+<main>
+
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="mb-5">We found <%= cCCentres.length %> matching centres.</h2>
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Centre Name</th>
+                        <th>Centre Size</th>
+                        <th>Cost per Day</th>
+                        <th>Suburb</th>
+                        <th>Rating</th>
+                        <th>Long Day Care</th>
+                        <th>After School Care</th>
+                        <th>Before School Care</th>
+                        <th>Vacation Care</th>
+                       </tr>
+                </thead>
+                <tbody>
+                    <% cCCentres.forEach(function(item){ %>
+    
+                        <tr>
+                            <td><%= item.centreName %></td>
+                            <td><%= item.centreSize %></td>
+                            <td>$<%= item.costPerDay %></td>
+                            <td><%= item.suburb %></td>
+                            <td><%= item.rating %></td>
+                            <td><%= item.longDayCare %></td>
+                            <td><%= item.afterSchoolCare %></td>
+                            <td><%= item.beforeSchoolCare %></td>
+                            <td><%= item.vacationCare %></td>
+                        </tr>
+    
+                    <% }); %>
+                </tbody>
+            </table>
+            <a class="btn btn-dark btn-lg mt-5" role="button" href="../searchCentres/search">Search Again</a>
+        </div>
+    </div>
+
+</main>
+
+
+<%- include('../partials/footer') %>

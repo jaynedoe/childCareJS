@@ -1,0 +1,112 @@
+<%- include('../partials/header') %>
+
+<main>
+
+    <div class="container-fluid">
+
+        <!-- NAME SEARCH ONLY -->
+        
+            <div class="row">
+                <h1 class="display-4 mb-5 mt-4">Search By Centre Name</h1>
+            </div>
+
+            <form action="/nameSearch" method="POST">
+
+                <div class="row">
+                    <div class="col-lg-6 pr-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nameSearch" name="nameSearch" required>
+                            <div class="invalid-feedback">Please provide a name.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-info btn-lg mt-3 mb-4">Find Centre</button>
+                    </div>
+                </div>
+
+            </form>
+            
+            <!-- ADVANCED SEARCH -->
+            
+            <div class="row mt-5">
+                <h1 class="display-4 mb-5 mt-5">Advanced Search</h1>
+            </div>
+            
+            <form class="needs-validation" novalidate action="/search" method="POST">
+            
+                <div class="row">
+                    <div class="col-lg-6 pr-4">
+                        <div class="form-group">
+                            <label for="suburb">Suburb</label>
+                            <input type="text" class="form-control" id="suburb" name="suburb" required>
+                            <div class="invalid-feedback">Please provide a suburb.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="max-cost">Max Cost Per Day</label>
+                            <input type="number" class="form-control" id="max-cost" name="maxCost" required>
+                            <div class="invalid-feedback">Please provide a cost per day.</div>
+                        </div>
+                    </div>
+                
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <select class="form-control" name="rating" id="rating">
+                            <option>Any</option>
+                            <option>Meeting NQS</option>
+                            <option>Working Towards NQS</option>
+                            <option>Exceeding NQS</option>
+                            <option>Excellent</option>
+                            <option>Significant Improvement Required</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="size">Size</label>
+                        <select class="form-control" name="centreSize" id="size">
+                            <option value="Any">Any</option>
+                            <option value="Small">Small (less than 50 places)</option>
+                            <option value="Medium">Medium (between 50 - 100 places)</option>
+                            <option value="Large">Large (over 100 places)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="row">            
+                <div class="col-lg-6">
+                    <button type="submit" class="btn btn-info btn-lg mt-3 mb-4">Show Matching Centres</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</main>
+
+<script>
+
+// Disable form submissions if there are invalid fields
+(function () {
+'use strict';
+window.addEventListener('load', function () {
+    // Get the forms we want to add validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+}, false);
+})();
+</script>
+
+<%- include('../partials/footer') %>
