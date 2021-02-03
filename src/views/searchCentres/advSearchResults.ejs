@@ -10,6 +10,7 @@
                     <tr>
                         <th>Centre Name</th>
                         <th>Centre Size</th>
+                        <th>Cost per Day</th>
                         <th>Suburb</th>
                         <th>Rating</th>
                         <th>Long Day Care</th>
@@ -24,6 +25,7 @@
                         <tr>
                             <td><%= item.centreName %></td>
                             <td><%= item.centreSize %></td>
+                            <td>$<%= item.costPerDay %></td>
                             <td><%= item.suburb %></td>
                             <td><%= item.rating %></td>
                             <td><%= item.longDayCare %></td>
@@ -35,7 +37,7 @@
                     <% }); %>
                 </tbody>
             </table>
-            <a class="btn btn-dark btn-lg mt-5" role="button" href="../searchCentre/search">Search Again</a>
+            <a class="btn btn-dark btn-lg mt-5" role="button" href="../searchCentres/search">Search Again</a>
         </div>
     </div>
 

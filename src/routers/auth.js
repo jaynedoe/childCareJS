@@ -1,9 +1,16 @@
 const mongoUser = require("../noSql");
 const Router = require("express").Router;
-const passport = require("passport");
 const sqlDB = require("../sql");
 
 const authRouter = new Router();
+
+const authenticateMiddleware = function(req, res, next) {
+  if(req.isAuthenticated()) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+}
 
 authRouter.get("/register", function (req, res) {
   res.render("register");
@@ -25,7 +32,7 @@ authRouter.post("/register", function (req, res) {
         } else {
           console.log("New User ID: " + user.id);
   
-          let sql = `INSERT INTO users VALUES ('${user.id}', 'User', 'User')`;
+          let sql = `INSERT INTO users VALUES ('${user.id}', 'New', 'User')`;
 
           sqlDB.query(sql, (err, results, fields) => {
             if(err){
@@ -41,20 +48,12 @@ authRouter.post("/register", function (req, res) {
     );
   });
 
-  const authenticateMiddleware = function(req, res, next) {
-    if(req.isAuthenticated()) {
-      next()
-    } else {
-      res.redirect('/login')
-    }
-  }
-
-  authRouter.get('/login', (req, res) => {
+authRouter.get('/login', (req, res) => {
     res.render('login')
-  });
+});
 
 
-  authRouter.post("/login", async function (req, res, next) {
+authRouter.post("/login", async function (req, res, next) {
     const { username, password } = req.body
     const dbUser = await mongoUser.findOne({ username })
 
@@ -72,7 +71,7 @@ authRouter.post("/register", function (req, res) {
           console.log(passwordError)
           res.redirect("/")
         } else if(model){
-          console.log(`Correct password with model ${model}`)
+          console.log(`Correct password`);
           req.login(dbUser, (err) => {
             if(err){
               return console.log(err)
@@ -86,7 +85,7 @@ authRouter.post("/register", function (req, res) {
       res.redirect("/")
     }
 
-  });
+});
 
-  module.exports = authRouter;
-  module.exports.authenticateMiddleware = authenticateMiddleware
+module.exports = authRouter;
+module.exports.authenticateMiddleware = authenticateMiddleware
