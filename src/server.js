@@ -7,6 +7,7 @@ const authRouter = require("./routers/auth");
 const adminRouter = require("./routers/admin");
 const wizardRouter = require("./routers/wizard");
 const searchRouter = require("./routers/search");
+const profileRouter = require("./routers/profile")
 
 const authenticateMiddleware = require('./routers/auth').authenticateMiddleware;
 
@@ -45,6 +46,7 @@ app.use("/", authenticateMiddleware, appRouter);
 app.use("/", authenticateMiddleware, adminRouter);
 app.use("/", authenticateMiddleware, wizardRouter);
 app.use("/", authenticateMiddleware, searchRouter);
+app.use("/", authenticateMiddleware, profileRouter);
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server listening on port 3000.  Press Ctrl + C to exit.");

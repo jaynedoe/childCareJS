@@ -13,49 +13,34 @@ appRouter.get("/", function (req, res) {
 });
 
 appRouter.get("/home", (req, res) => {
-  let sql = `SELECT * FROM users WHERE userID='${req.user.id}'`;
-  let sqlUserDetails = {
-    firstName: '',
-    lastName: ''
-  };
+  let sql = `SELECT Parent1Name FROM userProfiles WHERE userID='${req.user.id}'`;
   
   sqlDB.query(sql, (err, results) => {
     if(err)
     {
       console.log(err);
     } else {
-      sqlUserDetails.firstName = results[0].firstName;
-      sqlUserDetails.lastName = results[0].lastName;
-      res.render("home", { foundSQLUser: sqlUserDetails });
+      res.render("home", { parent1Name: results[0].Parent1Name });
     }
   });
 });
 
 appRouter.get("/account", function (req, res) {
-    let mongoUserName = req.user.username;
-    let sql = `SELECT * FROM users WHERE userID='${req.user.id}'`;
-    let sqlUserDetails = {
-      firstName: '',
-      lastName: ''
-    };
+
+    let sql = `SELECT * FROM userProfiles WHERE userID='${req.user.id}'`;
+
     sqlDB.query(sql, (err, results) => {
       if(err)
       {
         console.log(err);
       } else {
-        sqlUserDetails.firstName = results[0].firstName;
-        sqlUserDetails.lastName = results[0].lastName;
-        res.render("account", { foundSQLUser: sqlUserDetails, userNameMongo: req.user.username });
+        res.render("account", { firstName: results[0].Parent1Name, lastName: results[0].FamilyName, userNameMongo: req.user.username });
       }
     });
 });
 
 appRouter.get("/savedScenarios", function (req, res) {
     res.render("savedScenarios", { foundUser: req.user });
-});
-
-appRouter.get("/profile", function (req, res) {
-    res.render("profile", { foundUser: req.user });
 });
 
 appRouter.get("/resources", function (req, res) {

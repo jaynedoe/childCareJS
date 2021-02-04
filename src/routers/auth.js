@@ -31,14 +31,12 @@ authRouter.post("/register", function (req, res) {
           res.redirect("/register");
         } else {
           console.log("New User ID: " + user.id);
-  
-          let sql = `INSERT INTO users VALUES ('${user.id}', 'New', 'User')`;
 
-          sqlDB.query(sql, (err, results, fields) => {
+          let sql = `INSERT INTO userProfiles VALUES ('${user.id}', 'Your', 'Couple', 'New User', 0, 0, '', 0, 0, '','','','','','','','','','')`;
+
+          sqlDB.query(sql, (err, results) => {
             if(err){
-              console.log(err);
-            }else{
-              console.log(`Success! User added to SQL DB.`);
+                console.log(err);
             }
           });
   

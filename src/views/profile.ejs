@@ -4,52 +4,196 @@
 
     <div class="container-fluid">
         <div class="mb-5">
-            <h1 class="display-4 mb-5">Bagnoux Family</h1>
-            <a href="../wizard/wizardLanding"><button class="btn btn-lg btn-primary float-right">Go to Wizard</button></a>
+            <h1 class="display-4 mb-3"><%= familyName %> Family</h1>
+ 
+            <button class="btn btn-lg btn-primary float-right" data-bs-toggle="modal" data-bs-target="#profileModal">Edit Profile</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="profileModalLabel">Edit Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/updateProfile" method="POST">
+                            
+                                <div class="form-group">
+                                    <label for="familyName">Family Name</label>
+                                    <input class="form-control" type="text" name="familyName" id="familyName">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="household">Household Type</label>
+                                    <select class="form-control" name="household" id="household">
+                                        <option value="single">Single</option>
+                                        <option value="couple">Couple</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="parent1Name">Parent 1 Name</label>
+                                    <input class="form-control" type="text" name="parent1Name" id="parent1Name">
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="parent1Salary">Parent 1 Annual Salary</label>
+                                    <input class="form-control" type="number" name="parent1Salary" id="parent1Salary">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="parent1Hours">Parent 1 Hours Per Week</label>
+                                    <input class="form-control" type="number" name="parent1Hours" id="parent1Hours">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="parent2Name">Parent 2 Name</label>
+                                    <input class="form-control" type="text" name="parent2Name" id="parent2Name">
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="parent2Salary">Parent 2 Annual Salary</label>
+                                    <input class="form-control" type="number" name="parent2Salary" id="parent2Salary">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="parent2Hours">Parent 2 Hours Per Week</label>
+                                    <input class="form-control" type="number" name="parent2Hours" id="parent2Hours">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="child1Name">Child 1 Name</label>
+                                    <input class="form-control" type="text" name="child1Name" id="child1Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="child1DOB">Child 1 Date of Birth</label>
+                                    <input class="form-control" type="date" name="child1DOB" id="child1DOB">
+                                </div>
+                                <div class="form-group">
+                                    <label for="child2Name">Child 2 Name</label>
+                                    <input class="form-control" type="text" name="child2Name" id="child2Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="child2DOB">Child 2 Date of Birth</label>
+                                    <input class="form-control" type="date" name="child2DOB" id="child2DOB">
+                                </div>
+                                <div class="form-group">
+                                    <label for="child3Name">Child 3 Name</label>
+                                    <input class="form-control" type="text" name="child3Name" id="child3Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="child3DOB">Child 3 Date of Birth</label>
+                                    <input class="form-control" type="date" name="child3DOB" id="child3DOB">
+                                </div>
+                                <div class="form-group">
+                                    <label for="child4Name">Child 4 Name</label>
+                                    <input class="form-control" type="text" name="child4Name" id="child4Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="child4DOB">Child 4 Date of Birth</label>
+                                    <input class="form-control" type="date" name="child4DOB" id="child4DOB">
+                                </div>
+                                <div class="form-group">
+                                    <label for="child5Name">Child 5 Name</label>
+                                    <input class="form-control" type="text" name="child5Name" id="child5Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="child5DOB">Child 5 Date of Birth</label>
+                                    <input class="form-control" type="date" name="child5DOB" id="child5DOB">
+                                </div>
+                                                        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+
             <p class="lead">Couple Household</p>            
-            <a href="#">Edit<i class="fas fa-pen ml-2 text-primary"></i></a>
         </div>
 
-        <hr>
+
 
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="text-info mb-2">Parent 1</h2>
-                <a href="#">Edit<i class="fas fa-pen ml-2 text-primary"></i></a>
-                <p class="mt-3"><strong>Karina Bagnoux</strong></p>
-                <p>DOB: 22/7/1987</p>
-                <p>Occupation: Nurse</p>
-                <p>Yearly Gross Income, Excluding Super: $70,000</p>
-                <p>Paid Hours Per Week: 30</p>
+          
+
+                <table class="table">
+                    <tr>
+                        <td>Karina</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth</td>
+                        <td>22/7/1982</td>
+                    </tr>
+                    <tr>
+                        <td>Annual Income Before Tax</td>
+                        <td>$60,000</td>
+                    </tr>
+                    <tr>
+                        <td>Paid Hours Per Week</td>
+                        <td>40</td>
+                    </tr>
+                </table>
+
             </div>
+
+
             <div class="col-lg-6">
                 <h2 class="text-info mb-2">Parent 2</h2>
-                <a href="#">Edit<i class="fas fa-pen ml-2 text-primary"></i></a> <a class="ml-4" href="#">Delete<i class="fas fa-trash-alt ml-2 text-primary"></i></a>
-                <p class="mt-3"><strong>Daniel Bagnoux</strong></p>
-                <p>DOB: 22/7/1987</p>
-                <p>Occupation: Builder</p>
-                <p>Yearly Gross Income, Excluding Super: $60,000</p>
-                <p>Paid Hours Per Week: 40</p>
+
+                <table class="table">
+                    <tr>
+                        <td>Daniel</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth</td>
+                        <td>1/5/1982</td>
+                    </tr>
+                    <tr>
+                        <td>Annual Income Before Tax</td>
+                        <td>$40,000</td>
+                    </tr>
+                    <tr>
+                        <td>Paid Hours Per Week</td>
+                        <td>30</td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <hr>
-
-            <h2 class="text-info mb-4">Children</h2>
-            <p>Riley Bagnoux</p>
-            <p>DOB: 23/4/2016</p>
-            <a href="#">Edit<i class="fas fa-pen ml-2 text-primary"></i></a> <a class="ml-4" href="#">Delete<i class="fas fa-trash-alt ml-2 text-primary"></i></a>
-            <p class="mt-4">Lincoln Bagnoux</p>
-            <p>DOB: 11/11/2018</p>
-            <a href="#">Edit<i class="fas fa-pen ml-2 text-primary"></i></a> <a class="ml-4" href="#">Delete<i class="fas fa-trash-alt ml-2 text-primary"></i></a>
-            <hr>
-            <a href="#"><button class="btn btn-primary">Add Another Child</button></a>
 
 
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="text-info my-4">Children</h2>
 
+                <table class="table">
+                    <tr>
+                        <td>Riley</td>
+                        <td>Age: 4</td>
+                        <td>23/4/2016</td>
+                    </tr>
+                    <tr>
+                        <td>Lincoln</td>
+                        <td>Age: 3</td>
+                        <td>11/11/2018</td>
+                    </tr>
+                </table>
 
-
-
-
+            </div>
+        </div>
     </div>
 
 </main>
