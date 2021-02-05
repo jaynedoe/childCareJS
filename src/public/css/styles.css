@@ -25,6 +25,21 @@ main {
   text-align: left;
 }
 
+div.table{
+  display: table;
+  width: 80%;
+}
+
+form.tr, div.tr {
+  display: table-row;
+
+}
+
+span.td {
+  display: table-cell;
+  padding: 1%;
+}
+
 .form-inline label {
   justify-content: left;
   padding-bottom: 0.5rem;

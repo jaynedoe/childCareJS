@@ -1,0 +1,184 @@
+<%- include('partials/header') %>
+
+<main>
+
+    <div class="container-fluid">
+
+        <div class="row mb-5">
+            <h1 class="display-4 mb-3">Edit Profile</h1>
+            <hr>
+            <a href="/profile"><p class="lead mr-4">Back to Profile</p></a>
+            
+        </div>
+      
+        <div class="row">
+
+            <div class="table">
+
+                <form class="tr" action="/editFamilyName" method="POST">
+                <span class="td"><label for="editFamilyName">Edit Family Name</label></span>
+                <span class="td">Doyne</span>
+                <span class="td"><input class="form-control" type="text" name="editFamilyName" id="editFamilyName"></span>
+                <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+              
+                </form>
+
+                <form class="tr" action="/editHousehold" method="POST">
+                    <span class="td"><label for="editHousehold">Edit Household Type</label></span>
+                    <span class="td"></span>
+                    <span class="td"><select class="form-control" name="editHousehold" id="editHousehold"><option value="Couple">Couple</option><option value="Single">Single</option></select></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+   
+                </form>
+
+                <!-- parent1 name -->
+                <form class="tr" action="/editParent1Name" method="POST">
+                    <span class="td"><label for="editParent1Name">Edit Parent 1 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editParent1Name" id="editParent1Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+         
+                </form>
+
+                <!-- parent1 salary -->
+                <form class="tr" action="/editParent1Salary" method="POST">
+                    <span class="td"><label for="editParent1Salary">Edit Parent 1 Salary</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="number" name="editParent1Salary" id="editParent1Salary"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                  
+                </form>
+
+                <!-- parent1 hours -->
+                <form class="tr" action="/editParent1Hours" method="POST">
+                    <span class="td"><label for="editParent1Hours">Edit Parent 1 Hours</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="number" name="editParent1Hours" id="editParent1Hours"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+              
+                </form>
+
+                <!-- parent2 name -->
+                <form class="tr" action="/editParent2Name" method="POST">
+                    <span class="td"><label for="editParent2Name">Edit Parent 2 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editParent2Name" id="editParent2Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                   
+                </form>
+
+                <!-- parent1 salary -->
+                <form class="tr" action="/editParent2Salary" method="POST">
+                    <span class="td"><label for="editParent2Salary">Edit Parent 2 Salary</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="number" name="editParent2Salary" id="editParent2Salary"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+              
+                </form>
+
+                <!-- parent1 hours -->
+                <form class="tr" action="/editParent2Hours" method="POST">
+                    <span class="td"><label for="editParent2Hours">Edit Parent 2 Hours</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="number" name="editParent2Hours" id="editParent2Hours"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                   
+                </form>
+
+                <!-- child1name -->
+                <form class="tr" action="/editChild1Name" method="POST">
+                    <span class="td"><label for="editChild1Name">Edit Child 1 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editChild1Name" id="editChild1Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                 
+                </form>
+
+                <!-- child1DOB -->
+                <form class="tr" action="/editChild1DOB" method="POST">
+                    <span class="td"><label for="editChild1DOB">Edit Child 1 Date Of Birth</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="date" name="editChild1DOB" id="editChild1DOB"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                 
+                </form>
+
+                <!-- child2name -->
+                <form class="tr" action="/editChild2Name" method="POST">
+                    <span class="td"><label for="editChild2Name">Edit Child 2 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editChild2Name" id="editChild2Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+              
+                </form>
+
+                <!-- child2DOB -->
+                <form class="tr" action="/editChild2DOB" method="POST">
+                    <span class="td"><label for="editChild2DOB">Edit Child 2 Date Of Birth</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="date" name="editChild2DOB" id="editChild2DOB"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                
+                </form>
+
+                <!-- child3name -->
+                <form class="tr" action="/editChild3Name" method="POST">
+                    <span class="td"><label for="editChild3Name">Edit Child 3 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editChild3Name" id="editChild3Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                 
+                </form>
+
+                <!-- child3DOB -->
+                <form class="tr" action="/editChild3DOB" method="POST">
+                    <span class="td"><label for="editChild3DOB">Edit Child 3 Date Of Birth</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="date" name="editChild3DOB" id="editChild3DOB"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+               
+                </form>
+
+                <!-- child4name -->
+                <form class="tr" action="/editChild4Name" method="POST">
+                    <span class="td"><label for="editChild4Name">Edit Child 4 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editChild4Name" id="editChild4Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                 
+                </form>
+
+                <!-- child4DOB -->
+                <form class="tr" action="/editChild3DOB" method="POST">
+                    <span class="td"><label for="editChild4DOB">Edit Child 4 Date Of Birth</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="date" name="editChild4DOB" id="editChild4DOB"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                 
+                </form>
+
+                <!-- child5name -->
+                <form class="tr" action="/editChild5Name" method="POST">
+                    <span class="td"><label for="editChild5Name">Edit Child 5 Name</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="text" name="editChild5Name" id="editChild5Name"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                
+                </form>
+
+                <!-- child5DOB -->
+                <form class="tr" action="/editChild5DOB" method="POST">
+                    <span class="td"><label for="editChild5DOB">Edit Child 5 Date Of Birth</label></span>
+                    <span class="td"></span>
+                    <span class="td"><input class="form-control" type="date" name="editChild5DOB" id="editChild5DOB"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<%- include('partials/footer') %>
+

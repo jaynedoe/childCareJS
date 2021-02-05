@@ -1,10 +1,39 @@
 const Router = require("express").Router;
 const calculator = require("../models/calculator");
+const sqlDB = require("../sql");
 
 const wizardRouter = new Router();
 
 wizardRouter.get("/wizard/wizardLanding", function (req, res) {
-    res.render("wizard/wizardLanding");
+
+  let sql = `SELECT * FROM userProfiles WHERE userID='${req.user.id}'`;
+
+  sqlDB.query(sql, (err, results) => {
+      if(err){
+          console.log(err);
+      }
+      
+      res.render("wizard/wizardLanding", { 
+          familyName: results[0].FamilyName,
+          household: results[0].HouseholdType,
+          parent1Name: results[0].Parent1Name,
+          parent1Salary: results[0].Parent1Salary,
+          parent1Hours: results[0].Parent1Hours,
+          parent2Name: results[0].Parent2Name,
+          parent2Salary: results[0].Parent2Salary,
+          parent2Hours: results[0].Parent2Hours,
+          child1Name: results[0].Child1Name,
+          child1DOB: results[0].Child1DOB,
+          child2Name: results[0].Child2Name,
+          child2DOB: results[0].Child2DOB,
+          child3Name: results[0].Child3Name,
+          child3DOB: results[0].Child3DOB,
+          child4Name: results[0].Child4Name,
+          child4DOB: results[0].Child4DOB,
+          child5Name: results[0].Child5Name,
+          child5DOB: results[0].Child5DOB
+      });        
+  });
 });
 
 wizardRouter.post("/wizard", function (req, res) {

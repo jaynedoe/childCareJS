@@ -6,11 +6,7 @@
 
         <div class="mb-5">
             <h1 class="display-4 mb-5 ml-2">Wizard Calculator</h1>
-            <p class="lead ml-3">Couple Household</p>    
-            <!-- <a href="/profile"><button class="btn btn-lg ml-3 btn-primary">Edit Profile</button></a> -->
-            <!-- <p class="float-right lead mr-3 mt-2 text-danger">Incorrect Parent or Child Details? >>></p>  -->
-          
-            <!-- <a href="../dashboard/myProfile">Edit<i class="fas fa-pen ml-2 text-primary"></i></a> -->
+            <p class="lead ml-3"><%= household %> Household</p>    
         </div>
 
         <hr>
@@ -24,13 +20,13 @@
                         <div class="row g-3">
                    
                             <div class="col-md-5">
-                                <label for="parent1Salary1">Karina Annual Salary</label>
-                                <input class="form-control" type="number" name="parent1Salary1" id="parent1Salary1">
+                                <label for="parent1Salary1"><%= parent1Name %> Annual Salary</label>
+                                <input class="form-control" type="number" name="parent1Salary1" id="parent1Salary1" value="<%= parent1Salary %>">
                             </div>
         
                             <div class="col-md-5">
-                                <label for="parent1Hours1">Karina Hours Worked Per Fortnight</label>
-                                <input class="form-control" type="number" name="parent1Hours1" id="parent1Hours1">
+                                <label for="parent1Hours1"><%= parent1Name %> Hours Worked Per Fortnight</label>
+                                <input class="form-control" type="number" name="parent1Hours1" id="parent1Hours1" value="<%= parent1Hours %>">
                             </div>  
                         </div>
                     </div>
@@ -40,12 +36,12 @@
                         <div class="row g-3">
 
                             <div class="col-md-5">
-                                <label for="parent1Salary2">Karina Annual Salary</label>
+                                <label for="parent1Salary2"><%= parent1Name %> Annual Salary</label>
                                 <input class="form-control" type="number" name="parent1Salary2" id="parent1Salary2">
                             </div>
         
                             <div class="col-md-5">
-                                <label for="parent1Hours2">Karina Hours Worked Per Fortnight</label>
+                                <label for="parent1Hours2"><%= parent1Name %> Hours Worked Per Fortnight</label>
                                 <input class="form-control" type="number" name="parent1Hours2" id="parent1Hours2">
                             </div>  
                         </div>
@@ -58,13 +54,13 @@
                         <div class="row g-3 mt-3">
 
                             <div class="col-md-5">
-                                <label for="parent2Salary1">Daniel Annual Salary</label>
-                                <input class="form-control" type="number" name="parent2Salary1" id="parent2Salary1">
+                                <label for="parent2Salary1"><%= parent2Name %> Annual Salary</label>
+                                <input class="form-control" type="number" name="parent2Salary1" id="parent2Salary1" value="<%= parent2Salary %>">
                             </div>
         
                             <div class="col-md-5">
-                                <label for="parent2Hours1">Daniel Hours Worked Per Fortnight</label>
-                                <input class="form-control" type="number" name="parent2Hours1" id="parent2Hours1">
+                                <label for="parent2Hours1"><%= parent2Name %> Hours Worked Per Fortnight</label>
+                                <input class="form-control" type="number" name="parent2Hours1" id="parent2Hours1" value="<%= parent2Hours %>">
                             </div>  
                         </div>
                     </div>
@@ -73,12 +69,12 @@
                         <div class="row g-3 mt-3">
 
                             <div class="col-md-5">
-                                <label for="parent2Salary2">Daniel Annual Salary</label>
+                                <label for="parent2Salary2"><%= parent2Name %> Annual Salary</label>
                                 <input class="form-control" type="number" name="parent2Salary2" id="parent2Salary2">
                             </div>
         
                             <div class="col-md-5">
-                                <label for="parent2Hours2">Daniel Hours Worked Per Fortnight</label>
+                                <label for="parent2Hours2"><%= parent2Name %> Hours Worked Per Fortnight</label>
                                 <input class="form-control" type="number" name="parent2Hours2" id="parent2Hours2">
                             </div>  
                         </div>
@@ -90,7 +86,7 @@
                 <div class="row">
                     <div class="col-lg-6">
 
-                        <p class="mt-5 mb-3 lead text-primary pl-3"><strong> Childcare Arrangements - Riley</strong></p>   
+                        <p class="mt-5 mb-3 lead text-primary pl-3"><strong> Childcare Arrangements - <%= child1Name %></strong></p>   
 
                         <p class="pl-3 text-primary">Centre-Based Care</p>
 
@@ -170,7 +166,7 @@
                                     </div>
                                 </div>
         
-                                <p class="mt-5 mb-3 lead text-primary pl-3"><strong> Childcare Arrangements - Lincoln</strong></p>   
+                                <p class="mt-5 mb-3 lead text-primary pl-3"><strong> Childcare Arrangements - <%= child2Name %></strong></p>   
 
                                 <p class="pl-3 text-primary">Centre-Based Care</p>
 
@@ -255,7 +251,7 @@
 
                     <div class="col-lg-6 pl-4">
 
-                        <p class="mt-5 mb-3 lead text-info pl-3"><strong> Childcare Arrangements - Riley</strong></p>   
+                        <p class="mt-5 mb-3 lead text-info pl-3"><strong> Childcare Arrangements - <%= child1Name %></strong></p>   
                         <p class="pl-3 mt-4 text-info">Centre-Based Care</p>
                                 <div class="row ml-3">                    
                                   <div class="mr-3">
@@ -329,7 +325,7 @@
                                     </div>
                                 </div>
         
-                                <p class="mt-5 mb-3 lead text-info pl-3"><strong> Childcare Arrangements - Lincoln</strong></p>   
+                                <p class="mt-5 mb-3 lead text-info pl-3"><strong> Childcare Arrangements - <%= child2Name %></strong></p>   
                                 <p class="pl-3 mt-4 text-info">Centre-Based Care</p>
                                         <div class="row ml-3">                    
                                           <div class="mr-3">
