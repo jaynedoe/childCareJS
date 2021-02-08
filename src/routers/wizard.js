@@ -171,15 +171,15 @@ wizardRouter.post("/wizard", function (req, res) {
     let activityAssessedParent2;
   
     if(Number(parent1Hours1) <= Number(parent2Hours1)){
-      activityAssessedParent1 = "Karina";
+      activityAssessedParent1 = "Parent 1";
     } else if (Number(parent1Hours1) > Number(parent2Hours1)){
-      activityAssessedParent1 = "Daniel";
+      activityAssessedParent1 = "Parent 2";
     }
   
     if(Number(parent1Hours2) <= Number(parent2Hours2)){
-      activityAssessedParent2 = "Karina";
+      activityAssessedParent2 = "Parent 1";
     } else if(Number(parent1Hours2) > Number(parent2Hours2)){
-      activityAssessedParent2 = "Daniel";
+      activityAssessedParent2 = "Parent 2";
     }
   
     //max hours of subsidised care
@@ -187,15 +187,15 @@ wizardRouter.post("/wizard", function (req, res) {
     let maxHours1;
     let maxHours2;
   
-    if(activityAssessedParent1 === "Daniel"){
+    if(activityAssessedParent1 === "Parent 2"){
       maxHours1 = calculator.maxHours(parent2Hours1, parent2Salary1);
-    } else if(activityAssessedParent1 === "Karina"){
+    } else if(activityAssessedParent1 === "Parent 1"){
       maxHours1 = calculator.maxHours(parent1Hours1, parent1Salary1);
     }
   
-    if(activityAssessedParent2 === "Daniel"){
+    if(activityAssessedParent2 === "Parent 2"){
       maxHours2 = calculator.maxHours(parent2Hours2, parent2Salary2);
-    } else if(activityAssessedParent2 === "Karina"){
+    } else if(activityAssessedParent2 === "Parent 1"){
       maxHours2 = calculator.maxHours(parent1Hours2, parent1Salary2);
     }
   
@@ -310,32 +310,54 @@ wizardRouter.post("/wizard", function (req, res) {
   
   // ------------- SEND RESULTS -----------------------------
   
-  
-    if (householdType == "single") {
-      res.render("wizard/wizardResultsS", {
-      });
-    } else {
-      res.render("wizard/wizardResultsC", {
+  let sql = `SELECT * FROM userProfiles WHERE userID='${req.user.id}'`;
+
+  sqlDB.query(sql, (err, results) => {
+      if(err){
+          console.log(err);
+      } 
+
+      console.log(new Intl.NumberFormat().format(parent1Salary1));
+
+      res.render("wizard/wizardResultsC", {        
+        familyName: results[0].FamilyName,
+        household: results[0].HouseholdType,
+        parent1Name: results[0].Parent1Name,
+        parent1Salary: results[0].Parent1Salary,
+        parent1Hours: results[0].Parent1Hours,
+        parent2Name: results[0].Parent2Name,
+        parent2Salary: results[0].Parent2Salary,
+        parent2Hours: results[0].Parent2Hours,
+        child1Name: results[0].Child1Name,
+        child1DOB: results[0].Child1DOB,
+        child2Name: results[0].Child2Name,
+        child2DOB: results[0].Child2DOB,
+        child3Name: results[0].Child3Name,
+        child3DOB: results[0].Child3DOB,
+        child4Name: results[0].Child4Name,
+        child4DOB: results[0].Child4DOB,
+        child5Name: results[0].Child5Name,
+        child5DOB: results[0].Child5DOB,
         parent1Hours1: parent1Hours1,
         parent1Hours2: parent1Hours2,
         parent2Hours1: parent2Hours1,
         parent2Hours2: parent2Hours2,
-        parent1Salary1: parent1Salary1,
-        parent1Salary2: parent1Salary2,
-        parent2Salary1: parent2Salary1,
-        parent2Salary2: parent2Salary2,
-        netTaxPayableP1Base: netTaxPayableP1Base,
-        netTaxPayableP1Alt: netTaxPayableP1Alt,
-        netTaxPayableP2Base: netTaxPayableP2Base,
-        netTaxPayableP2Alt: netTaxPayableP2Alt,
-        netIncomeAfterTaxP1BaseFN: netIncomeAfterTaxP1BaseFN,
-        netIncomeAfterTaxP2BaseFN: netIncomeAfterTaxP2BaseFN,
-        netIncomeAfterTaxP1AltFN: netIncomeAfterTaxP1AltFN,
-        netIncomeAfterTaxP2AltFN: netIncomeAfterTaxP2AltFN,
+        parent1Salary1: new Intl.NumberFormat().format(parent1Salary1),
+        parent1Salary2: new Intl.NumberFormat().format(parent1Salary2),
+        parent2Salary1: new Intl.NumberFormat().format(parent2Salary1),
+        parent2Salary2: new Intl.NumberFormat().format(parent2Salary2),
+        netTaxPayableP1Base: new Intl.NumberFormat().format(netTaxPayableP1Base),
+        netTaxPayableP1Alt: new Intl.NumberFormat().format(netTaxPayableP1Alt),
+        netTaxPayableP2Base: new Intl.NumberFormat().format(netTaxPayableP2Base),
+        netTaxPayableP2Alt: new Intl.NumberFormat().format(netTaxPayableP2Alt),
+        netIncomeAfterTaxP1BaseFN: new Intl.NumberFormat().format(netIncomeAfterTaxP1BaseFN),
+        netIncomeAfterTaxP2BaseFN: new Intl.NumberFormat().format(netIncomeAfterTaxP2BaseFN),
+        netIncomeAfterTaxP1AltFN: new Intl.NumberFormat().format(netIncomeAfterTaxP1AltFN),
+        netIncomeAfterTaxP2AltFN: new Intl.NumberFormat().format(netIncomeAfterTaxP2AltFN),
         activityAssessedParent1: activityAssessedParent1,
         activityAssessedParent2: activityAssessedParent2,
-        familyIncome1: familyIncome1,
-        familyIncome2: familyIncome2,
+        familyIncome1: new Intl.NumberFormat().format(familyIncome1),
+        familyIncome2: new Intl.NumberFormat().format(familyIncome2),
         maxHours1: maxHours1,
         maxHours2: maxHours2,
         cBDaysInCareS1C1: cBDaysInCareS1C1,
@@ -374,22 +396,22 @@ wizardRouter.post("/wizard", function (req, res) {
         oSHDaysInCareS2C2: oSHDaysInCareS2C2,
         oSHDailyCostS2C2: oSHDailyCostS2C2,
         oSHSessionLengthS2C2: oSHSessionLengthS2C2,
-        totalCentreBasedCost1: totalCentreBasedCost1,
-        totalCentreBasedCost2: totalCentreBasedCost2,
-        totalFamilyDayCareCost1: totalFamilyDayCareCost1,
-        totalFamilyDayCareCost2: totalFamilyDayCareCost2,
-        totalOSHCareCost1: totalOSHCareCost1,
-        totalOSHCareCost2: totalOSHCareCost2,
-        totalCareCost1: totalCareCost1,
-        totalCareCost2: totalCareCost2,
+        totalCentreBasedCost1: new Intl.NumberFormat().format(totalCentreBasedCost1),
+        totalCentreBasedCost2: new Intl.NumberFormat().format(totalCentreBasedCost2),
+        totalFamilyDayCareCost1: new Intl.NumberFormat().format(totalFamilyDayCareCost1),
+        totalFamilyDayCareCost2: new Intl.NumberFormat().format(totalFamilyDayCareCost2),
+        totalOSHCareCost1: new Intl.NumberFormat().format(totalOSHCareCost1),
+        totalOSHCareCost2: new Intl.NumberFormat().format(totalOSHCareCost2),
+        totalCareCost1: new Intl.NumberFormat().format(totalCareCost1),
+        totalCareCost2: new Intl.NumberFormat().format(totalCareCost2),
         totalCareHours1: totalCareHours1,
         totalCareHours2: totalCareHours2,
-        totalHourlyOutOfPocket1: totalHourlyOutOfPocket1,
-        totalHourlyOutOfPocket2: totalHourlyOutOfPocket2,
-        childcareSubsidy1: childcareSubsidy1,
-        childcareSubsidy2: childcareSubsidy2,
-      })
-      }
-    });
+        totalHourlyOutOfPocket1: new Intl.NumberFormat().format(totalHourlyOutOfPocket1),
+        totalHourlyOutOfPocket2: new Intl.NumberFormat().format(totalHourlyOutOfPocket2),
+        childcareSubsidy1: new Intl.NumberFormat().format(childcareSubsidy1),
+        childcareSubsidy2: new Intl.NumberFormat().format(childcareSubsidy2),
+      });
+  });
+});
 
-    module.exports = wizardRouter;
+module.exports = wizardRouter;

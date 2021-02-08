@@ -1,5 +1,6 @@
 const sqlDB = require("../sql");
 const Router = require("express").Router;
+const dateCalc = require("../models/date");
 
 const profileRouter = new Router();
 
@@ -11,25 +12,28 @@ profileRouter.get("/profile", function (req, res) {
         if(err){
             console.log(err);
         } 
+
+        console.log(results[0].Child3DOB);
+
         res.render("profile", { 
             familyName: results[0].FamilyName,
             household: results[0].HouseholdType,
             parent1Name: results[0].Parent1Name,
-            parent1Salary: results[0].Parent1Salary,
+            parent1Salary: new Intl.NumberFormat().format(results[0].Parent1Salary),
             parent1Hours: results[0].Parent1Hours,
             parent2Name: results[0].Parent2Name,
-            parent2Salary: results[0].Parent2Salary,
+            parent2Salary: new Intl.NumberFormat().format(results[0].Parent2Salary),
             parent2Hours: results[0].Parent2Hours,
             child1Name: results[0].Child1Name,
-            child1DOB: results[0].Child1DOB,
+            child1DOB: dateCalc.returnDateOfBirth(results[0].Child1DOB),
             child2Name: results[0].Child2Name,
-            child2DOB: results[0].Child2DOB,
+            child2DOB: dateCalc.returnDateOfBirth(results[0].Child2DOB),
             child3Name: results[0].Child3Name,
-            child3DOB: results[0].Child3DOB,
+            child3DOB: dateCalc.returnDateOfBirth(results[0].Child3DOB),
             child4Name: results[0].Child4Name,
-            child4DOB: results[0].Child4DOB,
+            child4DOB: dateCalc.returnDateOfBirth(results[0].Child4DOB),
             child5Name: results[0].Child5Name,
-            child5DOB: results[0].Child5DOB
+            child5DOB: dateCalc.returnDateOfBirth(results[0].Child5DOB),
         });        
     });
 });
@@ -46,21 +50,21 @@ profileRouter.get("/editProfile", (req, res) => {
             familyName: results[0].FamilyName,
             household: results[0].HouseholdType,
             parent1Name: results[0].Parent1Name,
-            parent1Salary: results[0].Parent1Salary,
+            parent1Salary: new Intl.NumberFormat().format(results[0].Parent1Salary),
             parent1Hours: results[0].Parent1Hours,
             parent2Name: results[0].Parent2Name,
-            parent2Salary: results[0].Parent2Salary,
+            parent2Salary: new Intl.NumberFormat().format(results[0].Parent2Salary),
             parent2Hours: results[0].Parent2Hours,
             child1Name: results[0].Child1Name,
-            child1DOB: results[0].Child1DOB,
+            child1DOB: dateCalc.returnDateOfBirth(results[0].Child1DOB),
             child2Name: results[0].Child2Name,
-            child2DOB: results[0].Child2DOB,
+            child2DOB: dateCalc.returnDateOfBirth(results[0].Child2DOB),
             child3Name: results[0].Child3Name,
-            child3DOB: results[0].Child3DOB,
+            child3DOB: dateCalc.returnDateOfBirth(results[0].Child3DOB),
             child4Name: results[0].Child4Name,
-            child4DOB: results[0].Child4DOB,
+            child4DOB: dateCalc.returnDateOfBirth(results[0].Child4DOB),
             child5Name: results[0].Child5Name,
-            child5DOB: results[0].Child5DOB
+            child5DOB: dateCalc.returnDateOfBirth(results[0].Child5DOB)
         });        
     });
 });

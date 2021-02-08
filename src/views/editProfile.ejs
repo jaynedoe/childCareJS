@@ -7,7 +7,7 @@
         <div class="row mb-5">
             <h1 class="display-4 mb-3">Edit Profile</h1>
             <hr>
-            <a href="/profile"><p class="lead mr-4">Back to Profile</p></a>
+            <a href="/profile"><button class="btn btn-primary">Back to Profile</button></a>
             
         </div>
       
@@ -15,17 +15,23 @@
 
             <div class="table">
 
+                <div class="tr lead bg-dark text-light">
+                    <span class="td">Edit Field:</span>
+                    <span class="td">Current:</span>
+                    <span class="td">Change To:</span>
+                    <span class="td"></span>
+                </div>
+
                 <form class="tr" action="/editFamilyName" method="POST">
-                <span class="td"><label for="editFamilyName">Edit Family Name</label></span>
-                <span class="td">Doyne</span>
-                <span class="td"><input class="form-control" type="text" name="editFamilyName" id="editFamilyName"></span>
-                <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
-              
+                    <span class="td bg-info text-light"><label for="editFamilyName">Family Name</label></span>
+                    <span class="td"><%= familyName %></span>
+                    <span class="td"><input class="form-control" type="text" name="editFamilyName" id="editFamilyName"></span>
+                    <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                 </form>
 
                 <form class="tr" action="/editHousehold" method="POST">
-                    <span class="td"><label for="editHousehold">Edit Household Type</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editHousehold">Household Type</label></span>
+                    <span class="td"><%= household %></span>
                     <span class="td"><select class="form-control" name="editHousehold" id="editHousehold"><option value="Couple">Couple</option><option value="Single">Single</option></select></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
    
@@ -33,8 +39,8 @@
 
                 <!-- parent1 name -->
                 <form class="tr" action="/editParent1Name" method="POST">
-                    <span class="td"><label for="editParent1Name">Edit Parent 1 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editParent1Name">Parent 1 Name</label></span>
+                    <span class="td"><%= parent1Name %></span>
                     <span class="td"><input class="form-control" type="text" name="editParent1Name" id="editParent1Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
          
@@ -42,8 +48,8 @@
 
                 <!-- parent1 salary -->
                 <form class="tr" action="/editParent1Salary" method="POST">
-                    <span class="td"><label for="editParent1Salary">Edit Parent 1 Salary</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editParent1Salary">Parent 1 Salary</label></span>
+                    <span class="td">$<%= parent1Salary %></span>
                     <span class="td"><input class="form-control" type="number" name="editParent1Salary" id="editParent1Salary"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                   
@@ -51,8 +57,8 @@
 
                 <!-- parent1 hours -->
                 <form class="tr" action="/editParent1Hours" method="POST">
-                    <span class="td"><label for="editParent1Hours">Edit Parent 1 Hours</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editParent1Hours">Parent 1 Hours</label></span>
+                    <span class="td"><%= parent1Hours %></span>
                     <span class="td"><input class="form-control" type="number" name="editParent1Hours" id="editParent1Hours"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
               
@@ -60,8 +66,8 @@
 
                 <!-- parent2 name -->
                 <form class="tr" action="/editParent2Name" method="POST">
-                    <span class="td"><label for="editParent2Name">Edit Parent 2 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editParent2Name">Parent 2 Name</label></span>
+                    <span class="td"><%= parent2Name %></span>
                     <span class="td"><input class="form-control" type="text" name="editParent2Name" id="editParent2Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                    
@@ -69,8 +75,8 @@
 
                 <!-- parent1 salary -->
                 <form class="tr" action="/editParent2Salary" method="POST">
-                    <span class="td"><label for="editParent2Salary">Edit Parent 2 Salary</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editParent2Salary">Parent 2 Salary</label></span>
+                    <span class="td">$<%= parent2Salary %></span>
                     <span class="td"><input class="form-control" type="number" name="editParent2Salary" id="editParent2Salary"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
               
@@ -78,8 +84,8 @@
 
                 <!-- parent1 hours -->
                 <form class="tr" action="/editParent2Hours" method="POST">
-                    <span class="td"><label for="editParent2Hours">Edit Parent 2 Hours</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editParent2Hours">Parent 2 Hours</label></span>
+                    <span class="td"><%= parent2Hours %></span>
                     <span class="td"><input class="form-control" type="number" name="editParent2Hours" id="editParent2Hours"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                    
@@ -87,8 +93,8 @@
 
                 <!-- child1name -->
                 <form class="tr" action="/editChild1Name" method="POST">
-                    <span class="td"><label for="editChild1Name">Edit Child 1 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild1Name">Child 1 Name</label></span>
+                    <span class="td"><%= child1Name %></span>
                     <span class="td"><input class="form-control" type="text" name="editChild1Name" id="editChild1Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                  
@@ -96,8 +102,8 @@
 
                 <!-- child1DOB -->
                 <form class="tr" action="/editChild1DOB" method="POST">
-                    <span class="td"><label for="editChild1DOB">Edit Child 1 Date Of Birth</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild1DOB">Child 1 Date Of Birth</label></span>
+                    <span class="td"><%= child1DOB %></span>
                     <span class="td"><input class="form-control" type="date" name="editChild1DOB" id="editChild1DOB"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                  
@@ -105,8 +111,8 @@
 
                 <!-- child2name -->
                 <form class="tr" action="/editChild2Name" method="POST">
-                    <span class="td"><label for="editChild2Name">Edit Child 2 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild2Name">Child 2 Name</label></span>
+                    <span class="td"><%= child2Name %> </span>
                     <span class="td"><input class="form-control" type="text" name="editChild2Name" id="editChild2Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
               
@@ -114,8 +120,8 @@
 
                 <!-- child2DOB -->
                 <form class="tr" action="/editChild2DOB" method="POST">
-                    <span class="td"><label for="editChild2DOB">Edit Child 2 Date Of Birth</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild2DOB">Child 2 Date Of Birth</label></span>
+                    <span class="td"><%= child2DOB %></span>
                     <span class="td"><input class="form-control" type="date" name="editChild2DOB" id="editChild2DOB"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                 
@@ -123,8 +129,8 @@
 
                 <!-- child3name -->
                 <form class="tr" action="/editChild3Name" method="POST">
-                    <span class="td"><label for="editChild3Name">Edit Child 3 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild3Name">Child 3 Name</label></span>
+                    <span class="td"><%= child3Name %></span>
                     <span class="td"><input class="form-control" type="text" name="editChild3Name" id="editChild3Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                  
@@ -132,8 +138,8 @@
 
                 <!-- child3DOB -->
                 <form class="tr" action="/editChild3DOB" method="POST">
-                    <span class="td"><label for="editChild3DOB">Edit Child 3 Date Of Birth</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild3DOB">Child 3 Date Of Birth</label></span>
+                    <span class="td"><%= child3DOB %></span>
                     <span class="td"><input class="form-control" type="date" name="editChild3DOB" id="editChild3DOB"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                
@@ -141,17 +147,17 @@
 
                 <!-- child4name -->
                 <form class="tr" action="/editChild4Name" method="POST">
-                    <span class="td"><label for="editChild4Name">Edit Child 4 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild4Name">Child 4 Name</label></span>
+                    <span class="td"><%= child4Name %></span>
                     <span class="td"><input class="form-control" type="text" name="editChild4Name" id="editChild4Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                  
                 </form>
 
                 <!-- child4DOB -->
-                <form class="tr" action="/editChild3DOB" method="POST">
-                    <span class="td"><label for="editChild4DOB">Edit Child 4 Date Of Birth</label></span>
-                    <span class="td"></span>
+                <form class="tr" action="/editChild4DOB" method="POST">
+                    <span class="td bg-info text-light"><label for="editChild4DOB">Child 4 Date Of Birth</label></span>
+                    <span class="td"><%= child4DOB %></span>
                     <span class="td"><input class="form-control" type="date" name="editChild4DOB" id="editChild4DOB"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                  
@@ -159,8 +165,8 @@
 
                 <!-- child5name -->
                 <form class="tr" action="/editChild5Name" method="POST">
-                    <span class="td"><label for="editChild5Name">Edit Child 5 Name</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild5Name">Child 5 Name</label></span>
+                    <span class="td"><%= child5Name %></span>
                     <span class="td"><input class="form-control" type="text" name="editChild5Name" id="editChild5Name"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
                 
@@ -168,12 +174,17 @@
 
                 <!-- child5DOB -->
                 <form class="tr" action="/editChild5DOB" method="POST">
-                    <span class="td"><label for="editChild5DOB">Edit Child 5 Date Of Birth</label></span>
-                    <span class="td"></span>
+                    <span class="td bg-info text-light"><label for="editChild5DOB">Child 5 Date Of Birth</label></span>
+                    <span class="td"><%= child5DOB %></span>
                     <span class="td"><input class="form-control" type="date" name="editChild5DOB" id="editChild5DOB"></span>
                     <span class="td"><button class="btn btn-sm btn-dark" type="submit">Submit</button></span>
-                    
                 </form>
+
+                <div class="tr lead bg-dark text-light">
+                    <span class="td"></span>
+                    
+                    
+                </div>
             </div>
         </div>
     </div>

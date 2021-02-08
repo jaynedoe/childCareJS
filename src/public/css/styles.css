@@ -32,7 +32,6 @@ div.table{
 
 form.tr, div.tr {
   display: table-row;
-
 }
 
 span.td {
@@ -127,6 +126,23 @@ a:hover {
   width: 75%;
   text-align: center;
 }
+
+/* -------------- Profile Page ----------- */
+
+.profileParentTable {
+  width: 60%;
+}
+
+.profileKidTable {
+  width: 40%;
+}
+
+/*  ------------- Wizard Results ------------ */
+
+.wizardTable {
+  width: 70%;
+}
+
 
 /* -------- Footer ------------- */
 

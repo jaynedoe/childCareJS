@@ -12,9 +12,6 @@ exports.maxHours = function(hours, salary){
   }
 }
 
-
-
-
 exports.grossTaxPayable = function(salary) {
   if (salary <= 18200) {
     return 0;

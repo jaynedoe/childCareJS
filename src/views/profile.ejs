@@ -11,76 +11,91 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
-                <h2 class="text-info mb-2">Parent 1</h2>
-          
-                <table class="table">
-                    <tr>
-                        <td><%= parent1Name %></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Annual Income Before Tax</td>
-                        <td>$<%= parent1Salary %></td>
-                    </tr>
-                    <tr>
-                        <td>Paid Hours Per Week</td>
-                        <td><%= parent1Hours %></td>
-                    </tr>
+            
+                <table class="table table-hover table-bordered profileParentTable">
+
+                    <thead class="bg-dark">
+                        <tr>
+                            <td></td>
+                            <td class="lead text-info mt-4"><%= parent1Name %></td>
+                            <td class="lead text-info mt-4"><%= parent2Name %></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-info text-light">
+                            <td>ANNUAL SALARY BEFORE TAX AND SUPER</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="my-4">$80,000</td>
+                            <td class="my-4">$70,000</td>
+                        </tr>
+                        <tr class="bg-info text-light">
+                            <td>PAID HOURS PER WEEK</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="my-4">40</td>
+                            <td class="my-4">40</td>
+                        </tr>
+                    </tbody>
+
                 </table>
 
-            </div>
-
-
-            <div class="col-lg-6">
-                <h2 class="text-info mb-2">Parent 2</h2>
-
-                <table class="table">
-                    <tr>
-                        <td><%= parent2Name %></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Annual Income Before Tax</td>
-                        <td>$<%= parent2Salary %></td>
-                    </tr>
-                    <tr>
-                        <td>Paid Hours Per Week</td>
-                        <td><%= parent2Hours %></td>
-                    </tr>
-                </table>
-            </div>
         </div>
 
 
         <div class="row">
-            <div class="col-lg-6">
-                <h2 class="text-info my-4">Children</h2>
+   
+             
+                <table class="table table-hover table-bordered profileKidTable mt-5">
+                    <thead class="bg-dark">
+                        <tr>
+                            <td class="lead text-info">Children</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
 
-                <table class="table">
-                    <tr>
-                        <td><%= child1Name %></td>  
-                        <td><%= child1DOB %></td>
-                    </tr>
-                    <tr>
-                        <td><%= child2Name %></td>
-                        <td><%= child2DOB %></td>
-                    </tr>
-                    <tr>
-                        <td><%= child3Name %></td>
-                        <td><%= child3DOB %></td>
-                    </tr>
-                    <tr>
-                        <td><%= child4Name %></td>
-                        <td><%= child4DOB %></td>
-                    </tr>
-                    <tr>
-                        <td><%= child5Name %></td>
-                        <td><%= child5DOB %></td>
-                    </tr>
+                    <tbody>
+                        <tr class="bg-info text-light">
+                            <td></td>
+                            <td>NAME</td>
+                            <td>DATE OF BIRTH</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><%= child1Name %></td>  
+                            <td><%= child1DOB %></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><%= child2Name %></td>
+                            <td><%= child2DOB %></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><%= child3Name %></td>
+                            <td><%= child3DOB %></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><%= child4Name %></td>
+                            <td><%= child4DOB %></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><%= child5Name %></td>
+                            <td><%= child5DOB %></td>
+                        </tr>
+                    </tbody>
+                  
                 </table>
-
-            </div>
+           
         </div>
     </div>
 
