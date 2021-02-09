@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="mb-5">
                 <h1 class="display-4 mb-5">Wizard Results</h1>
-                <a href="/wizard/wizardLanding">Run Again</a>      
+                <a href="/wizard/wizardLanding"><button class="btn btn-sm btn-danger">Run Again</button></a>      
             </div>
 
             <table class="table table-sm table-hover table-bordered wizardTable">
@@ -43,15 +43,22 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><%= parent1Name %> Paid Hours Per Fortnight</td>
-                        <td><%= parent1Hours1 %></td>
-                        <td><%= parent1Hours2 %></td>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td><%= parent2Name %> After Tax Income</td>
                         <td>$<%= netIncomeAfterTaxP2BaseFN %> per fortnight</td>
                         <td>$<%= netIncomeAfterTaxP2AltFN %> per fortnight</td>
+                    </tr>
+
+                    <tr class="bg-info text-light">
+                        <td>ACTIVITY LEVELS</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><%= parent1Name %> Paid Hours Per Fortnight</td>
+                        <td><%= parent1Hours1 %></td>
+                        <td><%= parent1Hours2 %></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -60,7 +67,7 @@
                         <td><%= parent2Hours2 %></td>
                     </tr>
                     <tr class="bg-info text-light">
-                        <td>PAID CHILDCARE</td>
+                        <td>WEEKLY PAID CHILDCARE</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -181,7 +188,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td>Total Out of Pocket Above Hourly Cap Cost</td>
+                        <td>Weekly Out of Pocket - Above Hourly Cap</td>
                         <td>$<%= totalHourlyOutOfPocket1 %></td>
                         <td>$<%= totalHourlyOutOfPocket2 %></td>
                     </tr>

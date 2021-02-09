@@ -38,7 +38,6 @@ wizardRouter.get("/wizard/wizardLanding", function (req, res) {
 
 wizardRouter.post("/wizard", function (req, res) {
     //require all the input data using body parser and store in variables
-    let householdType = "couple";
     let parent1Salary1 = req.body.parent1Salary1;
     let parent1Salary2 = req.body.parent1Salary2;
     let parent1Hours1 = req.body.parent1Hours1;
@@ -47,7 +46,10 @@ wizardRouter.post("/wizard", function (req, res) {
     let parent2Salary2 = req.body.parent2Salary2;
     let parent2Hours1 = req.body.parent2Hours1;
     let parent2Hours2 = req.body.parent2Hours2;
-  
+
+    
+// CENTRE BASED CARE DETAILS
+
     let cBDaysInCareS1C1 = req.body.cBDaysInCareS1C1; 
     let cBDailyCostS1C1 = req.body.cBDailyCostS1C1;
     let cBSessionLengthS1C1 = req.body.cBSessionLengthS1C1;
@@ -55,9 +57,9 @@ wizardRouter.post("/wizard", function (req, res) {
     let cBDaysInCareS1C2 = req.body.cBDaysInCareS1C2; 
     let cBDailyCostS1C2 = req.body.cBDailyCostS1C2;
     let cBSessionLengthS1C2 = req.body.cBSessionLengthS1C2;
-  
+
     let totalCentreBasedCost1 = (cBDaysInCareS1C1 * cBDailyCostS1C1) + (cBDaysInCareS1C2 * cBDailyCostS1C2);
-    let totalCentreBasedHours1 = (cBDaysInCareS1C1 * cBSessionLengthS1C1) + (cBDaysInCareS1C2 * cBDaysInCareS1C2);
+    let totalCentreBasedHours1 = (cBDaysInCareS1C1 * cBSessionLengthS1C1) + (cBDaysInCareS1C2 * cBSessionLengthS1C2);
   
     let cBDaysInCareS2C1 = req.body.cBDaysInCareS2C1; 
     let cBDailyCostS2C1 = req.body.cBDailyCostS2C1;
@@ -68,8 +70,10 @@ wizardRouter.post("/wizard", function (req, res) {
     let cBSessionLengthS2C2 = req.body.cBSessionLengthS2C2;
   
     let totalCentreBasedCost2 = (cBDaysInCareS2C1 * cBDailyCostS2C1) + (cBDaysInCareS2C2 * cBDailyCostS2C2);
-    let totalCentreBasedHours2 = (cBDaysInCareS2C1 * cBSessionLengthS2C1) + (cBDaysInCareS2C2 * cBDaysInCareS2C2);
+    let totalCentreBasedHours2 = (cBDaysInCareS2C1 * cBSessionLengthS2C1) + (cBDaysInCareS2C2 * cBSessionLengthS2C2);
   
+//FAMILY DAY CARE DETAILS
+
     let fDCDaysInCareS1C1 = req.body.fDCDaysInCareS1C1;
     let fDCDailyCostS1C1 = req.body.fDCDailyCostS1C1;
     let fDCSessionLengthS1C1 = req.body.fDCSessionLengthS1C1;
@@ -92,6 +96,8 @@ wizardRouter.post("/wizard", function (req, res) {
     let totalFamilyDayCareCost2 = (fDCDaysInCareS2C1*fDCDailyCostS2C1) + (fDCDaysInCareS2C2*fDCDailyCostS2C2);
     let totalFamilyDayCareHours2 = (fDCDaysInCareS2C1 * fDCSessionLengthS2C1) + (fDCDaysInCareS2C2 * fDCSessionLengthS2C2);
   
+// OUTSIDE SCHOOL HOURS CARE DETAILS
+
     let oSHDaysInCareS1C1 = req.body.oSHDaysInCareS1C1;
     let oSHDailyCostS1C1 = req.body.oSHDailyCostS1C1;
     let oSHSessionLengthS1C1 = req.body.oSHSessionLengthS1C1;
@@ -114,13 +120,20 @@ wizardRouter.post("/wizard", function (req, res) {
     let totalOSHCareCost2 = (oSHDaysInCareS2C1*oSHDailyCostS2C1) + (oSHDaysInCareS2C2*oSHDailyCostS2C2);
     let totalOSHCareHours2 = (oSHDaysInCareS2C1 * oSHSessionLengthS2C1) + (oSHDaysInCareS2C2 * oSHSessionLengthS2C2);
   
+
+// TOTAL CHILDCARE COST AND HOURS
+
     let totalCareCost1 = totalCentreBasedCost1 + totalFamilyDayCareCost1 + totalOSHCareCost1;
     let totalCareCost2 = totalCentreBasedCost2 + totalFamilyDayCareCost2 + totalOSHCareCost2;
   
     let totalCareHours1 = totalCentreBasedHours1 + totalFamilyDayCareHours1 + totalOSHCareHours1;
     let totalCareHours2 = totalCentreBasedHours2 + totalFamilyDayCareHours2 + totalOSHCareHours2;
   
-    //use stored inputs to perform calculations
+
+// TAX AND CENTRELINK
+
+
+    //gross tax payable
     let grossTaxP1Base = calculator.grossTaxPayable(parent1Salary1);
     let grossTaxP2Base = calculator.grossTaxPayable(parent2Salary1);
     let grossTaxP1Alt = calculator.grossTaxPayable(parent1Salary2);
@@ -202,8 +215,10 @@ wizardRouter.post("/wizard", function (req, res) {
     //hourly rate cap - out of pocket costs
   
     function hourlyCapCB(dailyCost, sessionLength, days){
-      if(dailyCost > 12.20){
-        let difference = dailyCost - 12.20;
+      let hourlyCost = dailyCost / sessionLength;
+      
+      if(hourlyCost > 12.20){
+        let difference = hourlyCost - 12.20;
         return difference * sessionLength * days;
       } else return 0;
     }
@@ -212,10 +227,13 @@ wizardRouter.post("/wizard", function (req, res) {
     let cBS1C2OutOfPocket = hourlyCapCB(cBDailyCostS1C2, cBSessionLengthS1C2, cBDaysInCareS1C2);
     let cBS2C1OutOfPocket = hourlyCapCB(cBDailyCostS2C1, cBSessionLengthS2C1, cBDaysInCareS2C1);
     let cBS2C2OutOfPocket = hourlyCapCB(cBDailyCostS2C2, cBSessionLengthS2C2, cBDaysInCareS2C2);
-   
+
+  
     function hourlyCapFD(dailyCost, sessionLength, days){
-      if(dailyCost > 11.30){
-        let difference = dailyCost - 11.30;
+      let hourlyCost = dailyCost / sessionLength;
+
+      if(hourlyCost > 11.30){
+        let difference = hourlyCost - 11.30;
         return difference * sessionLength * days;
       } else return 0;
     }
@@ -226,8 +244,10 @@ wizardRouter.post("/wizard", function (req, res) {
     let fBS2C2OutOfPocket = hourlyCapFD(fDCDailyCostS2C2, fDCSessionLengthS2C2, fDCDaysInCareS2C2);
   
     function hourlyCapOSH(dailyCost, sessionLength, days){
-      if(dailyCost > 10.67){
-        let difference = dailyCost - 10.67;
+      let hourlyCost = dailyCost / sessionLength;
+
+      if(hourlyCost > 10.67){
+        let difference = hourlyCost - 10.67;
         return difference * sessionLength * days;
       } else return 0;
     }
@@ -240,18 +260,19 @@ wizardRouter.post("/wizard", function (req, res) {
     let totalHourlyOutOfPocket1 = cBS1C1OutOfPocket + cBS1C2OutOfPocket;
     totalHourlyOutOfPocket1 += fBS1C1OutOfPocket + fBS1C2OutOfPocket;
     totalHourlyOutOfPocket1 += oSHS1C1OutOfPocket + oSHS1C2OutOfPocket;
-    totalHourlyOutOfPocket1 = Math.round(totalHourlyOutOfPocket1 * 52);
+    totalHourlyOutOfPocket1 = Math.round(totalHourlyOutOfPocket1);
   
     let totalHourlyOutOfPocket2 = cBS2C1OutOfPocket + cBS2C2OutOfPocket;
     totalHourlyOutOfPocket2 += fBS2C1OutOfPocket + fBS2C2OutOfPocket;
     totalHourlyOutOfPocket2 += oSHS2C1OutOfPocket + oSHS2C2OutOfPocket;
-    totalHourlyOutOfPocket2 = Math.round(totalHourlyOutOfPocket2 * 52);
+    totalHourlyOutOfPocket2 = Math.round(totalHourlyOutOfPocket2);
   
   
     //childcare subsidy percentage
   
     function childcareSubsidy(parent1Salary, parent2Salary){
-        let familyIncome = parent1Salary + parent2Salary;
+        let familyIncome = Number(parent1Salary) + Number(parent2Salary);
+        console.log(familyIncome);
   
         if(familyIncome < 69390){
           return 85;
@@ -270,40 +291,11 @@ wizardRouter.post("/wizard", function (req, res) {
   
     let childcareSubsidy1 = Math.round(childcareSubsidy(parent1Salary1, parent2Salary1));
     let childcareSubsidy2 = Math.round(childcareSubsidy(parent1Salary2, parent2Salary2));
+
+    console.log(childcareSubsidy1);
+    console.log(childcareSubsidy2);
   
-    //familyTaxBenefitA
-    let familyTaxBenefitABase = calculator.familyTaxBenefitA(
-      parent1Salary1,
-      parent2Salary1,
-      2
-    );
-    let familyTaxBenefitAAlt = calculator.familyTaxBenefitA(
-      parent1Salary2,
-      parent2Salary2,
-      2
-    );
-  
-    //familyTaxBeneftB
-    let familyTaxBenefitBBase = calculator.familyTaxBenefitB(
-      parent1Salary1,
-      parent2Salary1
-    );
-    let familyTaxBenefitBAlt = calculator.familyTaxBenefitB(
-      parent1Salary2,
-      parent2Salary2
-    );
-  
-    //totalCentrelink
-    let totalCentrelinkBase = calculator.totalCentrelink(
-      parent1Salary1,
-      parent2Salary1,
-      2
-    );
-    let totalCentrelinkAlt = calculator.totalCentrelink(
-      parent1Salary2,
-      parent2Salary2,
-      2
-    );
+    
   
     
   
@@ -316,8 +308,6 @@ wizardRouter.post("/wizard", function (req, res) {
       if(err){
           console.log(err);
       } 
-
-      console.log(new Intl.NumberFormat().format(parent1Salary1));
 
       res.render("wizard/wizardResultsC", {        
         familyName: results[0].FamilyName,
