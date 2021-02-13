@@ -1,5 +1,6 @@
 const Router = require("express").Router;
 const calculator = require("../models/calculator");
+const childcare = require("../models/childcare");
 const sqlDB = require("../sql");
 
 const wizardRouter = new Router();
@@ -130,8 +131,184 @@ wizardRouter.post("/wizard", function (req, res) {
     let totalCareHours2 = totalCentreBasedHours2 + totalFamilyDayCareHours2 + totalOSHCareHours2;
   
 
-// TAX AND CENTRELINK
+    //family income for childcare subsidy calculations
+    let familyIncome1 = Number(parent1Salary1) + Number(parent2Salary1);
+    let familyIncome2 = Number(parent1Salary2) + Number(parent2Salary2);
 
+    //activity assessed parent
+    let activityAssessedParentS1 = childcare.activityAssessedParent(parent1Hours1, parent2Hours1);
+    let activityAssessedParentS2 = childcare.activityAssessedParent(parent1Hours2, parent2Hours2);
+
+    //max hours of subsidised care
+
+    let maxHoursS1;
+    let maxHoursS2;
+
+    if(activityAssessedParent1 === "Parent 2"){
+      maxHoursS1 = childcare.maxHours(parent2Hours1, parent2Salary1);
+    } else if(activityAssessedParentS1 === "Parent 1"){
+      maxHoursS1 = childcare.maxHours(parent1Hours1, parent1Salary1);
+    }
+
+    if(activityAssessedParent2 === "Parent 2"){
+      maxHoursS2 = childcare.maxHours(parent2Hours2, parent2Salary2);
+    } else if(activityAssessedParentS2 === "Parent 1"){
+      maxHoursS2 = childcare.maxHours(parent1Hours2, parent1Salary2);
+    }
+
+    //hourly rate cap - out of pocket costs
+
+    function hourlyCapCB(dailyCost, sessionLength, days){
+      let hourlyCost = dailyCost / sessionLength;
+      
+      if(hourlyCost > 12.20){
+        let difference = hourlyCost - 12.20;
+        return difference * sessionLength * days;
+      } else return 0;
+    }
+
+    let cBS1C1OutOfPocket = hourlyCapCB(cBDailyCostS1C1, cBSessionLengthS1C1, cBDaysInCareS1C1);
+    let cBS1C2OutOfPocket = hourlyCapCB(cBDailyCostS1C2, cBSessionLengthS1C2, cBDaysInCareS1C2);
+    let cBS2C1OutOfPocket = hourlyCapCB(cBDailyCostS2C1, cBSessionLengthS2C1, cBDaysInCareS2C1);
+    let cBS2C2OutOfPocket = hourlyCapCB(cBDailyCostS2C2, cBSessionLengthS2C2, cBDaysInCareS2C2);
+
+
+    function hourlyCapFD(dailyCost, sessionLength, days){
+      let hourlyCost = dailyCost / sessionLength;
+
+      if(hourlyCost > 11.30){
+        let difference = hourlyCost - 11.30;
+        return difference * sessionLength * days;
+      } else return 0;
+    }
+
+    let fBS1C1OutOfPocket = hourlyCapFD(fDCDailyCostS1C1, fDCSessionLengthS1C1, fDCDaysInCareS1C1);
+    let fBS1C2OutOfPocket = hourlyCapFD(fDCDailyCostS1C2, fDCSessionLengthS1C2, fDCDaysInCareS1C2);
+    let fBS2C1OutOfPocket = hourlyCapFD(fDCDailyCostS2C1, fDCSessionLengthS2C1, fDCDaysInCareS2C1);
+    let fBS2C2OutOfPocket = hourlyCapFD(fDCDailyCostS2C2, fDCSessionLengthS2C2, fDCDaysInCareS2C2);
+
+    function hourlyCapOSH(dailyCost, sessionLength, days){
+      let hourlyCost = dailyCost / sessionLength;
+
+      if(hourlyCost > 10.67){
+        let difference = hourlyCost - 10.67;
+        return difference * sessionLength * days;
+      } else return 0;
+    }
+
+    let oSHS1C1OutOfPocket = hourlyCapOSH(oSHDailyCostS1C1, oSHSessionLengthS1C1, oSHDaysInCareS1C1);
+    let oSHS1C2OutOfPocket = hourlyCapOSH(oSHDailyCostS1C2, oSHSessionLengthS1C2, oSHDaysInCareS1C2);
+    let oSHS2C1OutOfPocket = hourlyCapOSH(oSHDailyCostS2C1, oSHSessionLengthS2C1, oSHDaysInCareS2C1);
+    let oSHS2C2OutOfPocket = hourlyCapOSH(oSHDailyCostS2C2, oSHSessionLengthS2C2, oSHDaysInCareS2C2);
+
+    let totalHourlyOutOfPocket1 = cBS1C1OutOfPocket + cBS1C2OutOfPocket;
+    totalHourlyOutOfPocket1 += fBS1C1OutOfPocket + fBS1C2OutOfPocket;
+    totalHourlyOutOfPocket1 += oSHS1C1OutOfPocket + oSHS1C2OutOfPocket;
+    totalHourlyOutOfPocket1 = Math.round(totalHourlyOutOfPocket1);
+
+    let totalHourlyOutOfPocket2 = cBS2C1OutOfPocket + cBS2C2OutOfPocket;
+    totalHourlyOutOfPocket2 += fBS2C1OutOfPocket + fBS2C2OutOfPocket;
+    totalHourlyOutOfPocket2 += oSHS2C1OutOfPocket + oSHS2C2OutOfPocket;
+    totalHourlyOutOfPocket2 = Math.round(totalHourlyOutOfPocket2);
+
+
+    //childcare subsidy percentage
+
+    function childcareSubsidyPercent(parent1Salary, parent2Salary){
+        let familyIncome = Number(parent1Salary) + Number(parent2Salary);
+        console.log(familyIncome);
+
+        if(familyIncome < 69390){
+          return 85;
+        } else if(familyIncome < 174390){
+          let reduction = (familyIncome - 69390) / 3000;
+          return 85 - reduction;
+        } else if(familyIncome < 253680){
+          return 50;
+        } else if(familyIncome < 343680){
+          let reduction = (familyIncome - 253679) / 3000;
+          return 50 - reduction;
+        } else if(familyIncome < 353680){
+          return 20;
+        } else return 0;
+    }
+
+    let childcareSubsidyPercent1 = Math.round(childcareSubsidyPercent(parent1Salary1, parent2Salary1));
+    let childcareSubsidyPercent2 = Math.round(childcareSubsidyPercent(parent1Salary2, parent2Salary2));
+
+
+    //weekly childcare subsidy amount
+
+    //for a session, work out if hourly cap or hourly rate is applicable
+
+    function cCSHourlyCapUsed(dailyCost, sessionLength, type, school){
+      let hourlyCost = dailyCost/sessionLength;
+      let capUsed;
+
+      if(school === "below"){
+        if(type === "centreOrOSH"){
+          if(hourlyCost > 12.20){
+            capUsed = 12.20;
+          } else { 
+            capUsed = hourlyCost; 
+          }
+        } else if(type === "family"){
+          if(hourlyCost > 11.30){
+            capUsed = 11.30;
+          } else {
+            capUsed = hourlyCost;
+          }      
+        }   
+      } else if(school === "above"){
+        if(type === "centreOrOSH"){
+          if(hourlyCost > 10.67){
+            capUsed = 10.67;
+          } else { 
+            capUsed = hourlyCost; 
+          }
+        } else if(type === "family"){
+          if(hourlyCost > 11.30){
+            capUsed = 11.30;
+          } else {
+            capUsed = hourlyCost;
+          }      
+        }  
+      }
+      return capUsed;  
+    }
+
+    function cCSWeeklySubsidy(weeklyCost, ccPercent){
+
+      let ccAmount;
+      let paidToProvider;
+      let buffer;
+      let outOfPocket;
+      ccPercent = ccPercent / 100;
+
+      ccAmount = ccPercent * weeklyCost;
+      buffer = ccAmount * 0.05;
+      paidToProvider = ccAmount - buffer;
+      outOfPocket = weeklyCost - paidToProvider;
+
+      let ccWeekly = {
+        weeklyCost: weeklyCost,
+        ccPercent: ccPercent,
+        ccAmount: ccAmount,
+        paidToProvider: paidToProvider,
+        buffer: buffer,
+        outOfPocket: outOfPocket
+      }
+
+      return ccWeekly;
+
+    }
+
+    let cCSScenario1 = cCSWeeklySubsidy(totalCareCost1, childcareSubsidyPercent(parent1Salary1, parent2Salary1));
+    let cCSScenario2 = cCSWeeklySubsidy(totalCareCost2, childcareSubsidyPercent(parent1Salary2, parent2Salary2));
+
+
+
+// TAX AND CENTRELINK
 
     //gross tax payable
     let grossTaxP1Base = calculator.grossTaxPayable(parent1Salary1);
@@ -175,126 +352,7 @@ wizardRouter.post("/wizard", function (req, res) {
     let netIncomeAfterTaxP1AltFN = Math.round(netIncomeAfterTaxP1Alt / 26);
     let netIncomeAfterTaxP2AltFN = Math.round(netIncomeAfterTaxP2Alt / 26);
   
-    //family income for Centrelink calculations
-    let familyIncome1 = Number(parent1Salary1) + Number(parent2Salary1);
-    let familyIncome2 = Number(parent1Salary2) + Number(parent2Salary2);
-  
-    //activity assessed parent
-    let activityAssessedParent1;
-    let activityAssessedParent2;
-  
-    if(Number(parent1Hours1) <= Number(parent2Hours1)){
-      activityAssessedParent1 = "Parent 1";
-    } else if (Number(parent1Hours1) > Number(parent2Hours1)){
-      activityAssessedParent1 = "Parent 2";
-    }
-  
-    if(Number(parent1Hours2) <= Number(parent2Hours2)){
-      activityAssessedParent2 = "Parent 1";
-    } else if(Number(parent1Hours2) > Number(parent2Hours2)){
-      activityAssessedParent2 = "Parent 2";
-    }
-  
-    //max hours of subsidised care
-  
-    let maxHours1;
-    let maxHours2;
-  
-    if(activityAssessedParent1 === "Parent 2"){
-      maxHours1 = calculator.maxHours(parent2Hours1, parent2Salary1);
-    } else if(activityAssessedParent1 === "Parent 1"){
-      maxHours1 = calculator.maxHours(parent1Hours1, parent1Salary1);
-    }
-  
-    if(activityAssessedParent2 === "Parent 2"){
-      maxHours2 = calculator.maxHours(parent2Hours2, parent2Salary2);
-    } else if(activityAssessedParent2 === "Parent 1"){
-      maxHours2 = calculator.maxHours(parent1Hours2, parent1Salary2);
-    }
-  
-    //hourly rate cap - out of pocket costs
-  
-    function hourlyCapCB(dailyCost, sessionLength, days){
-      let hourlyCost = dailyCost / sessionLength;
-      
-      if(hourlyCost > 12.20){
-        let difference = hourlyCost - 12.20;
-        return difference * sessionLength * days;
-      } else return 0;
-    }
-  
-    let cBS1C1OutOfPocket = hourlyCapCB(cBDailyCostS1C1, cBSessionLengthS1C1, cBDaysInCareS1C1);
-    let cBS1C2OutOfPocket = hourlyCapCB(cBDailyCostS1C2, cBSessionLengthS1C2, cBDaysInCareS1C2);
-    let cBS2C1OutOfPocket = hourlyCapCB(cBDailyCostS2C1, cBSessionLengthS2C1, cBDaysInCareS2C1);
-    let cBS2C2OutOfPocket = hourlyCapCB(cBDailyCostS2C2, cBSessionLengthS2C2, cBDaysInCareS2C2);
-
-  
-    function hourlyCapFD(dailyCost, sessionLength, days){
-      let hourlyCost = dailyCost / sessionLength;
-
-      if(hourlyCost > 11.30){
-        let difference = hourlyCost - 11.30;
-        return difference * sessionLength * days;
-      } else return 0;
-    }
-  
-    let fBS1C1OutOfPocket = hourlyCapFD(fDCDailyCostS1C1, fDCSessionLengthS1C1, fDCDaysInCareS1C1);
-    let fBS1C2OutOfPocket = hourlyCapFD(fDCDailyCostS1C2, fDCSessionLengthS1C2, fDCDaysInCareS1C2);
-    let fBS2C1OutOfPocket = hourlyCapFD(fDCDailyCostS2C1, fDCSessionLengthS2C1, fDCDaysInCareS2C1);
-    let fBS2C2OutOfPocket = hourlyCapFD(fDCDailyCostS2C2, fDCSessionLengthS2C2, fDCDaysInCareS2C2);
-  
-    function hourlyCapOSH(dailyCost, sessionLength, days){
-      let hourlyCost = dailyCost / sessionLength;
-
-      if(hourlyCost > 10.67){
-        let difference = hourlyCost - 10.67;
-        return difference * sessionLength * days;
-      } else return 0;
-    }
-  
-    let oSHS1C1OutOfPocket = hourlyCapOSH(oSHDailyCostS1C1, oSHSessionLengthS1C1, oSHDaysInCareS1C1);
-    let oSHS1C2OutOfPocket = hourlyCapOSH(oSHDailyCostS1C2, oSHSessionLengthS1C2, oSHDaysInCareS1C2);
-    let oSHS2C1OutOfPocket = hourlyCapOSH(oSHDailyCostS2C1, oSHSessionLengthS2C1, oSHDaysInCareS2C1);
-    let oSHS2C2OutOfPocket = hourlyCapOSH(oSHDailyCostS2C2, oSHSessionLengthS2C2, oSHDaysInCareS2C2);
-  
-    let totalHourlyOutOfPocket1 = cBS1C1OutOfPocket + cBS1C2OutOfPocket;
-    totalHourlyOutOfPocket1 += fBS1C1OutOfPocket + fBS1C2OutOfPocket;
-    totalHourlyOutOfPocket1 += oSHS1C1OutOfPocket + oSHS1C2OutOfPocket;
-    totalHourlyOutOfPocket1 = Math.round(totalHourlyOutOfPocket1);
-  
-    let totalHourlyOutOfPocket2 = cBS2C1OutOfPocket + cBS2C2OutOfPocket;
-    totalHourlyOutOfPocket2 += fBS2C1OutOfPocket + fBS2C2OutOfPocket;
-    totalHourlyOutOfPocket2 += oSHS2C1OutOfPocket + oSHS2C2OutOfPocket;
-    totalHourlyOutOfPocket2 = Math.round(totalHourlyOutOfPocket2);
-  
-  
-    //childcare subsidy percentage
-  
-    function childcareSubsidy(parent1Salary, parent2Salary){
-        let familyIncome = Number(parent1Salary) + Number(parent2Salary);
-        console.log(familyIncome);
-  
-        if(familyIncome < 69390){
-          return 85;
-        } else if(familyIncome < 174390){
-          let reduction = (familyIncome - 69390) / 3000;
-          return 85 - reduction;
-        } else if(familyIncome < 253680){
-          return 50;
-        } else if(familyIncome < 343680){
-          let reduction = (familyIncome - 253679) / 3000;
-          return 50 - reduction;
-        } else if(familyIncome < 353680){
-          return 20;
-        } else return 0;
-    }
-  
-    let childcareSubsidy1 = Math.round(childcareSubsidy(parent1Salary1, parent2Salary1));
-    let childcareSubsidy2 = Math.round(childcareSubsidy(parent1Salary2, parent2Salary2));
-
-    console.log(childcareSubsidy1);
-    console.log(childcareSubsidy2);
-  
+    
     
   
     
@@ -344,12 +402,12 @@ wizardRouter.post("/wizard", function (req, res) {
         netIncomeAfterTaxP2BaseFN: new Intl.NumberFormat().format(netIncomeAfterTaxP2BaseFN),
         netIncomeAfterTaxP1AltFN: new Intl.NumberFormat().format(netIncomeAfterTaxP1AltFN),
         netIncomeAfterTaxP2AltFN: new Intl.NumberFormat().format(netIncomeAfterTaxP2AltFN),
-        activityAssessedParent1: activityAssessedParent1,
-        activityAssessedParent2: activityAssessedParent2,
+        activityAssessedParent1: activityAssessedParentS1,
+        activityAssessedParent2: activityAssessedParentS2,
         familyIncome1: new Intl.NumberFormat().format(familyIncome1),
         familyIncome2: new Intl.NumberFormat().format(familyIncome2),
-        maxHours1: maxHours1,
-        maxHours2: maxHours2,
+        maxHours1: maxHoursS1,
+        maxHours2: maxHoursS2,
         cBDaysInCareS1C1: cBDaysInCareS1C1,
         cBDailyCostS1C1: cBDailyCostS1C1,
         cBSessionLengthS1C1: cBSessionLengthS1C1,
@@ -398,8 +456,40 @@ wizardRouter.post("/wizard", function (req, res) {
         totalCareHours2: totalCareHours2,
         totalHourlyOutOfPocket1: new Intl.NumberFormat().format(totalHourlyOutOfPocket1),
         totalHourlyOutOfPocket2: new Intl.NumberFormat().format(totalHourlyOutOfPocket2),
-        childcareSubsidy1: new Intl.NumberFormat().format(childcareSubsidy1),
-        childcareSubsidy2: new Intl.NumberFormat().format(childcareSubsidy2),
+        childcareSubsidyPercent1: new Intl.NumberFormat().format(childcareSubsidyPercent1),
+        childcareSubsidyPercent2: new Intl.NumberFormat().format(childcareSubsidyPercent2),
+        cCSScenario1Amount: Math.round(cCSScenario1.ccAmount),
+        cCSScenario1Provider: Math.round(cCSScenario1.paidToProvider),
+        cCSScenario1Buffer: Math.round(cCSScenario1.buffer),
+        cCSScenario2Amount: Math.round(cCSScenario2.ccAmount),
+        cCSScenario2Provider: Math.round(cCSScenario2.paidToProvider),
+        cCSScenario2Buffer: Math.round(cCSScenario2.buffer),
+        cCSScenario1Out: Math.round(cCSScenario1.outOfPocket),
+        cCSScenario2Out: Math.round(cCSScenario2.outOfPocket),
+        grossTaxP1Base: grossTaxP1Base,
+        grossTaxP1Alt: grossTaxP1Alt,
+        grossTaxP2Base: grossTaxP2Base,
+        grossTaxP2Alt: grossTaxP2Alt,
+        medicareP1Base: medicareP1Base,
+        medicareP1Alt: medicareP1Alt,
+        medicareP2Base: medicareP2Base,
+        medicareP2Alt: medicareP2Alt,
+        lowIncomeTaxOffsetP1Base: lowIncomeTaxOffsetP1Base,
+        lowIncomeTaxOffsetP1Alt: lowIncomeTaxOffsetP1Alt,
+        lowIncomeTaxOffsetP2Base: lowIncomeTaxOffsetP2Base,
+        lowIncomeTaxOffsetP2Alt: lowIncomeTaxOffsetP2Alt,
+        midIncomeTaxOffsetP1Base: midIncomeTaxOffsetP1Base,
+        midIncomeTaxOffsetP1Alt: midIncomeTaxOffsetP1Alt,
+        midIncomeTaxOffsetP2Base: midIncomeTaxOffsetP2Base,
+        midIncomeTaxOffsetP2Alt: midIncomeTaxOffsetP2Alt,
+        netTaxPayableP1Base: netTaxPayableP1Base,
+        netTaxPayableP1Alt: netTaxPayableP1Alt,
+        netTaxPayableP2Base: netTaxPayableP2Base,
+        netTaxPayableP2Alt: netTaxPayableP2Alt,
+        netIncomeAfterTaxP1Base: netIncomeAfterTaxP1Base,
+        netIncomeAfterTaxP1Alt: netIncomeAfterTaxP1Alt,
+        netIncomeAfterTaxP2Base: netIncomeAfterTaxP2Base,
+        netIncomeAfterTaxP2Alt: netIncomeAfterTaxP2Alt
       });
   });
 });

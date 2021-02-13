@@ -1,17 +1,3 @@
-exports.maxHours = function(hours, salary){
-  if(hours < 8 && salary < 69390){
-    return 24;
-  } else if(hours < 8 && salary >= 69390){
-    return 0;
-  } else if(hours < 17){
-    return 36;
-  } else if(hours < 49){
-    return 72;
-  } else if(hours > 48){
-    return 100;
-  }
-}
-
 exports.grossTaxPayable = function(salary) {
   if (salary <= 18200) {
     return 0;

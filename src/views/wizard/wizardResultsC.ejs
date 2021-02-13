@@ -75,8 +75,8 @@
                     <tr class="text-danger">
                         <td></td>
                         <td><h4 class="my-4">Out of Pocket Childcare</h4></td>
-                        <td><p class="my-4">$TBA</p></td>
-                        <td><p class="my-4">$TBA</p></td>
+                        <td><h4 class="my-4">$<%= cCSScenario1Out %> per week</h4></td>
+                        <td><h4 class="my-4">$<%= cCSScenario2Out %> per week</h4></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -195,26 +195,26 @@
                     <tr>
                         <td></td>
                         <td>Childcare Subsidy %</td>
-                        <td><%= childcareSubsidy1 %>%</td>
-                        <td><%= childcareSubsidy2 %>%</td>
+                        <td><%= childcareSubsidyPercent1 %>%</td>
+                        <td><%= childcareSubsidyPercent2 %>%</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Less Childcare Subsidy</td>
-                        <td>$80</td>
-                        <td>$100</td>
+                        <td>$<%= cCSScenario1Amount %></td>
+                        <td>$<%= cCSScenario2Amount %></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Amount Paid to Provider/s</td>
-                        <td>$80</td>
-                        <td>$100</td>
+                        <td>$<%= cCSScenario1Provider %></td>
+                        <td>$<%= cCSScenario2Provider %></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>%5 Buffer to Government</td>
-                        <td>$80</td>
-                        <td>$100</td>
+                        <td>$<%= cCSScenario1Buffer %></td>
+                        <td>$<%= cCSScenario2Buffer %></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -223,7 +223,7 @@
                         <td></td>
                     </tr>
                     <tr class="bg-info text-light">
-                        <td>TAX AND CENTRELINK</td>
+                        <td>ANNUAL TAX AND CENTRELINK</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -243,26 +243,26 @@
                     <tr>
                         <td></td>
                         <td>Gross Tax Payable</td>
-                        <td>$TBA</td>
-                        <td>$TBA</td>
+                        <td>$<%= grossTaxP1Base %></td>
+                        <td>$<%= grossTaxP1Alt %></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Medicare Levy</td>
-                        <td>$TBA</td>
-                        <td>$TBA</td>
+                        <td>$<%= medicareP1Base %></td>
+                        <td>$<%= medicareP1Alt %></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Low Income Tax Offset</td>
-                        <td>$TBA</td>
-                        <td>$TBA</td>
+                        <td>$<%= lowIncomeTaxOffsetP1Base %></td>
+                        <td>$<%= lowIncomeTaxOffsetP1Alt %></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Mid Income Tax Offset</td>
-                        <td>$TBA</td>
-                        <td>$TBA</td>
+                        <td>$<%= midIncomeTaxOffsetP1Base %></td>
+                        <td>$<%= midIncomeTaxOffsetP1Alt %></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -273,8 +273,8 @@
                     <tr>
                         <td></td>
                         <td>Net Tax Payable</td>
-                        <td>$TBA</td>
-                        <td>$TBA</td>
+                        <td>$<%=  %></td>
+                        <td>$<%=  %></td>
                     </tr>
                     <tr>
                         <td></td>
