@@ -1,7 +1,7 @@
   exports.activityAssessedParent = (parent1Hours, parent2Hours) => {
-    if(Number(parent1Hours) <= Number(parent2Hours)){
+    if(+parent1Hours <= +parent2Hours){
         return "Parent 1";
-      } else if (Number(parent1Hours) > Number(parent2Hours)){
+      } else if (+parent1Hours > +parent2Hours){
         return "Parent 2";
       }
    }
@@ -48,8 +48,7 @@
   }
 
   exports.childcareSubsidyPercent = (parent1Salary, parent2Salary) => {
-    let familyIncome = Number(parent1Salary) + Number(parent2Salary);
-    console.log(familyIncome);
+    let familyIncome = +parent1Salary + +parent2Salary;
 
     if(familyIncome < 69390){
       return 85;

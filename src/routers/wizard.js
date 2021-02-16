@@ -130,8 +130,8 @@ wizardRouter.post("/wizard", function (req, res) {
     let totalCareHours2 = totalCentreBasedHours2 + totalFamilyDayCareHours2 + totalOSHCareHours2;
   
     //family income for childcare subsidy calculations
-    let familyIncome1 = Number(parent1Salary1) + Number(parent2Salary1);
-    let familyIncome2 = Number(parent1Salary2) + Number(parent2Salary2);
+    let familyIncome1 = +parent1Salary1 + +parent2Salary1;
+    let familyIncome2 = +parent1Salary2 + +parent2Salary2;
 
     //activity assessed parent
     let activityAssessedParentS1 = childcare.activityAssessedParent(parent1Hours1, parent2Hours1);
@@ -179,6 +179,36 @@ wizardRouter.post("/wizard", function (req, res) {
     //weekly childcare subsidy amount
     let cCSScenario1 = childcare.cCSWeeklySubsidy(totalCareCost1, childcare.childcareSubsidyPercent(parent1Salary1, parent2Salary1));
     let cCSScenario2 = childcare.cCSWeeklySubsidy(totalCareCost2, childcare.childcareSubsidyPercent(parent1Salary2, parent2Salary2));
+
+
+    const descriptors1 = Object.getOwnPropertyDescriptors(cCSScenario2);
+
+    console.log(descriptors1.buffer.configurable);
+    console.log(descriptors1.buffer.value);
+
+    const keys = Object.keys(cCSScenario2);
+
+    // console.log(typeof(keys));
+   
+    // keys.forEach(element => {
+    //   console.log(`The item is: ${element}`)
+    // });
+
+    // const newKeysArray = keys.map(x => `The new keys array says: ${x}`);
+    // console.log(newKeysArray);
+    // console.log(keys);
+
+
+    const person = {
+      name: "Jae",
+      age: "38"
+    }
+
+    console.log(person);
+
+    const newPerson = Object.create(person);
+
+    console.log(Object.getPrototypeOf(newPerson));
 
 
 
