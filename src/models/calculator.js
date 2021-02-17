@@ -69,8 +69,8 @@ exports.netIncomeAfterTax = function(salary) {
 }
 
 exports.familyTaxBenefitA = function(p1, p2, children) {
-  var s1 = Number(p1);
-  var s2 = Number(p2);
+  var s1 = +p1;
+  var s2 = +p2;
 
   var familyIncome = s1 + s2;
   var maxRate = 4942.1;
@@ -107,8 +107,8 @@ exports.familyTaxBenefitA = function(p1, p2, children) {
 }
 
 exports.familyTaxBenefitB = function(p1Salary, p2Salary) {
-  var p1 = Number(p1Salary);
-  var p2 = Number(p2Salary);
+  var p1 = +p1Salary;
+  var p2 = +p2Salary;
   var higherIncomeEarner = 0;
   var lowerIncomeEarner = 0;
   var payment = 4201.15;
@@ -154,8 +154,8 @@ exports.familyTaxBenefitB = function(p1Salary, p2Salary) {
 }
 
 exports.totalCentrelink = function(p1Salary, p2Salary, children) {
-  var p1 = Number(p1Salary);
-  var p2 = Number(p2Salary);
+  var p1 = +p1Salary;
+  var p2 = +p2Salary;
 
   var result = this.familyTaxBenefitA(p1, p2, children) + this.familyTaxBenefitB(p1, p2);
   result = Math.round(result);
@@ -164,27 +164,9 @@ exports.totalCentrelink = function(p1Salary, p2Salary, children) {
   } else return result;
 }
 
-exports.childCareExpenses = function(weeklyCost) {
-  var result = weeklyCost * 52;
-  result = Math.round(result);
-  return result;
-}
-
-exports.childcareSubsidy = function(weeklyCost) {
-  var result = this.childCareExpenses(weeklyCost) * 0.5;
-  result = Math.round(result);
-  return result;
-}
-
-exports.netChildCare = function(weeklyCost) {
-  var result = this.childCareExpenses(weeklyCost) - this.childcareSubsidy(weeklyCost);
-  result = Math.round(result);
-  return result;
-}
-
-exports.netSurplusDeficit = function(p1Salary, p2Salary, weeklyCost, children) {
-  var p1 = Number(p1Salary);
-  var p2 = Number(p2Salary);
+exports.netSurplusDeficit = function(p1Salary, p2Salary, annualOutOfPocket, children) {
+  var p1 = +p1Salary;
+  var p2 = +p2Salary;
 
   var result =
     p1 +
@@ -192,42 +174,9 @@ exports.netSurplusDeficit = function(p1Salary, p2Salary, weeklyCost, children) {
     this.netTaxPayable(p1) -
     this.netTaxPayable(p2) +
     this.totalCentrelink(p1, p2, children) -
-    this.netChildCare(weeklyCost);
+    annualOutOfPocket;
   result = Math.round(result);
   return result;
 }
 
-exports.incomePerFortnight = function(p1Salary, p2Salary, weeklyCost, children) {
-  var p1 = Number(p1Salary);
-  var p2 = Number(p2Salary);
 
-  var result = this.netSurplusDeficit(p1, p2, weeklyCost, children) / 26;
-  result = Math.round(result);
-  return result;
-}
-
-exports.difference = function(
-  p1before,
-  p2before,
-  p1after,
-  p2after,
-  weeklyCostBefore,
-  weeklyCostAfter,
-  kidsBefore,
-  kidsAfter
-) {
-  var p1before = Number(p1before);
-  var p2before = Number(p2before);
-  var p1after = Number(p1after);
-  var p2after = Number(p2after);
-
-  var before = this.incomePerFortnight(
-    p1before,
-    p2before,
-    weeklyCostBefore,
-    kidsBefore
-  );
-  var after = this.incomePerFortnight(p1after, p2after, weeklyCostAfter, kidsAfter);
-  var difference = Math.round(after - before);
-  return difference;
-}

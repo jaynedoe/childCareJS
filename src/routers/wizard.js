@@ -38,7 +38,7 @@ wizardRouter.get("/wizard/wizardLanding", function (req, res) {
 });
 
 wizardRouter.post("/wizard", function (req, res) {
-    //require all the input data using body parser and store in variables
+
     let parent1Salary1 = req.body.parent1Salary1;
     let parent1Salary2 = req.body.parent1Salary2;
     let parent1Hours1 = req.body.parent1Hours1;
@@ -121,11 +121,12 @@ wizardRouter.post("/wizard", function (req, res) {
     let totalOSHCareCost2 = (oSHDaysInCareS2C1*oSHDailyCostS2C1) + (oSHDaysInCareS2C2*oSHDailyCostS2C2);
     let totalOSHCareHours2 = (oSHDaysInCareS2C1 * oSHSessionLengthS2C1) + (oSHDaysInCareS2C2 * oSHSessionLengthS2C2);
   
-// TOTAL CHILDCARE COST AND HOURS
+// WEEKLY CHILDCARE DETAILS
 
+    //weekly gross care 
     let totalCareCost1 = totalCentreBasedCost1 + totalFamilyDayCareCost1 + totalOSHCareCost1;
     let totalCareCost2 = totalCentreBasedCost2 + totalFamilyDayCareCost2 + totalOSHCareCost2;
-  
+    
     let totalCareHours1 = totalCentreBasedHours1 + totalFamilyDayCareHours1 + totalOSHCareHours1;
     let totalCareHours2 = totalCentreBasedHours2 + totalFamilyDayCareHours2 + totalOSHCareHours2;
   
@@ -138,7 +139,6 @@ wizardRouter.post("/wizard", function (req, res) {
     let activityAssessedParentS2 = childcare.activityAssessedParent(parent1Hours2, parent2Hours2);
 
    //max hours of subsidised care
-
     let maxHoursS1;
     let maxHoursS2;
 
@@ -146,7 +146,6 @@ wizardRouter.post("/wizard", function (req, res) {
     activityAssessedParentS2 === "Parent 2" ? maxHoursS2 = childcare.maxHours(parent2Hours2, parent2Salary2) : maxHoursS2 = childcare.maxHours(parent1Hours2, parent1Salary2);
 
     //hourly rate cap - out of pocket costs
-
     let cBS1C1OutOfPocket = childcare.hourlyCapCB(cBDailyCostS1C1, cBSessionLengthS1C1, cBDaysInCareS1C1);
     let cBS1C2OutOfPocket = childcare.hourlyCapCB(cBDailyCostS1C2, cBSessionLengthS1C2, cBDaysInCareS1C2);
     let cBS2C1OutOfPocket = childcare.hourlyCapCB(cBDailyCostS2C1, cBSessionLengthS2C1, cBDaysInCareS2C1);
@@ -181,38 +180,7 @@ wizardRouter.post("/wizard", function (req, res) {
     let cCSScenario2 = childcare.cCSWeeklySubsidy(totalCareCost2, childcare.childcareSubsidyPercent(parent1Salary2, parent2Salary2));
 
 
-    const descriptors1 = Object.getOwnPropertyDescriptors(cCSScenario2);
-
-    console.log(descriptors1.buffer.configurable);
-    console.log(descriptors1.buffer.value);
-
-    const keys = Object.keys(cCSScenario2);
-
-    // console.log(typeof(keys));
-   
-    // keys.forEach(element => {
-    //   console.log(`The item is: ${element}`)
-    // });
-
-    // const newKeysArray = keys.map(x => `The new keys array says: ${x}`);
-    // console.log(newKeysArray);
-    // console.log(keys);
-
-
-    const person = {
-      name: "Jae",
-      age: "38"
-    }
-
-    console.log(person);
-
-    const newPerson = Object.create(person);
-
-    console.log(Object.getPrototypeOf(newPerson));
-
-
-
-// TAX AND CENTRELINK
+// ANNUAL TAX, CENTRELINK AND CHILDCARE 
 
     //gross tax payable
     let grossTaxP1Base = calculator.grossTaxPayable(parent1Salary1);
@@ -256,7 +224,34 @@ wizardRouter.post("/wizard", function (req, res) {
     let netIncomeAfterTaxP1AltFN = Math.round(netIncomeAfterTaxP1Alt / 26);
     let netIncomeAfterTaxP2AltFN = Math.round(netIncomeAfterTaxP2Alt / 26);
   
+    //family tax benefits
+    let familyTaxBenefitAS1 = calculator.familyTaxBenefitA(parent1Salary1, parent2Salary1, 2);
+    let familyTaxBenefitAS2 = calculator.familyTaxBenefitA(parent1Salary2, parent2Salary2, 2);
+    let familyTaxBenefitBS1 = calculator.familyTaxBenefitB(parent1Salary1, parent2Salary1);
+    let familyTaxBenefitBS2 = calculator.familyTaxBenefitB(parent1Salary2, parent2Salary2);
+
+    let totalCentrelinkS1 = familyTaxBenefitAS1 + familyTaxBenefitBS1;
+    let totalCentrelinkS2 = familyTaxBenefitAS2 + familyTaxBenefitBS2;
     
+    //annual gross care cost
+    let totalCareCost1Annual = totalCareCost1 * 52;
+    let totalCareCost2Annual = totalCareCost2 * 52; 
+
+    //annual childcare subsidy amount
+    let cCSScenario1Annual = Math.round(cCSScenario1.outOfPocket * 52);
+    let cCSScenario2Annual = Math.round(cCSScenario2.outOfPocket * 52);
+    
+    //annual net out of pocket
+    let outOfPocketA1 = Math.round(totalCareCost1Annual - cCSScenario1Annual);
+    let outOfPocketA2 = Math.round(totalCareCost2Annual - cCSScenario2Annual); 
+
+    //annual net surplus deficit 
+    let netSurplusDeficitS1 = calculator.netSurplusDeficit(parent1Salary1, parent2Salary1, outOfPocketA1, 2);
+    let netSurplusDeficitS2 = calculator.netSurplusDeficit(parent1Salary2, parent2Salary2, outOfPocketA2, 2);
+
+    //fortnightly net surplus deficit
+    let netSurplusDeficitS1PF = Math.round(netSurplusDeficitS1 / 26);
+    let netSurplusDeficitS2PF = Math.round(netSurplusDeficitS2 / 26);
   
   // ------------- SEND RESULTS -----------------------------
   
@@ -366,30 +361,46 @@ wizardRouter.post("/wizard", function (req, res) {
         cCSScenario2Buffer: Math.round(cCSScenario2.buffer),
         cCSScenario1Out: Math.round(cCSScenario1.outOfPocket),
         cCSScenario2Out: Math.round(cCSScenario2.outOfPocket),
-        grossTaxP1Base: grossTaxP1Base,
-        grossTaxP1Alt: grossTaxP1Alt,
-        grossTaxP2Base: grossTaxP2Base,
-        grossTaxP2Alt: grossTaxP2Alt,
-        medicareP1Base: medicareP1Base,
-        medicareP1Alt: medicareP1Alt,
-        medicareP2Base: medicareP2Base,
-        medicareP2Alt: medicareP2Alt,
-        lowIncomeTaxOffsetP1Base: lowIncomeTaxOffsetP1Base,
-        lowIncomeTaxOffsetP1Alt: lowIncomeTaxOffsetP1Alt,
-        lowIncomeTaxOffsetP2Base: lowIncomeTaxOffsetP2Base,
-        lowIncomeTaxOffsetP2Alt: lowIncomeTaxOffsetP2Alt,
-        midIncomeTaxOffsetP1Base: midIncomeTaxOffsetP1Base,
-        midIncomeTaxOffsetP1Alt: midIncomeTaxOffsetP1Alt,
-        midIncomeTaxOffsetP2Base: midIncomeTaxOffsetP2Base,
-        midIncomeTaxOffsetP2Alt: midIncomeTaxOffsetP2Alt,
-        netTaxPayableP1Base: netTaxPayableP1Base,
-        netTaxPayableP1Alt: netTaxPayableP1Alt,
-        netTaxPayableP2Base: netTaxPayableP2Base,
-        netTaxPayableP2Alt: netTaxPayableP2Alt,
-        netIncomeAfterTaxP1Base: netIncomeAfterTaxP1Base,
-        netIncomeAfterTaxP1Alt: netIncomeAfterTaxP1Alt,
-        netIncomeAfterTaxP2Base: netIncomeAfterTaxP2Base,
-        netIncomeAfterTaxP2Alt: netIncomeAfterTaxP2Alt
+        grossTaxP1Base: new Intl.NumberFormat().format(grossTaxP1Base),
+        grossTaxP1Alt: new Intl.NumberFormat().format(grossTaxP1Alt),
+        grossTaxP2Base: new Intl.NumberFormat().format(grossTaxP2Base),
+        grossTaxP2Alt: new Intl.NumberFormat().format(grossTaxP2Alt),
+        medicareP1Base: new Intl.NumberFormat().format(medicareP1Base),
+        medicareP1Alt: new Intl.NumberFormat().format(medicareP1Alt),
+        medicareP2Base: new Intl.NumberFormat().format(medicareP2Base),
+        medicareP2Alt: new Intl.NumberFormat().format(medicareP2Alt),
+        lowIncomeTaxOffsetP1Base: new Intl.NumberFormat().format(lowIncomeTaxOffsetP1Base),
+        lowIncomeTaxOffsetP1Alt: new Intl.NumberFormat().format(lowIncomeTaxOffsetP1Alt),
+        lowIncomeTaxOffsetP2Base: new Intl.NumberFormat().format(lowIncomeTaxOffsetP2Base),
+        lowIncomeTaxOffsetP2Alt: new Intl.NumberFormat().format(lowIncomeTaxOffsetP2Alt),
+        midIncomeTaxOffsetP1Base: new Intl.NumberFormat().format(midIncomeTaxOffsetP1Base),
+        midIncomeTaxOffsetP1Alt: new Intl.NumberFormat().format(midIncomeTaxOffsetP1Alt),
+        midIncomeTaxOffsetP2Base: new Intl.NumberFormat().format(midIncomeTaxOffsetP2Base),
+        midIncomeTaxOffsetP2Alt: new Intl.NumberFormat().format(midIncomeTaxOffsetP2Alt),
+        netTaxPayableP1Base: new Intl.NumberFormat().format(netTaxPayableP1Base),
+        netTaxPayableP1Alt: new Intl.NumberFormat().format(netTaxPayableP1Alt),
+        netTaxPayableP2Base: new Intl.NumberFormat().format(netTaxPayableP2Base),
+        netTaxPayableP2Alt: new Intl.NumberFormat().format(netTaxPayableP2Alt),
+        netIncomeAfterTaxP1Base: new Intl.NumberFormat().format(netIncomeAfterTaxP1Base),
+        netIncomeAfterTaxP1Alt: new Intl.NumberFormat().format(netIncomeAfterTaxP1Alt),
+        netIncomeAfterTaxP2Base: new Intl.NumberFormat().format(netIncomeAfterTaxP2Base),
+        netIncomeAfterTaxP2Alt: new Intl.NumberFormat().format(netIncomeAfterTaxP2Alt),
+        familyTaxBenefitAS1: new Intl.NumberFormat().format(familyTaxBenefitAS1),
+        familyTaxBenefitAS2: new Intl.NumberFormat().format(familyTaxBenefitAS2),
+        familyTaxBenefitBS1: new Intl.NumberFormat().format(familyTaxBenefitBS1),
+        familyTaxBenefitBS2: new Intl.NumberFormat().format(familyTaxBenefitBS2),
+        totalCentrelinkS1: new Intl.NumberFormat().format(totalCentrelinkS1),
+        totalCentrelinkS2: new Intl.NumberFormat().format(totalCentrelinkS2),
+        totalCareCost1Annual: new Intl.NumberFormat().format(totalCareCost1Annual),
+        totalCareCost2Annual: new Intl.NumberFormat().format(totalCareCost2Annual),
+        cCSScenario1Annual: new Intl.NumberFormat().format(cCSScenario1Annual),
+        cCSScenario2Annual: new Intl.NumberFormat().format(cCSScenario2Annual),
+        outOfPocketA1: new Intl.NumberFormat().format(outOfPocketA1),
+        outOfPocketA2: new Intl.NumberFormat().format(outOfPocketA2),
+        netSurplusDeficitS1: new Intl.NumberFormat().format(netSurplusDeficitS1),
+        netSurplusDeficitS2: new Intl.NumberFormat().format(netSurplusDeficitS2),
+        netSurplusDeficitS1PF: new Intl.NumberFormat().format(netSurplusDeficitS1PF),
+        netSurplusDeficitS2PF: new Intl.NumberFormat().format(netSurplusDeficitS2PF),
       });
   });
 });
